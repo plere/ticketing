@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>좌석 등록 (층/행 추가)</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <script>
+        function addFloorInput() {
+            const floorContainer = document.getElementById('floors-container');
+
+            const floorDiv = document.createElement('div');
+            floorDiv.className = 'floor-group';
+            floorDiv.style.border = '1px solid #ccc';
+            floorDiv.style.padding = '15px';
+            floorDiv.style.marginTop = '20px';
+
+            const floorIndex = document.querySelectorAll('.floor-group').length;
+
+            floorDiv.innerHTML = `
+                <div>
+                    <label>층 번호:</label>
+                    <input type="number" name="seats[${floorIndex}].floor" required />
+                    <button type="button" onclick="addRowInput(this)">행 추가</button>
+                    <button type="button" onclick="removeFloorInput(this)">층 삭제</button>
+                </div>
+                <div class="rows-container" style="margin-top:10px;">
+                    <!-- 행 입력폼 추가될 자리 -->
+                </div>
+            `;
+
+            floorContainer.appendChild(floorDiv);
+        }
+
+        function addRowInput(button) {
+            const floorDiv = button.closest('.floor-group');
+            const rowsContainer = floorDiv.querySelector('.rows-container');
+
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'row-input-group';
+            rowDiv.style.marginBottom = '10px';
+
+            const floorIndex = Array.from(document.querySelectorAll('.floor-group')).indexOf(floorDiv);
+            const rowIndex = rowsContainer.querySelectorAll('.row-input-group').length;
+
+            // 이전 행 이름 찾기
+            let nextRowName = 'A';
+            const lastRow = rowsContainer.querySelector('.row-input-group:last-child');
+            if (lastRow) {
+                const rowNameInput = lastRow.querySelector('input[name^="floors"][name$=".rowName"]');
+                if (rowNameInput && rowNameInput.value) {
+                    const lastChar = rowNameInput.value.trim().toUpperCase();
+                    if (lastChar.length === 1 && lastChar >= 'A' && lastChar <= 'Z') {
+                        const nextCharCode = lastChar.charCodeAt(0) + 1;
+                        if (nextCharCode <= 'Z'.charCodeAt(0)) {
+                            nextRowName = String.fromCharCode(nextCharCode);
+                        }
+                    }
+                }
+            }
+
+            rowDiv.innerHTML = `
+        <input type="hidden" name="floors[${floorIndex}].rows[${rowIndex}].rowOrder" value="${rowIndex + 1}" />
+
+        <input type="text" name="floors[${floorIndex}].rows[${rowIndex}].name" value="${nextRowName}" maxlength="2" required style="width:60px;" />
+        <input type="number" name="floors[${floorIndex}].rows[${rowIndex}].count" placeholder="좌석 수" required style="width:80px;" />
+            <button type="button" onclick="removeRowInput(this)">행 삭제</button>
+    `;
+
+            rowsContainer.appendChild(rowDiv);
+        }
+
+
+        function removeFloorInput(button) {
+            button.closest('.floor-group').remove();
+        }
+
+        function removeRowInput(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</head>
+<body>
+<h1>장소 등록1</h1>
+
+<form th:action="@{/admin/place}" method="post">
+    <div>
+        <label for="name">장소명</label>
+        <input type="text" id="name" name="name" required/>
+    </div>
+
+    <div>
+        <label for="address">주소</label>
+        <input type="text" id="address" name="address" required/>
+    </div>
+
+    <div id="floors-container" style="margin-top:20px;">
+        <!-- 층 입력폼들이 추가될 자리 -->
+    </div>
+
+    <div style="margin-top:20px;">
+        <button type="button" onclick="addFloorInput()">층 추가</button>
+    </div>
+
+    <div style="margin-top:20px;">
+        <button type="submit">좌석 등록</button>
+    </div>
+</form>
+</body>
+</html>
