@@ -1,6 +1,7 @@
 package com.example.admin.place.service;
 
 import com.example.admin.place.controller.dto.CreatePlaceRequest;
+import com.example.admin.place.controller.dto.GetAllPlacesResponse;
 import com.example.admin.place.repository.PlaceRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +12,12 @@ import org.springframework.stereotype.Service;
 public class AdminPlaceService {
     private final PlaceRepository placeRepository;
 
+    public GetAllPlacesResponse getAllPlaces() {
+        return GetAllPlacesResponse.from(placeRepository.findAll());
+    }
+
     @Transactional
-    public void createPlace(CreatePlaceRequest request) {
-        placeRepository.save(request.toModel());
+    public long createPlace(CreatePlaceRequest request) {
+        return placeRepository.save(request.toModel()).getId();
     }
 }
