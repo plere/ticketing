@@ -1,0 +1,915 @@
+### create concert
+POST http://localhost:8080/admin/concerts
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.",
+  "runningTime": 100,
+  "ticketingStartTime": "2025-07-30T18:00",
+  "openTime": "2025-07-01T09:00",
+  "placeId": 1,
+  "rounds": [
+    {
+      "startDateTime": "2025-08-01T18:00"
+    },
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ],
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    },
+    {
+      "name": "B",
+      "price": 100
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "B"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "A"
+    }
+  ]
+}
+
+### fail, ticketingStartTime error
+POST http://localhost:8080/admin/concerts
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.",
+  "runningTime": 100,
+  "ticketingStartTime": "1999-07-30T18:00",
+  "openTime": "2025-07-01T09:00",
+  "placeId": 1,
+  "rounds": [
+    {
+      "startDateTime": "2025-08-01T18:00"
+    },
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ],
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    },
+    {
+      "name": "B",
+      "price": 100
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "B"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "A"
+    }
+  ]
+}
+
+### fail, openTime date error
+POST http://localhost:8080/admin/concerts
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.",
+  "runningTime": 100,
+  "ticketingStartTime": "2025-07-30T18:00",
+  "openTime": "1999-07-01T09:00",
+  "placeId": 1,
+  "rounds": [
+    {
+      "startDateTime": "2025-08-01T18:00"
+    },
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ],
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    },
+    {
+      "name": "B",
+      "price": 100
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "B"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "A"
+    }
+  ]
+}
+
+### fail, openTime error due to empty seats
+POST http://localhost:8080/admin/concerts
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.",
+  "runningTime": 100,
+  "ticketingStartTime": "2025-07-30T18:00",
+  "openTime": "2025-07-01T09:00",
+  "placeId": 1,
+  "rounds": [
+    {
+      "startDateTime": "2025-08-01T18:00"
+    },
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ],
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    },
+    {
+      "name": "B",
+      "price": 100
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    }
+  ]
+}
+
+### fail, seats error due to missing seat
+POST http://localhost:8080/admin/concerts
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.",
+  "runningTime": 100,
+  "ticketingStartTime": "2025-07-30T18:00",
+  "openTime": "2025-07-01T09:00",
+  "placeId": 1,
+  "rounds": [
+    {
+      "startDateTime": "2025-08-01T18:00"
+    },
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ],
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    },
+    {
+      "name": "B",
+      "price": 100
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 10,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "B"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "A"
+    }
+  ]
+}
+
+### fail, seats error due to duplicate seat
+POST http://localhost:8080/admin/concerts
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.",
+  "runningTime": 100,
+  "ticketingStartTime": "2025-07-30T18:00",
+  "openTime": "2025-07-01T09:00",
+  "placeId": 1,
+  "rounds": [
+    {
+      "startDateTime": "2025-08-01T18:00"
+    },
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ],
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    },
+    {
+      "name": "B",
+      "price": 100
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "B"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "A"
+    }
+  ]
+}
+
+### fail, seats error not due to missing grade
+POST http://localhost:8080/admin/concerts
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.",
+  "runningTime": 100,
+  "ticketingStartTime": "2025-07-30T18:00",
+  "placeId": 1,
+  "rounds": [
+    {
+      "startDateTime": "2025-08-01T18:00"
+    },
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ],
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    },
+    {
+      "name": "B",
+      "price": 100
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 1,
+      "grade": "S"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "B"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "A"
+    }
+  ]
+}
+
+### fail, grade error not due to missing seat
+POST http://localhost:8080/admin/concerts
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.",
+  "runningTime": 100,
+  "ticketingStartTime": "2025-07-30T18:00",
+  "openTime": "2025-07-01T09:00",
+  "placeId": 1,
+  "rounds": [
+    {
+      "startDateTime": "2025-08-01T18:00"
+    },
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ],
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    },
+    {
+      "name": "B",
+      "price": 100
+    },
+    {
+      "name": "C",
+      "price": 50
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "B"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "A"
+    }
+  ]
+}
+
+### fail, grade error not due to missing grade
+POST http://localhost:8080/admin/concerts
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.",
+  "runningTime": 100,
+  "ticketingStartTime": "2025-07-30T18:00",
+  "openTime": "2025-07-01T09:00",
+  "placeId": 1,
+  "rounds": [
+    {
+      "startDateTime": "2025-08-01T18:00"
+    },
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ],
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    },
+    {
+      "name": "B",
+      "price": 100
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 1,
+      "grade": "S"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "B"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "A"
+    }
+  ]
+}

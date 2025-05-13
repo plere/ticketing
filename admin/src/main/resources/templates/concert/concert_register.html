@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>콘서트 등록</title>
+    <style>
+        .seat {
+            width: 20px;
+            height: 20px;
+            background-color: #ccc;
+            border: 1px solid #999;
+            margin: 2px;
+            display: inline-block;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+        }
+
+        .graded {
+            color: white;
+            font-weight: bold;
+        }
+
+        .seat-row {
+            margin-bottom: 10px;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<h2>콘서트 등록</h2>
+<form id="concertForm" onsubmit="submitConcert(event)">
+    <label>콘서트명*: <input type="text" name="name"/></label><br/>
+    <label>상세정보: <textarea name="detailInfo"></textarea></label><br/>
+    <label>러닝타임(분)*: <input type="number" name="runningTime"/></label><br/>
+    <label>티케팅 시작일*: <input type="datetime-local" name="ticketingStartTime"/></label><br/>
+    <label>유저 노출 시작일: <input type="datetime-local" name="openTime"/></label><br/>
+
+    <button type="button" onclick="openPlaceModal()">장소 선택*</button>
+    <input type="hidden" name="placeId" id="selectedPlaceId"/>
+
+    <div id="seatPreviewArea"></div>
+
+    <h4>회차 정보*</h4>
+    <div id="rounds">
+        <div class="round">
+            <label>회차 일시: <input type="datetime-local" name="rounds[0].startDateTime"/></label>
+        </div>
+    </div>
+    <button type="button" onclick="addRound()">회차 추가</button>
+
+    <h4>좌석 등급별 가격</h4>
+    <div id="gradePriceList"></div>
+
+    <button type="submit">콘서트 등록</button>
+</form>
+
+<div class="modal" id="placeModal">
+    <div class="modal-content">
+        <h3>장소 선택*</h3>
+        <ul id="placeList"></ul>
+    </div>
+</div>
+
+<script>
+    const GRADE_COLORS = ["#e74c3c", "#e67e22", "#f1c40f", "#2ecc71", "#3498db", "#9b59b6", "#1abc9c"];
+    const gradeColorMap = {};
+    let gradeColorIndex = 0;
+    const seatGradeMap = {}; // seatId -> gradeName
+    const gradePriceMap = {}; // gradeName -> price
+
+    function openPlaceModal() {
+        document.getElementById("placeModal").style.display = "flex";
+        fetch("/admin/places")
+            .then(res => res.json())
+            .then(data => {
+                const placeList = document.getElementById("placeList");
+                placeList.innerHTML = "";
+                data.places.forEach(place => {
+                    const li = document.createElement("li");
+                    li.textContent = place.name;
+                    li.style.cursor = "pointer";
+                    li.onclick = () => selectPlace(place.id);
+                    placeList.appendChild(li);
+                });
+            });
+    }
+
+    function selectPlace(placeId) {
+        document.getElementById("selectedPlaceId").value = placeId;
+        document.getElementById("placeModal").style.display = "none";
+        loadSeats(placeId);
+    }
+
+    function loadSeats(placeId) {
+        fetch(`/admin/places/${placeId}/seats`)
+            .then(res => res.json())
+            .then(data => {
+                const area = document.getElementById("seatPreviewArea");
+                area.innerHTML = "";
+                data.seats.forEach(floor => {
+                    const floorDiv = document.createElement("div");
+                    floorDiv.innerHTML = `<h5>${floor.floor}층</h5>`;
+                    floor.floorSeats.forEach(row => {
+                        const rowDiv = document.createElement("div");
+                        rowDiv.className = "seat-row";
+                        rowDiv.innerHTML = `<span>${row.rowName}</span>`;
+                        for (let i = 1; i <= row.rowCount; i++) {
+                            const seatId = `${floor.floor}-${row.rowName}-${i}`;
+                            const seat = document.createElement("div");
+                            seat.className = "seat";
+                            seat.id = seatId;
+                            seat.innerText = i;
+                            seat.dataset.id = row.id;
+                            seat.dataset.rowOrder = i;
+                            seat.onclick = () => promptGradeInput(seatId);
+                            rowDiv.appendChild(seat);
+                        }
+                        floorDiv.appendChild(rowDiv);
+                    });
+                    area.appendChild(floorDiv);
+                });
+            });
+    }
+
+    function promptGradeInput(seatId) {
+        const gradeName = prompt("좌석 등급명을 입력하세요:");
+        if (!gradeName) return;
+
+        if (!gradeColorMap[gradeName]) {
+            gradeColorMap[gradeName] = GRADE_COLORS[gradeColorIndex % GRADE_COLORS.length];
+            gradeColorIndex++;
+        }
+
+        const seat = document.getElementById(seatId);
+        seat.style.backgroundColor = gradeColorMap[gradeName];
+        seat.classList.add("graded");
+        seat.setAttribute("data-grade", gradeName);
+        seatGradeMap[seatId] = gradeName;
+
+        if (!gradePriceMap[gradeName]) {
+            appendGradePriceInput(gradeName);
+        }
+    }
+
+    let gradeSet = new Set();
+
+    function appendGradePriceInput(gradeName) {
+        const container = document.getElementById("gradePriceList");
+        const div = document.createElement("div");
+        if (!gradeSet.has(gradeName)) {
+            gradeSet.add(gradeName);
+            div.innerHTML = `
+            <label>${gradeName} 가격: <input type="number" name="grades[${gradeName}].price" /></label>
+        `;
+            container.appendChild(div);
+        }
+    }
+
+    let roundIndex = 1;
+
+    function addRound() {
+        const rounds = document.getElementById("rounds");
+        const div = document.createElement("div");
+        div.className = "round";
+        div.setAttribute("data-index", roundIndex);
+
+        div.innerHTML = `
+            <label>회차 일시: <input type="datetime-local" name="rounds[${roundIndex}].startDateTime" /></label>
+            <button type="button" onclick="removeRound(${roundIndex})">삭제</button>
+        `;
+        rounds.appendChild(div);
+        roundIndex++;
+    }
+
+    function removeRound(index) {
+        const rounds = document.getElementById("rounds");
+        if (rounds.children.length <= 1) {
+            alert("최소 하나의 회차는 존재해야 합니다.");
+            return;
+        }
+
+        const roundToRemove = document.querySelector(`.round[data-index="${index}"]`);
+        if (roundToRemove) {
+            rounds.removeChild(roundToRemove);
+        }
+    }
+
+    function submitConcert(event) {
+        event.preventDefault(); // 기본 form 제출 막기
+
+        const form = document.getElementById("concertForm");
+
+        const concert = {
+            name: form.querySelector('input[name="name"]').value,
+            detailInfo: form.querySelector('textarea[name="detailInfo"]').value,
+            runningTime: parseInt(form.querySelector('input[name="runningTime"]').value),
+            ticketingStartTime: form.querySelector('input[name="ticketingStartTime"]').value,
+            openTime: form.querySelector('input[name="openTime"]').value,
+            placeId: form.querySelector('input[name="placeId"]').value,
+            rounds: [],
+            grades: [],
+            seats: [] // 좌석-등급 연결
+        };
+
+        // 회차 정보 수집
+        document.querySelectorAll("#rounds .round").forEach(roundDiv => {
+            const roundTime = roundDiv.querySelector("input").value;
+            if (roundTime) {
+                concert.rounds.push({startDateTime: roundTime});
+            }
+        });
+
+        // 등급 가격 수집
+        document.querySelectorAll("#gradePriceList input").forEach(input => {
+            const match = input.name.match(/grades\[(.+?)\]/);
+            if (match) {
+                const gradeName = match[1];
+                const price = parseInt(input.value);
+                concert.grades.push({
+                    name: gradeName,
+                    price: price
+                })
+            }
+        });
+
+        // 좌석별 등급 지정 수집
+        document.querySelectorAll(".seat.graded").forEach(seat => {
+            concert.seats.push({
+                id: seat.dataset.id,
+                rowOrder: parseInt(seat.dataset.rowOrder),
+                grade: seat.getAttribute("data-grade")
+            });
+        });
+
+        // 전송
+        fetch("/admin/concerts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(concert)
+        }).then(res => {
+            if (res.ok) {
+                alert("콘서트가 등록되었습니다.");
+                location.reload();
+            } else {
+                res.text().then(txt => alert("등록 실패: " + txt));
+            }
+        });
+    }
+
+</script>
+</body>
+</html>
