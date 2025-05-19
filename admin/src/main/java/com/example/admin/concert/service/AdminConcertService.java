@@ -1,11 +1,13 @@
 package com.example.admin.concert.service;
 
 import com.example.admin.concert.controller.dto.CreateRequest;
+import com.example.admin.concert.controller.dto.ModifyConcertBasicRequest;
 import com.example.admin.concert.model.Concert;
 import com.example.admin.concert.model.ConcertSeat;
 import com.example.admin.concert.repository.AdminConcertRepository;
 import com.example.admin.concert.repository.AdminConcertSeatRepository;
 import com.example.admin.concert.service.validation.AdminConcertCreateValidation;
+import com.example.admin.concert.service.validation.AdminConcertModifyBasicValidation;
 import com.example.admin.place.repository.PlaceSeatRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +22,11 @@ public class AdminConcertService {
     private final AdminConcertRepository concertRepository;
     private final AdminConcertSeatRepository concertSeatRepository;
     private final AdminConcertCreateValidation createValidate;
+    private final AdminConcertModifyBasicValidation modifyBasicValidation;
 
     @Transactional
     public long create(CreateRequest request) {
-        createValidate.validate(request);
+        createValidate.validate(request.toValidationDto());
 
         Concert concert = request.toModel();
         List<ConcertSeat> concertSeats = request.toConcertSeatModels(placeSeatRepository.findAllByPlaceId(concert.getPlaceId()), concert.getSeatGrades());
@@ -32,5 +35,14 @@ public class AdminConcertService {
         concertSeatRepository.saveAll(concertSeats);
 
         return result;
+    }
+
+    @Transactional
+    public void modifyBasic(long id, ModifyConcertBasicRequest request) {
+        modifyBasicValidation.validate(id, request);
+
+        Concert concert = concertRepository.findById(id).get();
+
+        concert.modifyBasic(request.toModifyDto());
     }
 }

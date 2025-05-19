@@ -7,6 +7,7 @@ import java.util.List;
 
 @Builder
 public record ValidationConcert(
+    Long id,
     String name,
     String detailInfo,
     Integer runningTime,

@@ -1,0 +1,31 @@
+package com.example.admin.concert.service.validation;
+
+import com.example.admin.common.exception.BadRequestException;
+import com.example.admin.concert.controller.dto.ModifyConcertBasicRequest;
+import com.example.admin.concert.model.Concert;
+import com.example.admin.concert.repository.AdminConcertRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import static com.example.admin.concert.controller.dto.AdminConcertErrorResponseCode.MODIFY_CONCERT_STATE_ERROR;
+import static com.example.admin.concert.controller.dto.AdminConcertErrorResponseCode.NOT_FOUND_CONCERT_ERROR;
+
+@Component
+@RequiredArgsConstructor
+public class AdminConcertModifyBasicValidation {
+    private final AdminConcertRepository adminConcertRepository;
+    private final AdminConcertValidation adminConcertValidation;
+
+    public void validate(long id, ModifyConcertBasicRequest request) {
+        Concert concert = adminConcertRepository.findById(id)
+            .orElseThrow(() -> new BadRequestException(NOT_FOUND_CONCERT_ERROR, NOT_FOUND_CONCERT_ERROR.getErrorMessage()));
+
+        if (!concert.getState().isModifiable()) {
+            throw new BadRequestException(MODIFY_CONCERT_STATE_ERROR, MODIFY_CONCERT_STATE_ERROR.getErrorMessage());
+        }
+
+        ValidationConcert validationDto = request.toValidationDto(concert);
+        adminConcertValidation.checkRounds(validationDto);
+        adminConcertValidation.checkTicketingTime(validationDto);
+    }
+}

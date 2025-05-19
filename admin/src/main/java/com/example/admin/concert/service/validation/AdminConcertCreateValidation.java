@@ -1,6 +1,5 @@
 package com.example.admin.concert.service.validation;
 
-import com.example.admin.concert.controller.dto.CreateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,9 +8,8 @@ import org.springframework.stereotype.Component;
 public class AdminConcertCreateValidation {
     private final AdminConcertValidation adminConcertValidation;
 
-    public void validate(CreateRequest request) {
-        ValidationConcert validationDto = request.toValidationDto();
-        adminConcertValidation.checkOpenTime(validationDto);
+    public void validate(ValidationConcert validationDto) {
+        adminConcertValidation.checkRounds(validationDto);
         adminConcertValidation.checkTicketingTime(validationDto);
         adminConcertValidation.checkAllPlaceSeat(validationDto);
         adminConcertValidation.checkSeatGrade(validationDto);

@@ -20,9 +20,11 @@ import static java.util.stream.Collectors.groupingBy;
 public class AdminConcertValidation {
     private final PlaceSeatRepository placeSeatRepository;
 
-    public void checkOpenTime(ValidationConcert dto) {
-        if (dto.openTime() != null) {
-            checkPlaceSeat(dto);
+    public void checkRounds(ValidationConcert dto) {
+        if (dto.openTime() != null || dto.ticketingStartTime() != null) {
+            dto.rounds().forEach(round ->
+                checkRoundTime(dto, round)
+            );
         }
     }
 
@@ -33,7 +35,7 @@ public class AdminConcertValidation {
     }
 
     public void checkAllPlaceSeat(ValidationConcert dto) {
-        if (!dto.seats().isEmpty()) {
+        if (dto.openTime() != null || !dto.seats().isEmpty()) {
             checkPlaceSeat(dto);
         }
     }
@@ -54,6 +56,13 @@ public class AdminConcertValidation {
                 throw new BadRequestException(CREATE_CONCERT_GRADE_INPUT_ERROR, CREATE_CONCERT_GRADE_INPUT_ERROR.getErrorMessage());
             }
         });
+    }
+
+    private void checkRoundTime(ValidationConcert dto, ValidationConcert.ValidationRound round) {
+        if ((dto.openTime() != null && round.startDateTime().isBefore(dto.openTime()))
+            || (dto.ticketingStartTime() != null && round.startDateTime().isBefore(dto.ticketingStartTime()))) {
+            throw new BadRequestException(CONCERT_ROUND_TIME_ERROR, CONCERT_ROUND_TIME_ERROR.getErrorMessage());
+        }
     }
 
     private void checkPlaceSeat(ValidationConcert dto) {

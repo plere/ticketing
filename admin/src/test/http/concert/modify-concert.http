@@ -1,0 +1,53 @@
+### modify concert basic
+PATCH http://localhost:8080/admin/concerts/1/basic
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트(수정)",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.(수정)",
+  "runningTime": 120,
+  "ticketingStartTime": "2025-07-30T18:00",
+  "openTime": "2025-07-01T09:00",
+  "rounds": [
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ]
+}
+
+### fail, not found concert
+PATCH http://localhost:8080/admin/concerts/999999/basic
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트(수정)",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.(수정)",
+  "runningTime": 120,
+  "ticketingStartTime": "2025-07-30T18:00",
+  "openTime": "2025-07-01T09:00",
+  "rounds": [
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ]
+}
+
+### fail, ticketing time is before open time error
+PATCH http://localhost:8080/admin/concerts/1/basic
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트(수정)",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.(수정)",
+  "runningTime": 120,
+  "ticketingStartTime": "2025-07-30T18:00",
+  "openTime": "2025-08-01T09:00",
+  "rounds": [
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ]
+}
+
+
+

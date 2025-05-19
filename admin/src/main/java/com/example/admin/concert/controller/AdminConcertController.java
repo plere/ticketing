@@ -1,15 +1,14 @@
 package com.example.admin.concert.controller;
 
 import com.example.admin.common.response.CreatedResponseDto;
+import com.example.admin.common.response.ModifyResponseDto;
 import com.example.admin.common.response.ResponseDto;
 import com.example.admin.concert.controller.dto.CreateRequest;
+import com.example.admin.concert.controller.dto.ModifyConcertBasicRequest;
 import com.example.admin.concert.service.AdminConcertService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.example.admin.concert.controller.dto.AdminConcertResponseCode.CREATE_CONCERT;
 
@@ -22,5 +21,12 @@ public class AdminConcertController {
     @PostMapping
     public ResponseDto<CreatedResponseDto> create(@RequestBody @Valid CreateRequest concert) {
         return CreatedResponseDto.from(concertService.create(concert), CREATE_CONCERT);
+    }
+
+    @PatchMapping("/{id}/basic")
+    public ResponseDto<ModifyResponseDto> modifyBasic(@PathVariable Long id, @RequestBody @Valid ModifyConcertBasicRequest request) {
+        concertService.modifyBasic(id, request);
+
+        return ModifyResponseDto.from(id, "concert");
     }
 }

@@ -105,6 +105,220 @@ Content-Type: application/json
   ]
 }
 
+### fail, round time is before open time error
+POST http://localhost:8080/admin/concerts
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.",
+  "runningTime": 100,
+  "ticketingStartTime": "2025-08-30T18:00",
+  "openTime": "2025-08-10T09:00",
+  "placeId": 1,
+  "rounds": [
+    {
+      "startDateTime": "2025-08-01T18:00"
+    },
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ],
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    },
+    {
+      "name": "B",
+      "price": 100
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "B"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "A"
+    }
+  ]
+}
+
+### fail, round time is before ticketing time error
+POST http://localhost:8080/admin/concerts
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.",
+  "runningTime": 100,
+  "ticketingStartTime": "2025-08-30T18:00",
+  "openTime": "2025-07-10T09:00",
+  "placeId": 1,
+  "rounds": [
+    {
+      "startDateTime": "2025-08-01T18:00"
+    },
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ],
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    },
+    {
+      "name": "B",
+      "price": 100
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "B"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "B"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "A"
+    }
+  ]
+}
+
 ### fail, ticketingStartTime error
 POST http://localhost:8080/admin/concerts
 Content-Type: application/json
