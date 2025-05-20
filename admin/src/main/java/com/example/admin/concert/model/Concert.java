@@ -1,6 +1,7 @@
 package com.example.admin.concert.model;
 
 import com.example.admin.concert.model.dto.ModifyBasicConcertDto;
+import com.example.admin.concert.model.dto.ModifyConcertPlaceDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -102,6 +103,18 @@ public class Concert {
         this.rounds.forEach(round -> {
             if (round.getConcert() != this) {
                 round.setConcert(this);
+            }
+        });
+    }
+
+    public void modifyPlace(ModifyConcertPlaceDto dto) {
+        this.placeId = dto.placeId();
+        this.seatGrades.clear();
+        this.seatGrades.addAll(dto.seatGrades());
+        
+        this.seatGrades.forEach(seatGrade -> {
+            if (seatGrade.getConcert() != this) {
+                seatGrade.setConcert(this);
             }
         });
     }

@@ -5,6 +5,7 @@ import com.example.admin.common.response.ModifyResponseDto;
 import com.example.admin.common.response.ResponseDto;
 import com.example.admin.concert.controller.dto.CreateRequest;
 import com.example.admin.concert.controller.dto.ModifyConcertBasicRequest;
+import com.example.admin.concert.controller.dto.ModifyConcertPlaceRequest;
 import com.example.admin.concert.service.AdminConcertService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,13 @@ public class AdminConcertController {
     @PatchMapping("/{id}/basic")
     public ResponseDto<ModifyResponseDto> modifyBasic(@PathVariable Long id, @RequestBody @Valid ModifyConcertBasicRequest request) {
         concertService.modifyBasic(id, request);
+
+        return ModifyResponseDto.from(id, "concert");
+    }
+
+    @PatchMapping("/{id}/place")
+    public ResponseDto<ModifyResponseDto> modifyPlace(@PathVariable Long id, @RequestBody @Valid ModifyConcertPlaceRequest request) {
+        concertService.modifyPlace(id, request);
 
         return ModifyResponseDto.from(id, "concert");
     }

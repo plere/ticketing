@@ -13,7 +13,7 @@ public enum AdminConcertErrorResponseCode {
     CONCERT_ROUND_TIME_ERROR("콘서트 공연일은 공연오픈일, 티케팅 날 이후여야 합니다"),
     NOT_FOUND_CONCERT_ERROR("콘서트 정보를 찾을 수 없습니다"),
     MODIFY_CONCERT_STATE_ERROR("현재 콘서트가 수정할 수 없는 상태입니다"),
-    ;
+    PLACE_OR_SEATS_ERROR("장소와 좌석에 대한 정보를 정확히 입력해주세요");
 
     private final String errorMessage;
 }

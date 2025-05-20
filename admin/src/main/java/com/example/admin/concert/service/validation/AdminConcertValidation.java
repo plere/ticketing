@@ -2,8 +2,8 @@ package com.example.admin.concert.service.validation;
 
 import com.example.admin.common.exception.BadRequestException;
 import com.example.admin.concert.controller.dto.CreateRequest;
+import com.example.admin.concert.port.out.AdminPlacePort;
 import com.example.admin.place.model.PlaceSeat;
-import com.example.admin.place.repository.PlaceSeatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.groupingBy;
 @Component
 @RequiredArgsConstructor
 public class AdminConcertValidation {
-    private final PlaceSeatRepository placeSeatRepository;
+    private final AdminPlacePort placePort;
 
     public void checkRounds(ValidationConcert dto) {
         if (dto.openTime() != null || dto.ticketingStartTime() != null) {
@@ -66,7 +66,7 @@ public class AdminConcertValidation {
     }
 
     private void checkPlaceSeat(ValidationConcert dto) {
-        List<PlaceSeat> allSeats = placeSeatRepository.findAllByPlaceId(dto.placeId());
+        List<PlaceSeat> allSeats = placePort.getAllSeatsByPlaceId(dto.placeId());
 
         if (registeredSeatCount(allSeats) != dto.seats().size()) {
             throw new BadRequestException(NOT_EQUAL_SEATS_SIZE_TO_PLACE_ID_ERROR, NOT_EQUAL_SEATS_SIZE_TO_PLACE_ID_ERROR.getErrorMessage());

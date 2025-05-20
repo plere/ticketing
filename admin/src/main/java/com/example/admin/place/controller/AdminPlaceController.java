@@ -25,7 +25,7 @@ public class AdminPlaceController {
 
     @GetMapping("/{placeId}/seats")
     public ResponseDto<GetAllSeatsByPlaceIdResponse> getAllSeatsByPlaceId(@PathVariable Long placeId) {
-        return ResponseDto.from(AdminPlaceResponseCode.GET_ALL_SEATS_BY_PLACE_ID, placeSeatService.getAllByPlaceId(placeId));
+        return ResponseDto.from(AdminPlaceResponseCode.GET_ALL_SEATS_BY_PLACE_ID, GetAllSeatsByPlaceIdResponse.from(placeSeatService.getAllByPlaceId(placeId)));
     }
 
     @PostMapping

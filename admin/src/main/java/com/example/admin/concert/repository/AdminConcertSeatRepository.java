@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AdminConcertSeatRepository extends JpaRepository<ConcertSeat, Long> {
+    void deleteAllByConcertId(Long concertId);
 }

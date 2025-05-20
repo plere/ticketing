@@ -15,6 +15,96 @@ Content-Type: application/json
   ]
 }
 
+### modify concert place
+PATCH http://localhost:8080/admin/concerts/1/place
+Content-Type: application/json
+
+{
+  "placeId": 1,
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "A"
+    }
+  ]
+}
+
 ### fail, not found concert
 PATCH http://localhost:8080/admin/concerts/999999/basic
 Content-Type: application/json
@@ -49,5 +139,278 @@ Content-Type: application/json
   ]
 }
 
+### fail, not found place
+PATCH http://localhost:8080/admin/concerts/1/place
+Content-Type: application/json
 
+{
+  "placeId": 2,
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "A"
+    }
+  ]
+}
+
+### fail, grade error to missing seats
+PATCH http://localhost:8080/admin/concerts/1/place
+Content-Type: application/json
+
+{
+  "placeId": 1,
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    },
+    {
+      "name": "B",
+      "price": 500
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "A"
+    }
+  ]
+}
+
+
+### fail, grade error to missing grade
+PATCH http://localhost:8080/admin/concerts/1/place
+Content-Type: application/json
+
+{
+  "placeId": 1,
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "rowOrder": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "rowOrder": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 2,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 3,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "rowOrder": 5,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "rowOrder": 2,
+      "grade": "B"
+    }
+  ]
+}
 

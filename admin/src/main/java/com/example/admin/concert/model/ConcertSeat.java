@@ -29,15 +29,19 @@ public class ConcertSeat {
     @Comment("생성일")
     private LocalDateTime createdAt;
 
+    @Column(nullable = false)
     @Comment("열번호")
     private int columnNum;
 
+    @Column(nullable = false)
     @Comment("행")
     private String rowNum;
 
+    @Column(nullable = false)
     @Comment("층")
     private int floor;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @Comment("좌석 상태")
     private ConcertSeatState state;
@@ -45,4 +49,7 @@ public class ConcertSeat {
     @ManyToOne(fetch = FetchType.LAZY)
     @Comment("좌석 등급")
     private ConcertSeatGrade grade;
+
+    @Column(nullable = false)
+    private long concertId;
 }

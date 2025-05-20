@@ -106,7 +106,7 @@ public record CreateRequest(
             .build();
     }
 
-    public List<ConcertSeat> toConcertSeatModels(List<PlaceSeat> allSeats, List<ConcertSeatGrade> allGrades) {
+    public List<ConcertSeat> toConcertSeatModels(long concertId, List<PlaceSeat> allSeats, List<ConcertSeatGrade> allGrades) {
         Map<Long, List<PlaceSeat>> allSeatsMap = allSeats.stream().collect(groupingBy(PlaceSeat::getId));
         Map<String, List<ConcertSeatGrade>> gradesMap = allGrades.stream().collect(groupingBy(ConcertSeatGrade::getName));
 
@@ -118,6 +118,7 @@ public record CreateRequest(
                     .floor(foundSeat.getFloor())
                     .state(ConcertSeatState.EMPTY)
                     .grade(gradesMap.get(seat.grade).get(0))
+                    .concertId(concertId)
                     .build();
             }
         ).toList();

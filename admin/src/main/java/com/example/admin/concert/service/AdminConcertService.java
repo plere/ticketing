@@ -2,39 +2,44 @@ package com.example.admin.concert.service;
 
 import com.example.admin.concert.controller.dto.CreateRequest;
 import com.example.admin.concert.controller.dto.ModifyConcertBasicRequest;
+import com.example.admin.concert.controller.dto.ModifyConcertPlaceRequest;
 import com.example.admin.concert.model.Concert;
-import com.example.admin.concert.model.ConcertSeat;
+import com.example.admin.concert.model.dto.ModifyConcertPlaceDto;
+import com.example.admin.concert.port.out.AdminPlacePort;
 import com.example.admin.concert.repository.AdminConcertRepository;
-import com.example.admin.concert.repository.AdminConcertSeatRepository;
 import com.example.admin.concert.service.validation.AdminConcertCreateValidation;
 import com.example.admin.concert.service.validation.AdminConcertModifyBasicValidation;
-import com.example.admin.place.repository.PlaceSeatRepository;
+import com.example.admin.concert.service.validation.AdminConcertModifyPlaceValidation;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class AdminConcertService {
-    private final PlaceSeatRepository placeSeatRepository;
     private final AdminConcertRepository concertRepository;
-    private final AdminConcertSeatRepository concertSeatRepository;
     private final AdminConcertCreateValidation createValidate;
     private final AdminConcertModifyBasicValidation modifyBasicValidation;
+    private final AdminConcertModifyPlaceValidation modifyPlaceValidation;
+    private final AdminConcertSeatService seatService;
+    private final AdminPlacePort placePort;
+
 
     @Transactional
     public long create(CreateRequest request) {
         createValidate.validate(request.toValidationDto());
 
         Concert concert = request.toModel();
-        List<ConcertSeat> concertSeats = request.toConcertSeatModels(placeSeatRepository.findAllByPlaceId(concert.getPlaceId()), concert.getSeatGrades());
 
-        Long result = concertRepository.save(concert).getId();
-        concertSeatRepository.saveAll(concertSeats);
+        Long concertId = concertRepository.save(concert).getId();
 
-        return result;
+        seatService.create(
+            request.toConcertSeatModels(concertId,
+                placePort.getAllSeatsByPlaceId(concert.getPlaceId())
+                , concert.getSeatGrades())
+        );
+
+        return concertId;
     }
 
     @Transactional
@@ -44,5 +49,19 @@ public class AdminConcertService {
         Concert concert = concertRepository.findById(id).get();
 
         concert.modifyBasic(request.toModifyDto());
+    }
+
+    @Transactional
+    public void modifyPlace(long id, ModifyConcertPlaceRequest request) {
+        modifyPlaceValidation.validate(id, request);
+
+        Concert concert = concertRepository.findById(id).get();
+
+        ModifyConcertPlaceDto modifyDto = request.toModifyDto(
+            concert.getId(), placePort.getAllSeatsByPlaceId(concert.getPlaceId())
+        );
+
+        concert.modifyPlace(modifyDto);
+        seatService.update(concert.getId(), modifyDto.seats());
     }
 }
