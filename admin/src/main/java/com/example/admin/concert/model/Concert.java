@@ -111,11 +111,15 @@ public class Concert {
         this.placeId = dto.placeId();
         this.seatGrades.clear();
         this.seatGrades.addAll(dto.seatGrades());
-        
+
         this.seatGrades.forEach(seatGrade -> {
             if (seatGrade.getConcert() != this) {
                 seatGrade.setConcert(this);
             }
         });
+    }
+
+    public void updateStateToClose() {
+        this.state = ConcertState.CLOSE;
     }
 }

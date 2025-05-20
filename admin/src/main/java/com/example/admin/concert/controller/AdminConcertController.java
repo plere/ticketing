@@ -37,4 +37,11 @@ public class AdminConcertController {
 
         return ModifyResponseDto.from(id, "concert");
     }
+
+    @PatchMapping("/{id}/state/close")
+    public ResponseDto<ModifyResponseDto> updateStateToClose(@PathVariable Long id) {
+        concertService.updateStateToClose(id);
+
+        return ModifyResponseDto.from(id, "concert");
+    }
 }

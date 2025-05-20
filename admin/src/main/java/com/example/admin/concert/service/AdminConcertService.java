@@ -1,5 +1,6 @@
 package com.example.admin.concert.service;
 
+import com.example.admin.common.exception.BadRequestException;
 import com.example.admin.concert.controller.dto.CreateRequest;
 import com.example.admin.concert.controller.dto.ModifyConcertBasicRequest;
 import com.example.admin.concert.controller.dto.ModifyConcertPlaceRequest;
@@ -13,6 +14,8 @@ import com.example.admin.concert.service.validation.AdminConcertModifyPlaceValid
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import static com.example.admin.concert.controller.dto.AdminConcertErrorResponseCode.NOT_FOUND_CONCERT_ERROR;
 
 @Service
 @RequiredArgsConstructor
@@ -63,5 +66,11 @@ public class AdminConcertService {
 
         concert.modifyPlace(modifyDto);
         seatService.update(concert.getId(), modifyDto.seats());
+    }
+
+    @Transactional
+    public void updateStateToClose(long id) {
+        Concert concert = concertRepository.findById(id).orElseThrow(() -> new BadRequestException(NOT_FOUND_CONCERT_ERROR, NOT_FOUND_CONCERT_ERROR.getErrorMessage()));
+        concert.updateStateToClose();
     }
 }

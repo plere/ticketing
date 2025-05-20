@@ -105,6 +105,13 @@ Content-Type: application/json
   ]
 }
 
+### update concert state to close
+PATCH http://localhost:8080/admin/concerts/1/state/close
+Content-Type: application/json
+
+{
+}
+
 ### fail, not found concert
 PATCH http://localhost:8080/admin/concerts/999999/basic
 Content-Type: application/json
