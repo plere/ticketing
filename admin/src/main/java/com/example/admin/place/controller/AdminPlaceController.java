@@ -1,13 +1,13 @@
 package com.example.admin.place.controller;
 
-import com.example.admin.common.response.CreatedResponseDto;
-import com.example.admin.common.response.ResponseDto;
 import com.example.admin.place.controller.dto.AdminPlaceResponseCode;
 import com.example.admin.place.controller.dto.CreatePlaceRequest;
 import com.example.admin.place.controller.dto.GetAllPlacesResponse;
 import com.example.admin.place.controller.dto.GetAllSeatsByPlaceIdResponse;
 import com.example.admin.place.service.AdminPlaceSeatService;
 import com.example.admin.place.service.AdminPlaceService;
+import com.example.httpresponse.response.CreatedResponseDto;
+import com.example.httpresponse.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

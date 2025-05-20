@@ -1,7 +1,7 @@
-package com.example.admin.common.exception;
+package com.example.httpresponse.exception;
 
-import com.example.admin.common.response.ErrorResponseDto;
-import com.example.admin.common.response.ResponseDto;
+import com.example.httpresponse.response.ErrorResponseDto;
+import com.example.httpresponse.response.ResponseDto;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

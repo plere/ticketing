@@ -1,4 +1,4 @@
-package com.example.admin.common.exception;
+package com.example.httpresponse.exception;
 
 import org.springframework.http.HttpStatus;
 

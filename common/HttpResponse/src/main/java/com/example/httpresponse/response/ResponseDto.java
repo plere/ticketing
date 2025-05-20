@@ -1,4 +1,4 @@
-package com.example.admin.common.response;
+package com.example.httpresponse.response;
 
 public record ResponseDto<T>(int status, String code, T body) {
     public static <T> ResponseDto<T> from(int status, String code, T body) {

@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @EnableJpaAuditing
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.example")
 public class AdminApplication {
 
     public static void main(String[] args) {

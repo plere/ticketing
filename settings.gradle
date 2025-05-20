@@ -2,3 +2,4 @@ rootProject.name = 'ticketing'
 
 include 'admin'
 include 'user'
+include 'common:HttpResponse'

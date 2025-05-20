@@ -1,9 +1,9 @@
 package com.example.admin.concert.service.validation;
 
-import com.example.admin.common.exception.BadRequestException;
 import com.example.admin.concert.controller.dto.ModifyConcertPlaceRequest;
 import com.example.admin.concert.model.Concert;
 import com.example.admin.concert.repository.AdminConcertRepository;
+import com.example.httpresponse.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

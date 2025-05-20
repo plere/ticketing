@@ -1,4 +1,4 @@
-package com.example.admin.common.response;
+package com.example.httpresponse.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

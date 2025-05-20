@@ -1,12 +1,13 @@
 package com.example.admin.concert.controller;
 
-import com.example.admin.common.response.CreatedResponseDto;
-import com.example.admin.common.response.ModifyResponseDto;
-import com.example.admin.common.response.ResponseDto;
+
 import com.example.admin.concert.controller.dto.CreateRequest;
 import com.example.admin.concert.controller.dto.ModifyConcertBasicRequest;
 import com.example.admin.concert.controller.dto.ModifyConcertPlaceRequest;
 import com.example.admin.concert.service.AdminConcertService;
+import com.example.httpresponse.response.CreatedResponseDto;
+import com.example.httpresponse.response.ModifyResponseDto;
+import com.example.httpresponse.response.ResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

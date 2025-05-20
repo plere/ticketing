@@ -1,6 +1,5 @@
 package com.example.admin.concert.service;
 
-import com.example.admin.common.exception.BadRequestException;
 import com.example.admin.concert.controller.dto.CreateRequest;
 import com.example.admin.concert.controller.dto.ModifyConcertBasicRequest;
 import com.example.admin.concert.controller.dto.ModifyConcertPlaceRequest;
@@ -11,6 +10,7 @@ import com.example.admin.concert.repository.AdminConcertRepository;
 import com.example.admin.concert.service.validation.AdminConcertCreateValidation;
 import com.example.admin.concert.service.validation.AdminConcertModifyBasicValidation;
 import com.example.admin.concert.service.validation.AdminConcertModifyPlaceValidation;
+import com.example.httpresponse.exception.BadRequestException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

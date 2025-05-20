@@ -1,8 +1,8 @@
 package com.example.admin.concert.port.out;
 
-import com.example.admin.common.exception.BadRequestException;
 import com.example.admin.place.model.PlaceSeat;
 import com.example.admin.place.repository.PlaceSeatRepository;
+import com.example.httpresponse.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
