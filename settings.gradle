@@ -1,3 +1,4 @@
 rootProject.name = 'ticketing'
 
 include 'admin'
+include 'user'
