@@ -122,4 +122,8 @@ public class Concert {
     public void updateStateToClose() {
         this.state = ConcertState.CLOSE;
     }
+
+    public void updateStateToOpen() {
+        this.state = ConcertState.OPEN;
+    }
 }
