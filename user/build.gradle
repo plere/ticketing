@@ -12,6 +12,9 @@ dependencies {
     //encryption
     implementation 'com.google.guava:guava:31.1-jre'
 
+    //security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
