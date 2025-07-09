@@ -1,0 +1,15 @@
+### signup user
+POST http://localhost:8081/users
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "name": "test",
+  "password": "test1234"
+}
+
+
+### tset
+GET http://localhost:8080/hello
+
+

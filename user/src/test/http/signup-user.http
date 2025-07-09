@@ -1,9 +1,0 @@
-### signup user
-POST http://localhost:8081/users
-Content-Type: application/json
-
-{
-  "email": "test@gmail.com",
-  "name": "test",
-  "password": "test1234"
-}

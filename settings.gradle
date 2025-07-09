@@ -1,5 +1,5 @@
 rootProject.name = 'ticketing'
 
 include 'admin'
-include 'user'
+include 'services:user-service'
 include 'common:HttpResponse'
