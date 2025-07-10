@@ -9,4 +9,8 @@ public class ServerException extends CustomRuntimeException {
     public ServerException() {
         super(status.value(), status.name(), message);
     }
+
+    public ServerException(CommonErrorCode errorCode) {
+        super(status.value(), errorCode.name(), errorCode.getErrorMessage());
+    }
 }

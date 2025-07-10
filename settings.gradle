@@ -2,4 +2,5 @@ rootProject.name = 'ticketing'
 
 include 'services:user-service'
 include 'services:concert-service'
+include 'services:waiting-service'
 include 'common:HttpResponse'
