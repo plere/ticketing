@@ -1,0 +1,423 @@
+### modify concert basic
+PATCH http://localhost:8080/admin/concerts/4/basic
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트(수정)",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.(수정)",
+  "runningTime": 120,
+  "ticketingStartTime": "2025-11-30T18:00",
+  "openTime": "2025-11-01T09:00",
+  "rounds": [
+    {
+      "startDateTime": "2025-12-02T18:00"
+    }
+  ]
+}
+
+### modify concert place
+PATCH http://localhost:8080/admin/concerts/4/place
+Content-Type: application/json
+
+{
+  "placeId": 6,
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "columnNum": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "columnNum": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "columnNum": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "columnNum": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "columnNum": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "columnNum": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "columnNum": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 1,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 2,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 3,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 5,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "columnNum": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "columnNum": 2,
+      "grade": "A"
+    }
+  ]
+}
+
+### update concert state to close
+PATCH http://localhost:8080/admin/concerts/4/state/close
+Content-Type: application/json
+
+{
+}
+
+### fail, not found concert
+PATCH http://localhost:8080/admin/concerts/999999/basic
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트(수정)",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.(수정)",
+  "runningTime": 120,
+  "ticketingStartTime": "2025-07-30T18:00",
+  "openTime": "2025-07-01T09:00",
+  "rounds": [
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ]
+}
+
+### fail, ticketing time is before open time error
+PATCH http://localhost:8080/admin/concerts/1/basic
+Content-Type: application/json
+
+{
+  "name": "첫번째 콘서트(수정)",
+  "detailInfo": "첫번째로 오픈하는 콘서트입니다.(수정)",
+  "runningTime": 120,
+  "ticketingStartTime": "2025-07-30T18:00",
+  "openTime": "2025-08-01T09:00",
+  "rounds": [
+    {
+      "startDateTime": "2025-08-02T18:00"
+    }
+  ]
+}
+
+### fail, not found place
+PATCH http://localhost:8080/admin/concerts/1/place
+Content-Type: application/json
+
+{
+  "placeId": 2,
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "columnNum": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "columnNum": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "columnNum": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "columnNum": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "columnNum": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "columnNum": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "columnNum": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 1,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 2,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 3,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 5,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "columnNum": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "columnNum": 2,
+      "grade": "A"
+    }
+  ]
+}
+
+### fail, grade error to missing seats
+PATCH http://localhost:8080/admin/concerts/1/place
+Content-Type: application/json
+
+{
+  "placeId": 1,
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    },
+    {
+      "name": "B",
+      "price": 500
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "columnNum": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "columnNum": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "columnNum": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "columnNum": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "columnNum": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "columnNum": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "columnNum": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 1,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 2,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 3,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 5,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "columnNum": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "columnNum": 2,
+      "grade": "A"
+    }
+  ]
+}
+
+
+### fail, grade error to missing grade
+PATCH http://localhost:8080/admin/concerts/1/place
+Content-Type: application/json
+
+{
+  "placeId": 1,
+  "grades": [
+    {
+      "name": "VIP",
+      "price": 1000
+    },
+    {
+      "name": "A",
+      "price": 500
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "columnNum": 1,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "columnNum": 2,
+      "grade": "VIP"
+    },
+    {
+      "id": 1,
+      "columnNum": 3,
+      "grade": "VIP"
+    },
+    {
+      "id": 2,
+      "columnNum": 1,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "columnNum": 2,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "columnNum": 3,
+      "grade": "A"
+    },
+    {
+      "id": 2,
+      "columnNum": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 1,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 2,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 3,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 4,
+      "grade": "A"
+    },
+    {
+      "id": 3,
+      "columnNum": 5,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "columnNum": 1,
+      "grade": "A"
+    },
+    {
+      "id": 4,
+      "columnNum": 2,
+      "grade": "B"
+    }
+  ]
+}
+

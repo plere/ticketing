@@ -1,0 +1,47 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+### GET all places
+GET http://localhost:8080/admin/places
+
+### addPlace
+POST http://localhost:8080/admin/places
+Content-Type: application/json
+
+{
+  "name": "올림픽공원",
+  "address": "seoul",
+  "seats": [
+    {
+      "floor": 1,
+      "rows": [
+        {
+          "rowOrder": 1,
+          "name": "A",
+          "count": 3
+        },
+        {
+          "rowOrder": 2,
+          "name": "B",
+          "count": 4
+        },
+        {
+          "rowOrder": 3,
+          "name": "C",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "floor": 2,
+      "rows": [
+        {
+          "rowOrder": 4,
+          "name": "A",
+          "count": 2
+        }
+      ]
+    }
+  ]
+}
