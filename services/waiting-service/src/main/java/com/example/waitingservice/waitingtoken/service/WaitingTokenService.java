@@ -25,6 +25,10 @@ public class WaitingTokenService {
         int myPosition = waitingTokenRepository.getMyPosition(waitingToken);
         int availableCount = getReservationPort.availableProcessingCount(waitingToken.id());
 
-        return Math.min(0, myPosition - availableCount);
+        return Math.max(0, myPosition - availableCount);
+    }
+
+    public boolean isTokenTurn(WaitingToken waitingToken) {
+        return getWaitingPosition(waitingToken) == 0;
     }
 }

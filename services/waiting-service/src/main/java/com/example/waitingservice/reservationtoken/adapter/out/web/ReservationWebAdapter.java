@@ -1,4 +1,4 @@
-package com.example.waitingservice.waitingtoken.adapter.out.web.reservation;
+package com.example.waitingservice.reservationtoken.adapter.out.web;
 
 import com.example.waitingservice.waitingtoken.port.out.GetReservationPort;
 import org.springframework.stereotype.Component;

@@ -1,0 +1,2 @@
+### get reservation-token
+GET http://localhost:8082/reservation-token/concerts/4/23b81894-21a4-4901-8e2b-28bfc978f255
