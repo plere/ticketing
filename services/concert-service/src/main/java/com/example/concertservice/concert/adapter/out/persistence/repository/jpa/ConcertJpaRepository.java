@@ -1,10 +1,13 @@
 package com.example.concertservice.concert.adapter.out.persistence.repository.jpa;
 
+import com.example.concertservice.common.JpaPageableMapper;
 import com.example.concertservice.concert.adapter.out.persistence.entity.ConcertEntity;
 import com.example.concertservice.concert.adapter.out.persistence.entity.ConcertEntityMapper;
 import com.example.concertservice.concert.adapter.out.persistence.repository.ConcertRepository;
 import com.example.concertservice.concert.domain.Concert;
 import com.example.concertservice.concert.domain.ConcertState;
+import com.example.httpresponse.pageable.PageableRequest;
+import com.example.httpresponse.pageable.PageableResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -44,6 +47,16 @@ public class ConcertJpaRepository implements ConcertRepository {
 
     @Override
     public List<Concert> getAllTodoChangeStateToOpen() {
-        return concertRepository.findAllByOpenTimeIsBeforeAndState(LocalDateTime.now(), ConcertState.READY);
+        return concertRepository.findAllByOpenTimeIsBeforeAndState(LocalDateTime.now(), ConcertState.READY)
+            .stream()
+            .map(ConcertEntityMapper::mapToModel)
+            .toList();
+    }
+
+    @Override
+    public PageableResponse<Concert> getAllByPageable(PageableRequest pageable) {
+        return JpaPageableMapper.toCommonPageableResponse(
+            concertRepository.findByState(JpaPageableMapper.toJpaPageable(pageable), ConcertState.OPEN).map(ConcertEntityMapper::mapToModel)
+        );
     }
 }

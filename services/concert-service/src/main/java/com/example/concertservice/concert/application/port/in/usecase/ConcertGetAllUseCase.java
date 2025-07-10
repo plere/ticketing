@@ -1,15 +1,9 @@
-package com.example.concertservice.concert.application.port.out;
+package com.example.concertservice.concert.application.port.in.usecase;
 
 import com.example.concertservice.concert.domain.Concert;
 import com.example.httpresponse.pageable.PageableRequest;
 import com.example.httpresponse.pageable.PageableResponse;
 
-import java.util.List;
-
-public interface GetConcertPort {
-    Concert getConcertOrElseThrow(long id);
-
-    List<Concert> getAllTodoChangeStateToOpen();
-
+public interface ConcertGetAllUseCase {
     PageableResponse<Concert> getAllByPageable(PageableRequest page);
 }

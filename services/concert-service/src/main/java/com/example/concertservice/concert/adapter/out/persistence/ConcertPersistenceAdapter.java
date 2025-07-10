@@ -8,6 +8,8 @@ import com.example.concertservice.concert.application.port.out.UpdateConcertPort
 import com.example.concertservice.concert.domain.Concert;
 import com.example.concertservice.concert.domain.ConcertState;
 import com.example.httpresponse.exception.BadRequestException;
+import com.example.httpresponse.pageable.PageableRequest;
+import com.example.httpresponse.pageable.PageableResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -44,6 +46,11 @@ public class ConcertPersistenceAdapter implements SaveConcertPort, ChangeStateCo
     @Override
     public List<Concert> getAllTodoChangeStateToOpen() {
         return concertRepository.getAllTodoChangeStateToOpen();
+    }
+
+    @Override
+    public PageableResponse<Concert> getAllByPageable(PageableRequest pageable) {
+        return concertRepository.getAllByPageable(pageable);
     }
 
     @Override

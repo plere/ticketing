@@ -2,17 +2,17 @@ package com.example.concertservice.concert.application.service;
 
 import com.example.concertservice.concert.application.port.in.ModifyBasicConcertCommand;
 import com.example.concertservice.concert.application.port.in.ModifyConcertPlaceCommand;
-import com.example.concertservice.concert.application.port.in.usecase.ConcertCreateUseCase;
-import com.example.concertservice.concert.application.port.in.usecase.ConcertModifyBasicInfoUseCase;
-import com.example.concertservice.concert.application.port.in.usecase.ConcertModifyPlaceInfoUseCase;
-import com.example.concertservice.concert.application.port.in.usecase.ConcertStateToCloseUseCase;
+import com.example.concertservice.concert.application.port.in.usecase.*;
 import com.example.concertservice.concert.application.port.out.ChangeStateConcertPort;
+import com.example.concertservice.concert.application.port.out.GetConcertPort;
 import com.example.concertservice.concert.application.port.out.SaveConcertPort;
 import com.example.concertservice.concert.application.port.out.UpdateConcertPort;
 import com.example.concertservice.concert.application.service.validation.ConcertCreateValidation;
 import com.example.concertservice.concert.application.service.validation.ConcertModifyBasicValidation;
 import com.example.concertservice.concert.application.service.validation.ConcertModifyPlaceValidation;
 import com.example.concertservice.concert.domain.Concert;
+import com.example.httpresponse.pageable.PageableRequest;
+import com.example.httpresponse.pageable.PageableResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,14 +21,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class ConcertService implements ConcertCreateUseCase, ConcertStateToCloseUseCase, ConcertModifyBasicInfoUseCase, ConcertModifyPlaceInfoUseCase {
+public class ConcertService implements ConcertCreateUseCase, ConcertStateToCloseUseCase, ConcertModifyBasicInfoUseCase, ConcertModifyPlaceInfoUseCase,
+    ConcertGetAllUseCase {
     private final ConcertCreateValidation createValidate;
     private final ConcertModifyBasicValidation modifyBasicValidation;
     private final ConcertModifyPlaceValidation modifyPlaceValidation;
-    
+
     private final SaveConcertPort saveConcertPort;
     private final ChangeStateConcertPort changeStateConcertPort;
     private final UpdateConcertPort updateConcertPort;
+    private final GetConcertPort getConcertPort;
 
     @Override
     @Transactional
@@ -58,5 +60,10 @@ public class ConcertService implements ConcertCreateUseCase, ConcertStateToClose
         Concert concert = modifyPlaceValidation.validate(command);
 
         updateConcertPort.update(concert);
+    }
+
+    @Override
+    public PageableResponse<Concert> getAllByPageable(PageableRequest page) {
+        return getConcertPort.getAllByPageable(page);
     }
 }
