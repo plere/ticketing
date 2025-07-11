@@ -1,9 +1,9 @@
-package com.example.waitingservice.reservationtoken.controller;
+package com.example.waitingservice.reservationtoken.adapter.in.web.api;
 
 import com.example.httpresponse.response.ResponseDto;
-import com.example.waitingservice.reservationtoken.controller.response.ReservationTokenResponseCode;
+import com.example.waitingservice.reservationtoken.adapter.in.web.response.ReservationTokenResponseCode;
+import com.example.waitingservice.reservationtoken.application.service.ReservationTokenService;
 import com.example.waitingservice.reservationtoken.model.ReservationToken;
-import com.example.waitingservice.reservationtoken.service.ReservationTokenService;
 import com.example.waitingservice.waitingtoken.model.WaitingToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +24,18 @@ public class ReservationTokenController {
         //사용자 확인은 나중에 구현
         return ResponseDto.from(HttpStatus.CREATED.value(), ReservationTokenResponseCode.CREATED_RESERVATION_TOKEN,
             reservationTokenService.create(WaitingToken.builder()
+                .id(id)
+                .token(token)
+                .build())
+        );
+    }
+
+    @GetMapping("/concerts/{id}/valid/{token}")
+    public ResponseDto<Boolean> isValid(@PathVariable Long id, @PathVariable String token) {
+        //Todo
+        //사용자 확인은 나중에 구현
+        return ResponseDto.from(ReservationTokenResponseCode.CHECK_RESERVATION_TOKEN_VALIDATION,
+            reservationTokenService.isValid(ReservationToken.builder()
                 .id(id)
                 .token(token)
                 .build())
