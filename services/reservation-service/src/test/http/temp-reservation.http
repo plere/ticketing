@@ -1,3 +1,26 @@
 ### is exist temp reservation
 GET http://localhost:8083/reservation/temp/concerts/4/exist/1
 
+### get temp reservation
+GET http://localhost:8083/reservation/temp/concerts/4/rounds/9/1
+
+### create temp reservation
+POST http://localhost:8083/reservation/temp/concerts
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "address": "서울시 내 집",
+  "concertId": 4,
+  "concertName": "첫번째 콘서트(수정)",
+  "roundId": 9,
+  "concertDateTime": "2025-12-02T18:00",
+  "concertPlaceName": "올림픽공원",
+  "concertPlaceAddress": "seoul",
+  "seats": [
+    {
+      "seatId": 29,
+      "seatName": "VIP석 1층 1열 1"
+    }
+  ]
+}
