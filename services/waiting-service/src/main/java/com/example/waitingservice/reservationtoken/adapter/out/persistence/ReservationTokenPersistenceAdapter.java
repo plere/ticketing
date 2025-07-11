@@ -1,7 +1,7 @@
 package com.example.waitingservice.reservationtoken.adapter.out.persistence;
 
+import com.example.waitingservice.reservationtoken.application.port.out.CreateReservationTokenPort;
 import com.example.waitingservice.reservationtoken.model.ReservationToken;
-import com.example.waitingservice.reservationtoken.port.out.CreateReservationTokenPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;

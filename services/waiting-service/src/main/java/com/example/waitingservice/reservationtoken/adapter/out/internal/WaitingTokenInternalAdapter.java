@@ -1,8 +1,8 @@
 package com.example.waitingservice.reservationtoken.adapter.out.internal;
 
-import com.example.waitingservice.reservationtoken.port.out.GetWaitingTokenPort;
+import com.example.waitingservice.reservationtoken.application.port.out.GetWaitingTokenPort;
+import com.example.waitingservice.waitingtoken.application.service.WaitingTokenService;
 import com.example.waitingservice.waitingtoken.model.WaitingToken;
-import com.example.waitingservice.waitingtoken.service.WaitingTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

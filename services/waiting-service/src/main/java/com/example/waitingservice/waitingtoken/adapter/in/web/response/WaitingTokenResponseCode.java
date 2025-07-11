@@ -1,4 +1,4 @@
-package com.example.waitingservice.waitingtoken.controller.response;
+package com.example.waitingservice.waitingtoken.adapter.in.web.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

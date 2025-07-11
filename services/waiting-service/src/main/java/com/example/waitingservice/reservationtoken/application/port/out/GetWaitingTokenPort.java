@@ -1,4 +1,4 @@
-package com.example.waitingservice.reservationtoken.port.out;
+package com.example.waitingservice.reservationtoken.application.port.out;
 
 import com.example.waitingservice.waitingtoken.model.WaitingToken;
 

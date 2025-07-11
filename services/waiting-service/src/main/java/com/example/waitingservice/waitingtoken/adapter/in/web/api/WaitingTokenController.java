@@ -1,9 +1,9 @@
-package com.example.waitingservice.waitingtoken.controller;
+package com.example.waitingservice.waitingtoken.adapter.in.web.api;
 
 import com.example.httpresponse.response.ResponseDto;
-import com.example.waitingservice.waitingtoken.controller.response.WaitingTokenResponseCode;
+import com.example.waitingservice.waitingtoken.adapter.in.web.response.WaitingTokenResponseCode;
+import com.example.waitingservice.waitingtoken.application.service.WaitingTokenService;
 import com.example.waitingservice.waitingtoken.model.WaitingToken;
-import com.example.waitingservice.waitingtoken.service.WaitingTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;

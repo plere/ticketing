@@ -1,9 +1,9 @@
-package com.example.waitingservice.reservationtoken.service;
+package com.example.waitingservice.reservationtoken.application.service;
 
 import com.example.httpresponse.exception.BadRequestException;
+import com.example.waitingservice.reservationtoken.application.port.out.CreateReservationTokenPort;
+import com.example.waitingservice.reservationtoken.application.port.out.GetWaitingTokenPort;
 import com.example.waitingservice.reservationtoken.model.ReservationToken;
-import com.example.waitingservice.reservationtoken.port.out.CreateReservationTokenPort;
-import com.example.waitingservice.reservationtoken.port.out.GetWaitingTokenPort;
 import com.example.waitingservice.waitingtoken.model.WaitingToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,5 +25,10 @@ public class ReservationTokenService {
         }
 
         return createReservationTokenPort.create(reservationTokenGenerator.generate(waitingToken));
+    }
+
+    public boolean isValid(ReservationToken reservationToken) {
+        //check reservation-token validation
+        return true;
     }
 }
