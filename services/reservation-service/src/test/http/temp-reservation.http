@@ -1,0 +1,3 @@
+### is exist temp reservation
+GET http://localhost:8083/reservation/temp/concerts/4/exist/1
+
