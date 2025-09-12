@@ -9,11 +9,13 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class ConcertWebAdapter implements GetConcertPort {
     @Override
     public Concert getOrElseThrow(long id) {
+        //Todo) call concert service
         return Concert.builder()
             .id(id)
             .name("첫번째 콘서트(수정)")
@@ -44,5 +46,11 @@ public class ConcertWebAdapter implements GetConcertPort {
                 )
             )
             .build();
+    }
+
+    @Override
+    public Boolean isEmptySeats(long concertId, Set<Long> concertSeatIds) {
+        //Todo) call concert service
+        return true;
     }
 }

@@ -28,11 +28,9 @@ public class TempReservationPersistenceAdapter implements GetTempReservationPort
     }
 
     @Override
-    public TempReservation save(TempReservation tempReservation) {
+    public boolean save(TempReservation tempReservation) {
         String key = generateKey(tempReservation);
-        redisTemplate.opsForValue().set(key, tempReservation, TEMP_RESERVATION_DURATION);
-
-        return tempReservation;
+        return redisTemplate.opsForValue().setIfAbsent(key, tempReservation, TEMP_RESERVATION_DURATION);
     }
 
     private String generateKey(TempReservation tempReservation) {

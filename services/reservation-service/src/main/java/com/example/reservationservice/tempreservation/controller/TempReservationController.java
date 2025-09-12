@@ -15,7 +15,7 @@ import static com.example.reservationservice.tempreservation.controller.TempRese
 public class TempReservationController {
     private final TempReservationService tempReservationService;
 
-    // check reservation token
+    // Todo) check reservation token
     @GetMapping("/concerts/{id}/exist/{userId}")
     public ResponseDto<Boolean> isExist(@PathVariable Long id, @PathVariable Long userId) {
         //Todo
@@ -28,7 +28,7 @@ public class TempReservationController {
         );
     }
 
-    // check reservation token
+    // Todo) check reservation token
     @GetMapping("/concerts/{id}/rounds/{round_id}/{userId}")
     public ResponseDto<TempReservation> get(@PathVariable Long id, @PathVariable Long round_id, @PathVariable Long userId) {
         //Todo
@@ -42,6 +42,7 @@ public class TempReservationController {
         );
     }
 
+    // Todo) check reservation token
     @PostMapping("/concerts")
     public ResponseDto<Void> create(@RequestBody @Valid TempReservation tempReservation) {
         //Todo

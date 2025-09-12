@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.example.reservationservice.tempreservation.controller.TempReservationErrorCode.RESERVATION_BAD_REQUEST_ERROR;
+import static com.example.reservationservice.tempreservation.controller.TempReservationErrorCode.SEATS_IS_ALREADY_RESERVED;
 
 @Component
 @RequiredArgsConstructor
@@ -32,9 +33,11 @@ public class TempReservationValidation {
         checkConcertName(tempReservation, concert);
         checkConcertDateTime(tempReservation, concert);
         checkConcertSeat(tempReservation, concert);
+        checkConcertSeatReservationState(tempReservation, concert);
 
         return tempReservation.setConcertInfo(concert);
     }
+
 
     private void checkConcertName(TempReservation tempReservation, Concert concert) {
         if (!tempReservation.concertName().equals(concert.name())) {
@@ -51,6 +54,20 @@ public class TempReservationValidation {
     private void checkConcertSeat(TempReservation tempReservation, Concert concert) {
         if (isNotMatchConcertSeat(tempReservation, concert)) {
             throw new BadRequestException(RESERVATION_BAD_REQUEST_ERROR, RESERVATION_BAD_REQUEST_ERROR.getErrorMessage());
+        }
+    }
+
+    private void checkConcertSeatReservationState(TempReservation tempReservation, Concert concert) {
+
+        Boolean isReservationStateSeats = getConcertPort.isEmptySeats(concert.id(),
+            tempReservation.seats()
+                .stream()
+                .map(TempReservation.TempReservationSeat::seatId)
+                .collect(Collectors.toSet())
+        );
+        
+        if (!isReservationStateSeats) {
+            throw new BadRequestException(SEATS_IS_ALREADY_RESERVED, SEATS_IS_ALREADY_RESERVED.getErrorMessage());
         }
     }
 
