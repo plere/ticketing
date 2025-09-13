@@ -15,3 +15,17 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+external:
+  client:
+    auth:
+      uri: http://localhost:8084
+      client_id: user-service
+      client_secret: secret
+      grant_type: authorization_code
+      redirect_uri: http://127.0.0.1:8081/users/login
+
+logging:
+  level:
+    com.example.userservice.external.auth.AuthClient: DEBUG
+    feign: DEBUG

@@ -15,6 +15,11 @@ dependencies {
     //security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
+    // http request
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+    implementation platform("org.springframework.cloud:spring-cloud-dependencies:2023.0.3")
+    implementation 'io.github.openfeign.form:feign-form-spring:3.8.0'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
