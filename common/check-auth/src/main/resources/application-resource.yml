@@ -3,4 +3,4 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          public-key-location: classpath:public.pem
+          jwk-set-uri: http://localhost:8084/oauth2/jwks
