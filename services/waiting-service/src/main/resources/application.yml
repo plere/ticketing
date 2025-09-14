@@ -2,6 +2,9 @@ server:
   port: 8082
 
 spring:
+  profiles:
+    include:
+      - resource
   data:
     redis:
       host: 127.0.0.1

@@ -28,6 +28,7 @@ public class ReservationTokenService {
     }
 
     public boolean isValid(ReservationToken reservationToken) {
+        //Todo
         //check reservation-token validation
         return true;
     }

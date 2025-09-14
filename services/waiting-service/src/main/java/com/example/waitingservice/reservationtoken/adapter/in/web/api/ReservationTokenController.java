@@ -20,8 +20,6 @@ public class ReservationTokenController {
 
     @GetMapping("/concerts/{id}/{token}")
     public ResponseDto<ReservationToken> get(@PathVariable Long id, @PathVariable String token) {
-        //Todo
-        //사용자 확인은 나중에 구현
         return ResponseDto.from(HttpStatus.CREATED.value(), ReservationTokenResponseCode.CREATED_RESERVATION_TOKEN,
             reservationTokenService.create(WaitingToken.builder()
                 .id(id)
@@ -32,8 +30,6 @@ public class ReservationTokenController {
 
     @GetMapping("/concerts/{id}/valid/{token}")
     public ResponseDto<Boolean> isValid(@PathVariable Long id, @PathVariable String token) {
-        //Todo
-        //사용자 확인은 나중에 구현
         return ResponseDto.from(ReservationTokenResponseCode.CHECK_RESERVATION_TOKEN_VALIDATION,
             reservationTokenService.isValid(ReservationToken.builder()
                 .id(id)

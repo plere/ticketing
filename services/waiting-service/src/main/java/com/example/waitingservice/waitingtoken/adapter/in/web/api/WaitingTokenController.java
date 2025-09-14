@@ -6,6 +6,7 @@ import com.example.waitingservice.waitingtoken.application.service.WaitingTokenS
 import com.example.waitingservice.waitingtoken.model.WaitingToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,16 +20,12 @@ public class WaitingTokenController {
 
 
     @GetMapping("/concerts/{id}")
-    public ResponseDto<WaitingToken> get(@PathVariable Long id) {
-        //Todo
-        //사용자 확인은 나중에 구현
+    public ResponseDto<WaitingToken> get(@PathVariable Long id, JwtAuthenticationToken token) {
         return ResponseDto.from(HttpStatus.CREATED.value(), WaitingTokenResponseCode.CREATED_WAITING_TOKEN, waitingTokenService.create(id));
     }
 
     @GetMapping("/concerts/{id}/position/{token}")
     public ResponseDto<Integer> get(@PathVariable Long id, @PathVariable String token) {
-        //Todo
-        //사용자 확인은 나중에 구현
         WaitingToken waitingToken = WaitingToken.builder()
             .id(id)
             .token(token)
