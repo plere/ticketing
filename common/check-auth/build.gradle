@@ -1,10 +1,14 @@
+plugins {
+    id 'java-library'
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
 
     //security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-    implementation 'org.springframework.security:spring-security-oauth2-jose'
+    api 'org.springframework.boot:spring-boot-starter-security'
+    api 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    api 'org.springframework.security:spring-security-oauth2-jose'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
