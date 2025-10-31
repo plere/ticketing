@@ -1,5 +1,7 @@
 package com.example.authservice.config;
 
+import com.example.authservice.service.CustomJdbcUserDetailsManager;
+import com.example.authservice.service.CustomUserDetails;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -15,6 +17,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.encrypt.KeyStoreKeyFactory;
@@ -23,13 +26,15 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
@@ -135,19 +140,37 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(DataSource dataSource) {
-        final String usersQuery = "select email, password, true from user where email = ?";
-        final String authsQuery = "select email, null from user where email = ?";
+        CustomJdbcUserDetailsManager manager = new CustomJdbcUserDetailsManager(dataSource);
 
-        var userDetailsManager = new JdbcUserDetailsManager(dataSource);
+        manager.setUsersByUsernameQuery(
+            "select id, email, password, true from user where email = ?"
+        );
 
-        userDetailsManager.setUsersByUsernameQuery(usersQuery);
-        userDetailsManager.setAuthoritiesByUsernameQuery(authsQuery);
+        manager.setAuthoritiesByUsernameQuery(
+            "select email, null from user where email = ?"
+        );
 
-        return userDetailsManager;
+        return manager;
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer(UserDetailsService userDetailsService) {
+        return context -> {
+            // Access Token 일 때만 커스터마이징
+            if (OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType())) {
+                String username = context.getPrincipal().getName();
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                CustomUserDetails user = (CustomUserDetails) userDetails;
+
+                // JWT Claims 추가
+                context.getClaims().claim("id", user.getId());
+                context.getClaims().claim("email", user.getEmail());
+            }
+        };
     }
 }
