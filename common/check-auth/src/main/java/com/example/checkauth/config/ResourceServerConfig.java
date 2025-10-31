@@ -40,11 +40,12 @@ public class ResourceServerConfig {
     public Converter<Jwt, ? extends AbstractAuthenticationToken> customJwtAuthenticationConverter() {
         return jwt -> {
             // 토큰에서 필요한 claim 추출
+            Long id = Long.valueOf(jwt.getClaimAsString("id"));
             String userId = jwt.getClaimAsString("sub");
             List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
 
             // 🔑 JwtAuthenticationToken 대신 CustomAuthenticationToken 반환
-            return new UserToken(userId, authorities);
+            return new UserToken(id, userId, authorities);
         };
     }
 }

@@ -8,12 +8,12 @@ import java.util.Collection;
 
 @Getter
 public class UserToken extends AbstractAuthenticationToken {
-    private final String id;
+    private final Long id;
     private final String email;
 
-    public UserToken(String email, Collection<? extends GrantedAuthority> authorities) {
+    public UserToken(Long id, String email, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
-        this.id = "email.toLowerCase();";
+        this.id = id;
         this.email = email;
         setAuthenticated(true);
     }
