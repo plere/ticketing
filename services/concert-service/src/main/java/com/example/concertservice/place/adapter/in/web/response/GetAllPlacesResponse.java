@@ -12,7 +12,9 @@ public record GetAllPlacesResponse(
     @Builder
     public record PlaceResponse(
         long id,
-        String name
+        String name,
+        String address,
+        int totalSeatsCount
     ) {
     }
 
@@ -22,6 +24,8 @@ public record GetAllPlacesResponse(
                 place -> PlaceResponse.builder()
                     .id(place.getId())
                     .name(place.getName())
+                    .address(place.getAddress())
+                    .totalSeatsCount(place.getTotalSeatsCount())
                     .build()
             ).toList())
             .build();
