@@ -20,10 +20,11 @@ public class ConcertSeatEntityMapper {
             .columnNum(entity.getColumnNum())
             .state(entity.getState())
             .grade(ConcertSeatGradeEntityMapper.mapToModel(entity.getGrade()))
+            .roundId(entity.getRound().getId())
             .build();
     }
 
-    public ConcertSeatEntity mapToEntity(ConcertSeat domain, List<ConcertSeatGradeEntity> seatGradeEntities) {
+    public ConcertSeatEntity mapToEntity(ConcertSeat domain, List<ConcertSeatGradeEntity> seatGradeEntities, ConcertRoundEntity roundEntity) {
         return ConcertSeatEntity.builder()
             .id(domain.id())
             .floor(domain.floor())

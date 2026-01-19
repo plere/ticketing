@@ -57,4 +57,9 @@ public class ConcertSeatEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @Comment("좌석 등급")
     private ConcertSeatGradeEntity grade;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Comment("콘서트 회차 정보")
+    private ConcertRoundEntity round;
+
 }

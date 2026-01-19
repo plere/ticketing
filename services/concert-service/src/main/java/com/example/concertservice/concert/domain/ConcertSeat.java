@@ -13,7 +13,8 @@ public record ConcertSeat(
     String rowName,
     int columnNum,
     ConcertSeatState state,
-    ConcertSeatGrade grade
+    ConcertSeatGrade grade,
+    Long roundId
 ) {
     public String getGradeName() {
         return grade.name();
