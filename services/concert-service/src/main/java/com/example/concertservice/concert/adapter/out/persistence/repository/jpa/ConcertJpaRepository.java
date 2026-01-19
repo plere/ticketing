@@ -54,9 +54,10 @@ public class ConcertJpaRepository implements ConcertRepository {
     }
 
     @Override
-    public PageableResponse<Concert> getAllByPageable(PageableRequest pageable) {
+    public PageableResponse<Concert> getAllByPageable(PageableRequest pageable, String name) {
         return JpaPageableMapper.toCommonPageableResponse(
-            concertRepository.findByState(JpaPageableMapper.toJpaPageable(pageable), ConcertState.OPEN).map(ConcertEntityMapper::mapToModel)
+            concertRepository.findByStateAndNameContains(JpaPageableMapper.toJpaPageable(pageable), ConcertState.OPEN, name)
+                .map(ConcertEntityMapper::mapToModel)
         );
     }
 }

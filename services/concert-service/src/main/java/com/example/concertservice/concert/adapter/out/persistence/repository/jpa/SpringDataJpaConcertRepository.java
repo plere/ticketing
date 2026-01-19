@@ -14,5 +14,5 @@ import java.util.List;
 public interface SpringDataJpaConcertRepository extends JpaRepository<ConcertEntity, Long> {
     List<ConcertEntity> findAllByOpenTimeIsBeforeAndState(LocalDateTime openTime, ConcertState state);
 
-    Page<ConcertEntity> findByState(Pageable pageable, ConcertState state);
+    Page<ConcertEntity> findByStateAndNameContains(Pageable pageable, ConcertState state, String name);
 }
