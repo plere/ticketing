@@ -63,7 +63,7 @@ public class ConcertService implements ConcertCreateUseCase, ConcertStateToClose
     }
 
     @Override
-    public PageableResponse<Concert> getAllByPageable(PageableRequest page) {
-        return getConcertPort.getAllByPageable(page);
+    public PageableResponse<Concert> getAllByPageable(PageableRequest page, String name) {
+        return getConcertPort.getAllByPageable(page, name);
     }
 }

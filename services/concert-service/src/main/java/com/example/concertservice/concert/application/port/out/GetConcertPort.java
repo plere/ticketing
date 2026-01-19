@@ -11,5 +11,5 @@ public interface GetConcertPort {
 
     List<Concert> getAllTodoChangeStateToOpen();
 
-    PageableResponse<Concert> getAllByPageable(PageableRequest page);
+    PageableResponse<Concert> getAllByPageable(PageableRequest page, String name);
 }

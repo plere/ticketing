@@ -49,8 +49,8 @@ public class ConcertPersistenceAdapter implements SaveConcertPort, ChangeStateCo
     }
 
     @Override
-    public PageableResponse<Concert> getAllByPageable(PageableRequest pageable) {
-        return concertRepository.getAllByPageable(pageable);
+    public PageableResponse<Concert> getAllByPageable(PageableRequest pageable, String name) {
+        return concertRepository.getAllByPageable(pageable, name);
     }
 
     @Override

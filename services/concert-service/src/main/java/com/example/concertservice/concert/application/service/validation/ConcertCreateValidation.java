@@ -2,6 +2,8 @@ package com.example.concertservice.concert.application.service.validation;
 
 import com.example.concertservice.concert.domain.*;
 import com.example.concertservice.place.application.port.out.GetAllPlaceSeatsPort;
+import com.example.concertservice.place.application.service.PlaceService;
+import com.example.concertservice.place.domain.Place;
 import com.example.concertservice.place.domain.PlaceSeat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,6 +18,7 @@ import static java.util.stream.Collectors.groupingBy;
 public class ConcertCreateValidation {
     private final ConcertValidation concertValidation;
     private final GetAllPlaceSeatsPort getAllPlaceSeatsPort;
+    private final PlaceService placeService;
 
     public Concert toValidateConcert(Concert concert) {
         validate(concert);
@@ -30,6 +33,8 @@ public class ConcertCreateValidation {
     }
 
     private Concert toModel(Concert concert) {
+        Place place = placeService.getPlaceById(concert.placeId());
+
         return Concert.builder()
             .name(concert.name())
             .detailInfo(concert.detailInfo())
@@ -38,6 +43,7 @@ public class ConcertCreateValidation {
             .ticketingStartTime(concert.ticketingStartTime())
             .openTime(concert.openTime())
             .placeId(concert.placeId())
+            .placeName(place.getName())
             .seats(toConcertSeatModels(concert))
             .rounds(List.copyOf(concert.rounds()))
             .seatGrades(List.copyOf(concert.seatGrades()))

@@ -5,5 +5,5 @@ import com.example.httpresponse.pageable.PageableRequest;
 import com.example.httpresponse.pageable.PageableResponse;
 
 public interface ConcertGetAllUseCase {
-    PageableResponse<Concert> getAllByPageable(PageableRequest page);
+    PageableResponse<Concert> getAllByPageable(PageableRequest page, String name);
 }
