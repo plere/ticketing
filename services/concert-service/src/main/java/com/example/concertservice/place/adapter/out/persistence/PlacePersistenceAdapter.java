@@ -23,4 +23,14 @@ public class PlacePersistenceAdapter implements SavePlacePort, GetPlacePort {
     public List<Place> getAll() {
         return placeRepository.getAll();
     }
+
+    @Override
+    public List<Place> getAllByName(String name) {
+        return placeRepository.getAllByName(name);
+    }
+
+    @Override
+    public Place getById(long id) {
+        return placeRepository.getById(id).orElseThrow();
+    }
 }
