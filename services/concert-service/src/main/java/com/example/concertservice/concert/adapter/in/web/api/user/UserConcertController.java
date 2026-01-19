@@ -1,4 +1,4 @@
-package com.example.concertservice.concert.adapter.in.web.api;
+package com.example.concertservice.concert.adapter.in.web.api.user;
 
 import com.example.concertservice.concert.adapter.in.web.request.GetAllConcertRequest;
 import com.example.concertservice.concert.adapter.in.web.response.ConcertGetAllByPageableResponse;
@@ -12,8 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.concertservice.concert.adapter.in.web.response.UserConcertResponseCode.GET_ALL_CONCERT_BY_PAGEABLE;
-import static com.example.concertservice.concert.adapter.in.web.response.UserConcertResponseCode.GET_CONCERT_BY_ID;
+import static com.example.concertservice.concert.adapter.in.web.response.user.UserConcertResponseCode.GET_ALL_CONCERT_BY_PAGEABLE;
+import static com.example.concertservice.concert.adapter.in.web.response.user.UserConcertResponseCode.GET_CONCERT_BY_ID;
 
 @RestController
 @RequiredArgsConstructor

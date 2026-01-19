@@ -1,5 +1,8 @@
-package com.example.concertservice.concert.adapter.out.persistence.entity;
+package com.example.concertservice.concert.adapter.out.persistence.entity.mapper;
 
+import com.example.concertservice.concert.adapter.out.persistence.entity.ConcertRoundEntity;
+import com.example.concertservice.concert.adapter.out.persistence.entity.ConcertSeatEntity;
+import com.example.concertservice.concert.adapter.out.persistence.entity.ConcertSeatGradeEntity;
 import com.example.concertservice.concert.domain.ConcertSeat;
 import com.example.httpresponse.exception.ServerException;
 import lombok.experimental.UtilityClass;
@@ -34,6 +37,7 @@ public class ConcertSeatEntityMapper {
                     .findAny()
                     .orElseThrow(ServerException::new)
             )
+            .round(roundEntity)
             .build();
     }
 }

@@ -2,7 +2,7 @@ package com.example.concertservice.concert.adapter.out.persistence.repository.jp
 
 import com.example.concertservice.common.JpaPageableMapper;
 import com.example.concertservice.concert.adapter.out.persistence.entity.ConcertEntity;
-import com.example.concertservice.concert.adapter.out.persistence.entity.ConcertEntityMapper;
+import com.example.concertservice.concert.adapter.out.persistence.entity.mapper.ConcertEntityMapper;
 import com.example.concertservice.concert.adapter.out.persistence.repository.ConcertRepository;
 import com.example.concertservice.concert.domain.Concert;
 import com.example.concertservice.concert.domain.ConcertState;

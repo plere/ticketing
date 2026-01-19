@@ -1,5 +1,6 @@
-package com.example.concertservice.concert.adapter.out.persistence.entity;
+package com.example.concertservice.concert.adapter.out.persistence.entity.mapper;
 
+import com.example.concertservice.concert.adapter.out.persistence.entity.ConcertSeatGradeEntity;
 import com.example.concertservice.concert.domain.ConcertSeatGrade;
 import lombok.experimental.UtilityClass;
 

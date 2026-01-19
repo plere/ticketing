@@ -1,5 +1,8 @@
-package com.example.concertservice.concert.adapter.out.persistence.entity;
+package com.example.concertservice.concert.adapter.out.persistence.entity.mapper;
 
+import com.example.concertservice.concert.adapter.out.persistence.entity.ConcertEntity;
+import com.example.concertservice.concert.adapter.out.persistence.entity.ConcertRoundEntity;
+import com.example.concertservice.concert.adapter.out.persistence.entity.ConcertSeatGradeEntity;
 import com.example.concertservice.concert.domain.Concert;
 import lombok.experimental.UtilityClass;
 
@@ -28,6 +31,7 @@ public class ConcertEntityMapper {
 
     public ConcertEntity mapToEntity(Concert domain) {
         List<ConcertSeatGradeEntity> seatGradeEntities = domain.seatGrades().stream().map(ConcertSeatGradeEntityMapper::mapToEntity).toList();
+        List<ConcertRoundEntity> roundEntities = domain.rounds().stream().map(ConcertRoundEntityMapper::mapToEntity).toList();
         return ConcertEntity.builder()
             .id(domain.id())
             .name(domain.name())
@@ -38,11 +42,16 @@ public class ConcertEntityMapper {
             .openTime(domain.openTime())
             .placeId(domain.placeId())
             .placeName(domain.placeName())
-            .rounds(domain.rounds().stream().map(ConcertRoundEntityMapper::mapToEntity).toList())
+            .rounds(roundEntities)
             .seatGrades(seatGradeEntities)
-            .seats(domain.seats().stream()
-                .map(seat -> ConcertSeatEntityMapper.mapToEntity(seat, seatGradeEntities))
-                .toList())
+            .seats(roundEntities.stream().map(roundEntity -> {
+                        return domain.seats().stream()
+                            .map(seat -> ConcertSeatEntityMapper.mapToEntity(seat, seatGradeEntities, roundEntity))
+                            .toList();
+                    })
+                    .flatMap(List::stream)
+                    .toList()
+            )
             .build();
     }
 }
