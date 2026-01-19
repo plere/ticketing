@@ -14,6 +14,7 @@ import com.example.httpresponse.response.ModifyResponseDto;
 import com.example.httpresponse.response.ResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,26 +27,26 @@ public class AdminConcertController {
     private final ConcertModifyPlaceInfoUseCase concertModifyPlaceInfoUseCase;
 
     @PostMapping
-    public ResponseDto<CreatedResponseDto> create(@RequestBody @Valid CreateRequest request) {
+    public ResponseEntity<ResponseDto<CreatedResponseDto>> create(@RequestBody @Valid CreateRequest request) {
         return CreatedResponseDto.from(concertCreateUseCase.create(request.toModel()), AdminConcertResponseCode.CREATE_CONCERT);
     }
 
     @PatchMapping("/{id}/basic")
-    public ResponseDto<ModifyResponseDto> modifyBasic(@PathVariable Long id, @RequestBody @Valid ModifyConcertBasicRequest request) {
+    public ResponseEntity<ResponseDto<ModifyResponseDto>> modifyBasic(@PathVariable Long id, @RequestBody @Valid ModifyConcertBasicRequest request) {
         concertModifyBasicInfoUseCase.modifyBasicInfo(request.toModifyCommand(id));
 
         return ModifyResponseDto.from(id, "concert");
     }
 
     @PatchMapping("/{id}/place")
-    public ResponseDto<ModifyResponseDto> modifyPlace(@PathVariable Long id, @RequestBody @Valid ModifyConcertPlaceRequest request) {
+    public ResponseEntity<ResponseDto<ModifyResponseDto>> modifyPlace(@PathVariable Long id, @RequestBody @Valid ModifyConcertPlaceRequest request) {
         concertModifyPlaceInfoUseCase.modifyPlaceInfo(request.toModifyCommand(id));
 
         return ModifyResponseDto.from(id, "concert");
     }
 
     @PatchMapping("/{id}/state/close")
-    public ResponseDto<ModifyResponseDto> updateStateToClose(@PathVariable Long id) {
+    public ResponseEntity<ResponseDto<ModifyResponseDto>> updateStateToClose(@PathVariable Long id) {
         concertStateToCloseUseCase.changeStateToClose(id);
 
         return ModifyResponseDto.from(id, "concert");
