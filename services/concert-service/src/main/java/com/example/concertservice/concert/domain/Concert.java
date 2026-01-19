@@ -18,6 +18,7 @@ public record Concert(
     LocalDateTime ticketingStartTime,
     LocalDateTime openTime,
     Long placeId,
+    String placeName,
     List<ConcertSeat> seats,
     List<ConcertRound> rounds,
     List<ConcertSeatGrade> seatGrades

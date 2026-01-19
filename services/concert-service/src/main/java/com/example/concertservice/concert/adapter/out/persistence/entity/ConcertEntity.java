@@ -60,6 +60,9 @@ public class ConcertEntity {
     @Comment("장소 pk id")
     private Long placeId;
 
+    @Comment("장소명")
+    private String placeName;
+
     @OneToMany(mappedBy = "concert", fetch = LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Comment("회차정보")
     private final List<ConcertRoundEntity> rounds = new ArrayList<>();
@@ -74,7 +77,7 @@ public class ConcertEntity {
 
     @Builder
     public ConcertEntity(Long id, String name, String detailInfo, int runningTime, ConcertState state,
-                         LocalDateTime ticketingStartTime, LocalDateTime openTime, Long placeId,
+                         LocalDateTime ticketingStartTime, LocalDateTime openTime, Long placeId, String placeName,
                          List<ConcertRoundEntity> rounds, List<ConcertSeatGradeEntity> seatGrades,
                          List<ConcertSeatEntity> seats) {
         this.id = id;
@@ -85,6 +88,7 @@ public class ConcertEntity {
         this.ticketingStartTime = ticketingStartTime;
         this.openTime = openTime;
         this.placeId = placeId;
+        this.placeName = placeName;
         this.rounds.addAll(rounds);
         this.seatGrades.addAll(seatGrades);
         this.seats.addAll(seats);
