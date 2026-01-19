@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ConcertService implements ConcertCreateUseCase, ConcertStateToCloseUseCase, ConcertModifyBasicInfoUseCase, ConcertModifyPlaceInfoUseCase,
-    ConcertGetAllUseCase {
+    ConcertGetUseCase {
     private final ConcertCreateValidation createValidate;
     private final ConcertModifyBasicValidation modifyBasicValidation;
     private final ConcertModifyPlaceValidation modifyPlaceValidation;
@@ -65,5 +65,10 @@ public class ConcertService implements ConcertCreateUseCase, ConcertStateToClose
     @Override
     public PageableResponse<Concert> getAllByPageable(PageableRequest page, String name) {
         return getConcertPort.getAllByPageable(page, name);
+    }
+
+    @Override
+    public Concert getById(long id) {
+        return getConcertPort.getConcertOrElseThrow(id);
     }
 }

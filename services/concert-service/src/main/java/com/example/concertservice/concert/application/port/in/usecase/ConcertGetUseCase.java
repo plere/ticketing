@@ -4,6 +4,8 @@ import com.example.concertservice.concert.domain.Concert;
 import com.example.httpresponse.pageable.PageableRequest;
 import com.example.httpresponse.pageable.PageableResponse;
 
-public interface ConcertGetAllUseCase {
+public interface ConcertGetUseCase {
     PageableResponse<Concert> getAllByPageable(PageableRequest page, String name);
+
+    Concert getById(long id);
 }
