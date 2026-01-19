@@ -2,6 +2,7 @@ package com.example.httpresponse.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.ResponseEntity;
 
 @Getter
 @AllArgsConstructor
@@ -11,7 +12,7 @@ public class ModifyResponseDto {
     private static final String format = "%s:(%d) 수정완료";
     private final String message;
 
-    public static ResponseDto<ModifyResponseDto> from(long id, String model) {
+    public static ResponseEntity<ResponseDto<ModifyResponseDto>> from(long id, String model) {
         return ResponseDto.from(ModifyResponseDto.status, ModifyResponseDto.code,
             new ModifyResponseDto(ModifyResponseDto.format.formatted(model, id))
         );

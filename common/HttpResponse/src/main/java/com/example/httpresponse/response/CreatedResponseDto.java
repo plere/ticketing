@@ -2,6 +2,7 @@ package com.example.httpresponse.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Getter
@@ -14,7 +15,7 @@ public class CreatedResponseDto {
         return new CreatedResponseDto(url);
     }
 
-    public static <T extends Enum<T>> ResponseDto<CreatedResponseDto> from(long id, T code) {
+    public static <T extends Enum<T>> ResponseEntity<ResponseDto<CreatedResponseDto>> from(long id, T code) {
         return ResponseDto.from(CreatedResponseDto.status, code,
             CreatedResponseDto.from(
                 ServletUriComponentsBuilder.fromCurrentRequest()
