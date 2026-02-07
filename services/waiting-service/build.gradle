@@ -1,13 +1,13 @@
+plugins {
+    id 'org.springframework.boot'
+}
+
 dependencies {
     implementation project(':common:HttpResponse')
     implementation project(':common:check-auth')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    //security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-
+    
     //db
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
