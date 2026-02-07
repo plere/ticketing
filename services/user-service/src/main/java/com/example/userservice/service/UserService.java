@@ -1,6 +1,7 @@
 package com.example.userservice.service;
 
 import com.example.userservice.controller.dto.SignUpRequest;
+import com.example.userservice.controller.dto.UserMeResponseDto;
 import com.example.userservice.external.auth.AuthClient;
 import com.example.userservice.external.auth.config.ClientProperty;
 import com.example.userservice.external.auth.dto.LoginResponseDto;
@@ -39,6 +40,11 @@ public class UserService {
                 "code", code,
                 "redirect_uri", clientProperty.getRedirect_uri()
             ));
+    }
+
+    public UserMeResponseDto getMe(long id) {
+        return UserMeResponseDto.from(userRepository.findById(id)
+            .orElseThrow());
     }
 
     private String getBasicAuth() {

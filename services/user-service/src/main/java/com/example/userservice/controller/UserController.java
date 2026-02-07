@@ -1,8 +1,10 @@
 package com.example.userservice.controller;
 
+import com.example.checkauth.UserToken;
 import com.example.httpresponse.response.CreatedResponseDto;
 import com.example.httpresponse.response.ResponseDto;
 import com.example.userservice.controller.dto.SignUpRequest;
+import com.example.userservice.controller.dto.UserMeResponseDto;
 import com.example.userservice.external.auth.dto.LoginResponseDto;
 import com.example.userservice.service.UserService;
 import jakarta.validation.Valid;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.example.userservice.controller.dto.UserResponseCode.GET_ME;
 import static com.example.userservice.controller.dto.UserResponseCode.SIGNUP_SUCCESS;
 
 @RestController
@@ -51,6 +54,11 @@ public class UserController {
                 .domain("mock-ticketing.com")
                 .build().toString())
             .build();
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<ResponseDto<UserMeResponseDto>> me(UserToken userToken) {
+        return ResponseDto.from(GET_ME, userService.getMe(userToken.getId()));
     }
 
     @PostMapping
