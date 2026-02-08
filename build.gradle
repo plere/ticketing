@@ -38,6 +38,11 @@ subprojects {
     tasks.named('test') {
         useJUnitPlatform()
     }
+
+    // 생성자/메서드 파라미터 이름 보존 (Spring 바인딩·Jackson 등에서 사용)
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs.add("-parameters")
+    }
 }
 
 // 공통 버전 (모든 서브프로젝트에서 BOM 버전 해결용)
