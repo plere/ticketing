@@ -6,5 +6,7 @@ import java.util.List;
 
 
 public interface ConcertRoundGetUseCase {
+    List<ConcertSeat> getAllConcertSeatByRoundId(long roundId);
+
     List<ConcertSeat> getAllEmptyConcertSeatByRoundId(long roundId);
 }

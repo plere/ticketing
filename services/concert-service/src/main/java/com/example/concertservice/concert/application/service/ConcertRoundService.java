@@ -16,6 +16,11 @@ public class ConcertRoundService implements ConcertRoundGetUseCase {
     private final GetConcertSeatPort getConcertSeatPort;
 
     @Override
+    public List<ConcertSeat> getAllConcertSeatByRoundId(long roundId) {
+        return getConcertSeatPort.getAllConcertSeatByRoundId(roundId);
+    }
+
+    @Override
     public List<ConcertSeat> getAllEmptyConcertSeatByRoundId(long roundId) {
         return getConcertSeatPort.getAllEmptyConcertSeatByRoundId(roundId);
     }

@@ -15,6 +15,11 @@ public class ConcertSeatPersistenceAdapter implements GetConcertSeatPort {
     private final ConcertSeatRepository concertSeatRepository;
 
     @Override
+    public List<ConcertSeat> getAllConcertSeatByRoundId(long roundId) {
+        return concertSeatRepository.getAllByRoundId(roundId);
+    }
+
+    @Override
     public List<ConcertSeat> getAllEmptyConcertSeatByRoundId(long roundId) {
         return concertSeatRepository.getAllByRoundIdAndState(roundId, ConcertSeatState.EMPTY);
     }

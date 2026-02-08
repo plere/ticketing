@@ -15,6 +15,12 @@ public class ConcertSeatJpaRepository implements ConcertSeatRepository {
     private final SpringDataJpaConcertSeatRepository concertSeatRepository;
 
     @Override
+    public List<ConcertSeat> getAllByRoundId(long roundId) {
+        return concertSeatRepository.findByRoundId(roundId)
+            .stream().map(ConcertSeatEntityMapper::mapToModel).toList();
+    }
+
+    @Override
     public List<ConcertSeat> getAllByRoundIdAndState(long roundId, ConcertSeatState state) {
         return concertSeatRepository.findByRoundIdAndStateIs(roundId, state)
             .stream().map(ConcertSeatEntityMapper::mapToModel).toList();

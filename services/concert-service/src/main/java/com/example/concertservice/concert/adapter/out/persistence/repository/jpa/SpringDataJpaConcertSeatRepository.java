@@ -7,5 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SpringDataJpaConcertSeatRepository extends JpaRepository<ConcertSeatEntity, Long> {
+    List<ConcertSeatEntity> findByRoundId(long roundId);
+
     List<ConcertSeatEntity> findByRoundIdAndStateIs(long roundId, ConcertSeatState state);
 }
