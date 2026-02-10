@@ -1,4 +1,4 @@
-package com.example.reservationservice.tempreservation.controller;
+package com.example.reservationservice.tempreservation.adapter.in;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
