@@ -8,11 +8,24 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
 public class ConcertSeatJpaRepository implements ConcertSeatRepository {
     private final SpringDataJpaConcertSeatRepository concertSeatRepository;
+
+    @Override
+    public List<ConcertSeat> getAll(Set<Long> seatIds) {
+        return concertSeatRepository.findAllById(seatIds)
+            .stream().map(ConcertSeatEntityMapper::mapToModel).toList();
+    }
+
+    @Override
+    public List<ConcertSeat> getAllWithLock(Set<Long> seatIds) {
+        return concertSeatRepository.findAllWithLock(seatIds)
+            .stream().map(ConcertSeatEntityMapper::mapToModel).toList();
+    }
 
     @Override
     public List<ConcertSeat> getAllByRoundId(long roundId) {
@@ -24,5 +37,10 @@ public class ConcertSeatJpaRepository implements ConcertSeatRepository {
     public List<ConcertSeat> getAllByRoundIdAndState(long roundId, ConcertSeatState state) {
         return concertSeatRepository.findByRoundIdAndStateIs(roundId, state)
             .stream().map(ConcertSeatEntityMapper::mapToModel).toList();
+    }
+
+    @Override
+    public void changeState(Set<Long> seatIds, ConcertSeatState state) {
+        concertSeatRepository.updateState(seatIds, state);
     }
 }
