@@ -5,9 +5,9 @@ import com.example.concertservice.concert.application.port.out.seat.HoldConcertS
 import com.example.concertservice.concert.application.service.exception.seat.ConcertSeatLockingFailureException;
 import com.example.concertservice.concert.application.service.validation.seat.ConcertSeatValidation;
 import com.example.concertservice.concert.domain.ConcertSeat;
-import jakarta.persistence.QueryTimeoutException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.PessimisticLockingFailureException;
+import org.springframework.dao.QueryTimeoutException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
