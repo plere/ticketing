@@ -9,4 +9,6 @@ public interface HoldConcertSeatPort {
     List<ConcertSeat> findAll(Set<Long> seatIds);
 
     void holdSeats(Set<Long> seatIds);
+
+    void releaseHoldSeats(Set<Long> seatIds);
 }

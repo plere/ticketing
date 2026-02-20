@@ -6,11 +6,13 @@ import com.example.concertservice.concert.domain.ConcertSeat;
 import com.example.concertservice.concert.domain.ConcertSeatGrade;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.IntStream;
 
+@Builder
 public record CreateRequest(
     @NotBlank
     String name,
@@ -42,6 +44,7 @@ public record CreateRequest(
     @Positive
     Long placeId
 ) {
+    @Builder
     public record CreateRoundRequest(
         @NotNull
         @Future
@@ -55,6 +58,7 @@ public record CreateRequest(
         }
     }
 
+    @Builder
     public record CreateSeatRequest(
         @NotNull
         @Positive
@@ -76,6 +80,7 @@ public record CreateRequest(
         }
     }
 
+    @Builder
     public record CreateSeatGradeRequest(
         @NotBlank
         String name,

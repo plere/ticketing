@@ -4,4 +4,6 @@ import java.util.Set;
 
 public interface HoldConcertSeatUseCase {
     void holdSeats(Set<Long> seatIds);
+
+    void releaseSeats(Set<Long> seatIds);
 }

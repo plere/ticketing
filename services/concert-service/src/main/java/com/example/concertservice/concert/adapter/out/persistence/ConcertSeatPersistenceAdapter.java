@@ -40,4 +40,9 @@ public class ConcertSeatPersistenceAdapter implements GetConcertSeatPort, HoldCo
     public void holdSeats(Set<Long> seatIds) {
         concertSeatRepository.changeState(seatIds, ConcertSeatState.SELECT);
     }
+
+    @Override
+    public void releaseHoldSeats(Set<Long> seatIds) {
+        concertSeatRepository.changeState(seatIds, ConcertSeatState.EMPTY);
+    }
 }

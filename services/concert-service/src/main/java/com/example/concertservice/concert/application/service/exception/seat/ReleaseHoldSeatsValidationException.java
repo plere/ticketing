@@ -1,4 +1,4 @@
 package com.example.concertservice.concert.application.service.exception.seat;
 
-public class HoldConcertSeatValidationException extends RuntimeException {
+public class ReleaseHoldSeatsValidationException extends RuntimeException {
 }
