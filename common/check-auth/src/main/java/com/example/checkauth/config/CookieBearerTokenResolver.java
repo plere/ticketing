@@ -10,7 +10,9 @@ public class CookieBearerTokenResolver implements BearerTokenResolver {
 
     @Override
     public String resolve(HttpServletRequest request) {
-        return getCookieValue(request.getHeader(HttpHeaders.COOKIE), "accessToken");
+        String cookies = request.getHeader(HttpHeaders.COOKIE);
+
+        return cookies != null ? getCookieValue(cookies, "accessToken") : null;
     }
 
     private String getCookieValue(String cookies, String name) {
