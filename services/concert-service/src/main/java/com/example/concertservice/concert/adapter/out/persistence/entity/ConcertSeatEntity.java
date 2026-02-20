@@ -31,11 +31,7 @@ public class ConcertSeatEntity {
     @Column(nullable = false)
     @Comment("열번호")
     private int columnNum;
-
-    @Column(nullable = false)
-    @Comment("행 이름")
-    private String rowName;
-
+    
     @Column(nullable = false)
     @Comment("행 순서")
     private Integer rowOrder;

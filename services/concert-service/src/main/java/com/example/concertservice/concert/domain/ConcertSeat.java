@@ -10,7 +10,6 @@ public record ConcertSeat(
     LocalDateTime createdAt,
     int floor,
     Integer rowOrder,
-    String rowName,
     int columnNum,
     ConcertSeatState state,
     ConcertSeatGrade grade,

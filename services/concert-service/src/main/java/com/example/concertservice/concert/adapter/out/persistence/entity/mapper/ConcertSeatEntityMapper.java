@@ -16,7 +16,6 @@ public class ConcertSeatEntityMapper {
             .id(entity.getId())
             .floor(entity.getFloor())
             .rowOrder(entity.getRowOrder())
-            .rowName(entity.getRowName())
             .columnNum(entity.getColumnNum())
             .state(entity.getState())
             .grade(ConcertSeatGradeEntityMapper.mapToModel(entity.getGrade()))
@@ -29,7 +28,6 @@ public class ConcertSeatEntityMapper {
             .id(domain.id())
             .floor(domain.floor())
             .rowOrder(domain.rowOrder())
-            .rowName(domain.rowName())
             .columnNum(domain.columnNum())
             .state(domain.state())
             .grade(
