@@ -19,7 +19,6 @@ public class TempReservationService {
     private final HoldConcertSeatsPort holdConcertSeatsPort;
 
     public TempReservation get(TempReservation tempReservation) {
-        //Optional 무거운데 사용하면 안되나? 다시 확인/정리하기
         return getTempReservationPort.find(tempReservation)
             .orElse(null);
     }
