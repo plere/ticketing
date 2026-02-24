@@ -1,19 +1,14 @@
 package com.example.reservationservice.tempreservation.service;
 
-import com.example.httpresponse.exception.BadRequestException;
 import com.example.reservationservice.tempreservation.model.TempReservation;
-import com.example.reservationservice.tempreservation.port.out.ConcertSeatStatePort;
 import com.example.reservationservice.tempreservation.port.out.GetTempReservationPort;
+import com.example.reservationservice.tempreservation.port.out.HoldConcertSeatsPort;
 import com.example.reservationservice.tempreservation.port.out.SaveTempReservationPort;
+import com.example.reservationservice.tempreservation.service.exception.HoldSeatException;
 import com.example.reservationservice.tempreservation.service.validation.TempReservationValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.stream.Collectors;
-
-import static com.example.httpresponse.exception.CommonErrorCode.ARGUMENT_ERROR;
-import static com.example.reservationservice.tempreservation.controller.TempReservationErrorCode.SEATS_IS_ALREADY_RESERVED;
 
 @Component
 @RequiredArgsConstructor
@@ -21,31 +16,25 @@ public class TempReservationService {
     private final GetTempReservationPort getTempReservationPort;
     private final SaveTempReservationPort saveTempReservationPort;
     private final TempReservationValidation tempReservationValidation;
-    private final ConcertSeatStatePort concertSeatStatePort;
-
-
-    public Boolean isExist(TempReservation tempReservation) {
-        return getTempReservationPort.get(tempReservation) != null;
-    }
+    private final HoldConcertSeatsPort holdConcertSeatsPort;
 
     public TempReservation get(TempReservation tempReservation) {
-        TempReservation savedTempReservation = getTempReservationPort.get(tempReservation);
-
-        if (savedTempReservation == null) {
-            throw new BadRequestException(ARGUMENT_ERROR, ARGUMENT_ERROR.getErrorMessage());
-        }
-
-        return savedTempReservation;
+        //Optional 무거운데 사용하면 안되나? 다시 확인/정리하기
+        return getTempReservationPort.find(tempReservation)
+            .orElse(null);
     }
 
     @Transactional
-    public void create(TempReservation tempReservation) {
-        if (!concertSeatStatePort.isEmpty(tempReservation.seats().stream().map(TempReservation.TempReservationSeat::seatId).collect(Collectors.toSet()))) {
-            throw new BadRequestException(SEATS_IS_ALREADY_RESERVED, SEATS_IS_ALREADY_RESERVED.getErrorMessage());
-        }
+    public void createAndHoldSeats(TempReservation tempReservation) {
+        tempReservationValidation.validateTempReservation(tempReservation);
 
-        if (!saveTempReservationPort.save(tempReservationValidation.toValidateModel(tempReservation))) {
-            throw new BadRequestException(SEATS_IS_ALREADY_RESERVED, SEATS_IS_ALREADY_RESERVED.getErrorMessage());
+        holdConcertSeatsPort.holdSeats(tempReservation.seatIds());
+
+        try {
+            saveTempReservationPort.save(tempReservation);
+        } catch (Exception e) {
+            holdConcertSeatsPort.releaseSeats(tempReservation.seatIds());
+            throw new HoldSeatException();
         }
     }
 }

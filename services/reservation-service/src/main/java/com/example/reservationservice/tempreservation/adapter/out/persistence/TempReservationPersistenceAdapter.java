@@ -1,39 +1,31 @@
 package com.example.reservationservice.tempreservation.adapter.out.persistence;
 
+import com.example.reservationservice.tempreservation.adapter.out.persistence.entity.mapper.TempReservationEntityMapper;
+import com.example.reservationservice.tempreservation.adapter.out.persistence.repository.jpa.TempReservationJpaRepository;
 import com.example.reservationservice.tempreservation.model.TempReservation;
 import com.example.reservationservice.tempreservation.port.out.GetTempReservationPort;
 import com.example.reservationservice.tempreservation.port.out.SaveTempReservationPort;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.time.Duration;
+import java.util.Optional;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class TempReservationPersistenceAdapter implements GetTempReservationPort, SaveTempReservationPort {
-    private final RedisTemplate<String, Object> redisTemplate;
-    private final ObjectMapper objectMapper;
-
-    // waitingtoken::concert::waiting::position::{concert_id}
-    private static final String POSITION_KEY_FORMAT = "reservation::temp::concert::%s::round::%s::user::%s";
-    private static final Duration TEMP_RESERVATION_DURATION = Duration.ofMinutes(5);
-
-
+    private final TempReservationJpaRepository tempReservationJpaRepository;
+    
     @Override
-    public TempReservation get(TempReservation tempReservation) {
-        String key = generateKey(tempReservation);
-        return objectMapper.convertValue(redisTemplate.opsForValue().get(key), TempReservation.class);
+    public Optional<TempReservation> find(TempReservation tempReservation) {
+        return tempReservationJpaRepository
+            .findByUserIdAndRoundId(tempReservation.userId(), tempReservation.roundId())
+            .map(TempReservationEntityMapper::mapToModel);
     }
 
     @Override
-    public boolean save(TempReservation tempReservation) {
-        String key = generateKey(tempReservation);
-        return redisTemplate.opsForValue().setIfAbsent(key, tempReservation, TEMP_RESERVATION_DURATION);
-    }
-
-    private String generateKey(TempReservation tempReservation) {
-        return POSITION_KEY_FORMAT.formatted(tempReservation.concertId(), tempReservation.roundId(), tempReservation.userId());
+    public void save(TempReservation tempReservation) {
+        tempReservationJpaRepository.save(TempReservationEntityMapper.mapToEntity(tempReservation));
     }
 }

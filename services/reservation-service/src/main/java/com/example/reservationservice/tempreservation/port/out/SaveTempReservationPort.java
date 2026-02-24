@@ -3,5 +3,5 @@ package com.example.reservationservice.tempreservation.port.out;
 import com.example.reservationservice.tempreservation.model.TempReservation;
 
 public interface SaveTempReservationPort {
-    boolean save(TempReservation tempReservation);
+    void save(TempReservation tempReservation);
 }

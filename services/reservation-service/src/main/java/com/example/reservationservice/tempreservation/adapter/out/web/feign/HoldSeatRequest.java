@@ -1,0 +1,12 @@
+package com.example.reservationservice.tempreservation.adapter.out.web.feign;
+
+import lombok.Builder;
+import lombok.Getter;
+
+import java.util.Set;
+
+@Getter
+@Builder
+public class HoldSeatRequest {
+    private Set<Long> seatIds;
+}

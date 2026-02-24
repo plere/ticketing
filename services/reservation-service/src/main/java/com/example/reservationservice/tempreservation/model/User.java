@@ -3,11 +3,8 @@ package com.example.reservationservice.tempreservation.model;
 import lombok.Builder;
 
 @Builder
-public record ConcertSeat(
+public record User(
     Long id,
-    int floor,
-    Integer rowOrder,
-    int columnNum,
-    ConcertSeatGrade grade
+    String email
 ) {
 }
