@@ -21,4 +21,8 @@ dependencies {
 
     // http request
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+
+    //test
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.testcontainers:mysql'
 }
