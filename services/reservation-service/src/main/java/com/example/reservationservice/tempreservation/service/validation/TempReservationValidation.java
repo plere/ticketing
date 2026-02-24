@@ -1,17 +1,15 @@
 package com.example.reservationservice.tempreservation.service.validation;
 
-import com.example.httpresponse.exception.BadRequestException;
 import com.example.reservationservice.tempreservation.model.Concert;
 import com.example.reservationservice.tempreservation.model.ConcertSeat;
 import com.example.reservationservice.tempreservation.model.TempReservation;
 import com.example.reservationservice.tempreservation.port.out.GetConcertPort;
+import com.example.reservationservice.tempreservation.service.exception.TempReservationValidException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static com.example.reservationservice.tempreservation.adapter.in.TempReservationErrorCode.RESERVATION_BAD_REQUEST_ERROR;
 
 @Component
 @RequiredArgsConstructor
@@ -32,14 +30,14 @@ public class TempReservationValidation {
     private void checkConcertRound(TempReservation tempReservation, Concert concert) {
         if (concert.rounds().stream().filter(round -> round.id() == tempReservation.roundId()).findAny()
             .isEmpty()) {
-            throw new BadRequestException(RESERVATION_BAD_REQUEST_ERROR, RESERVATION_BAD_REQUEST_ERROR.getErrorMessage());
+            throw new TempReservationValidException();
         }
     }
 
 
     private void checkConcertSeat(TempReservation tempReservation, Concert concert) {
         if (isNotMatchConcertSeat(tempReservation, concert)) {
-            throw new BadRequestException(RESERVATION_BAD_REQUEST_ERROR, RESERVATION_BAD_REQUEST_ERROR.getErrorMessage());
+            throw new TempReservationValidException();
         }
     }
 
