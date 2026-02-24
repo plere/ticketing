@@ -1,10 +1,10 @@
 package com.example.reservationservice.tempreservation.service;
 
-import com.example.httpresponse.exception.BadRequestException;
 import com.example.reservationservice.tempreservation.model.TempReservation;
 import com.example.reservationservice.tempreservation.port.out.HoldConcertSeatsPort;
 import com.example.reservationservice.tempreservation.port.out.SaveTempReservationPort;
 import com.example.reservationservice.tempreservation.service.exception.HoldSeatException;
+import com.example.reservationservice.tempreservation.service.exception.TempReservationValidException;
 import com.example.reservationservice.tempreservation.service.validation.TempReservationValidation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,7 +48,7 @@ class TempReservationServiceTest {
 
     @Test
     public void validation실패시_BadRequestException() {
-        willThrow(BadRequestException.class)
+        willThrow(TempReservationValidException.class)
             .given(tempReservationValidation).validateTempReservation(
                 TempReservation.builder().build()
             );
@@ -56,12 +56,12 @@ class TempReservationServiceTest {
         assertThatThrownBy(() -> tempReservationService.createAndHoldSeats(
             TempReservation.builder().build()
         ))
-            .isInstanceOf(BadRequestException.class);
+            .isInstanceOf(TempReservationValidException.class);
     }
 
     @Test
     public void 좌석선점시_실패시_save호출_안함() {
-        willThrow(BadRequestException.class)
+        willThrow(RuntimeException.class)
             .given(holdConcertSeatsPort)
             .holdSeats(any());
 
@@ -75,7 +75,7 @@ class TempReservationServiceTest {
 
     @Test
     public void 임시예매생성_실패시_release호출_및_에러발생() {
-        willThrow(BadRequestException.class)
+        willThrow(RuntimeException.class)
             .given(saveTempReservationPort)
             .save(any());
 
