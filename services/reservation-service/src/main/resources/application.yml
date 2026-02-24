@@ -8,6 +8,9 @@ server:
     key-alias: springboot
 
 spring:
+  profiles:
+    include:
+      - resource
   data:
     redis:
       host: 127.0.0.1

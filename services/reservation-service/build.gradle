@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     implementation project(':common:HttpResponse')
+    implementation project(':common:check-auth')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
