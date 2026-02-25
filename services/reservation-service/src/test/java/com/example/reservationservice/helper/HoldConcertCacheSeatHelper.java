@@ -1,6 +1,6 @@
 package com.example.reservationservice.helper;
 
-import com.example.reservationservice.tempreservation.model.ConcertSeatState;
+import com.example.reservationservice.tempreservation.domain.ConcertSeatState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 

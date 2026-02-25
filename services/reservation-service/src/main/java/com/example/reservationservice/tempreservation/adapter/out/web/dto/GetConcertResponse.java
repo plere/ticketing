@@ -1,9 +1,9 @@
 package com.example.reservationservice.tempreservation.adapter.out.web.dto;
 
-import com.example.reservationservice.tempreservation.model.Concert;
-import com.example.reservationservice.tempreservation.model.ConcertRound;
-import com.example.reservationservice.tempreservation.model.ConcertSeat;
-import com.example.reservationservice.tempreservation.model.ConcertSeatGrade;
+import com.example.reservationservice.tempreservation.domain.Concert;
+import com.example.reservationservice.tempreservation.domain.ConcertRound;
+import com.example.reservationservice.tempreservation.domain.ConcertSeat;
+import com.example.reservationservice.tempreservation.domain.ConcertSeatGrade;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 

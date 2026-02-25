@@ -1,8 +1,8 @@
 package com.example.reservationservice.tempreservation.adapter.out.web;
 
 import com.example.reservationservice.tempreservation.adapter.out.web.feign.ConcertFeignClient;
-import com.example.reservationservice.tempreservation.model.Concert;
-import com.example.reservationservice.tempreservation.port.out.GetConcertPort;
+import com.example.reservationservice.tempreservation.domain.Concert;
+import com.example.reservationservice.tempreservation.application.port.out.GetConcertPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

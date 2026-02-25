@@ -3,7 +3,7 @@ package com.example.reservationservice.tempreservation.adapter.out;
 import com.example.reservationservice.tempreservation.adapter.out.exception.LockHoldSeatException;
 import com.example.reservationservice.tempreservation.adapter.out.persistence.HoldConcertCacheSeat;
 import com.example.reservationservice.tempreservation.adapter.out.web.ConcertSeatWebAdapter;
-import com.example.reservationservice.tempreservation.port.out.HoldConcertSeatsPort;
+import com.example.reservationservice.tempreservation.application.port.out.HoldConcertSeatsPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

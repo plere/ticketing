@@ -1,7 +1,7 @@
 package com.example.reservationservice.tempreservation.adapter.out.persistence.entity.mapper;
 
 import com.example.reservationservice.tempreservation.adapter.out.persistence.entity.TempReservationEntity;
-import com.example.reservationservice.tempreservation.model.TempReservation;
+import com.example.reservationservice.tempreservation.domain.TempReservation;
 import lombok.experimental.UtilityClass;
 
 import java.util.Set;

@@ -1,11 +1,11 @@
-package com.example.reservationservice.tempreservation.service;
+package com.example.reservationservice.tempreservation.application.service;
 
-import com.example.reservationservice.tempreservation.model.TempReservation;
-import com.example.reservationservice.tempreservation.port.out.GetTempReservationPort;
-import com.example.reservationservice.tempreservation.port.out.HoldConcertSeatsPort;
-import com.example.reservationservice.tempreservation.port.out.SaveTempReservationPort;
-import com.example.reservationservice.tempreservation.service.exception.HoldSeatException;
-import com.example.reservationservice.tempreservation.service.validation.TempReservationValidation;
+import com.example.reservationservice.tempreservation.domain.TempReservation;
+import com.example.reservationservice.tempreservation.application.port.out.GetTempReservationPort;
+import com.example.reservationservice.tempreservation.application.port.out.HoldConcertSeatsPort;
+import com.example.reservationservice.tempreservation.application.port.out.SaveTempReservationPort;
+import com.example.reservationservice.tempreservation.application.service.exception.HoldSeatException;
+import com.example.reservationservice.tempreservation.application.service.validation.TempReservationValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

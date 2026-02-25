@@ -1,4 +1,4 @@
-package com.example.reservationservice.tempreservation.port.out;
+package com.example.reservationservice.tempreservation.application.port.out;
 
 import java.util.Set;
 

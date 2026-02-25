@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
-import static com.example.reservationservice.tempreservation.model.ConcertSeatState.AVAILABLE;
-import static com.example.reservationservice.tempreservation.model.ConcertSeatState.RESERVED;
+import static com.example.reservationservice.tempreservation.domain.ConcertSeatState.AVAILABLE;
+import static com.example.reservationservice.tempreservation.domain.ConcertSeatState.RESERVED;
 
 @Component
 @RequiredArgsConstructor

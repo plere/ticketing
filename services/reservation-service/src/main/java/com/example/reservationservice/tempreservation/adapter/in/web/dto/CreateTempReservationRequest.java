@@ -1,7 +1,7 @@
 package com.example.reservationservice.tempreservation.adapter.in.web.dto;
 
 import com.example.checkauth.UserToken;
-import com.example.reservationservice.tempreservation.model.TempReservation;
+import com.example.reservationservice.tempreservation.domain.TempReservation;
 
 import java.util.Set;
 

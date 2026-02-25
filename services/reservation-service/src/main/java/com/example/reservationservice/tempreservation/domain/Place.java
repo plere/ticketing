@@ -1,4 +1,4 @@
-package com.example.reservationservice.tempreservation.model;
+package com.example.reservationservice.tempreservation.domain;
 
 import lombok.Builder;
 

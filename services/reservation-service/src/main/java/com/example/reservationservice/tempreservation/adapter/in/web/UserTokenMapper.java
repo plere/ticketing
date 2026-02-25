@@ -1,7 +1,7 @@
 package com.example.reservationservice.tempreservation.adapter.in.web;
 
 import com.example.checkauth.UserToken;
-import com.example.reservationservice.tempreservation.model.User;
+import com.example.reservationservice.tempreservation.domain.User;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

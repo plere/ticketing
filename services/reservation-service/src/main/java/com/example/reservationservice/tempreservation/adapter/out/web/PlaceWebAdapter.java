@@ -1,7 +1,7 @@
 package com.example.reservationservice.tempreservation.adapter.out.web;
 
-import com.example.reservationservice.tempreservation.model.Place;
-import com.example.reservationservice.tempreservation.port.out.GetPlacePort;
+import com.example.reservationservice.tempreservation.domain.Place;
+import com.example.reservationservice.tempreservation.application.port.out.GetPlacePort;
 import org.springframework.stereotype.Component;
 
 @Component
