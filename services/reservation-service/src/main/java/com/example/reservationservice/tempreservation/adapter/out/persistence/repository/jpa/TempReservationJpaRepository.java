@@ -4,9 +4,13 @@ import com.example.reservationservice.tempreservation.adapter.out.persistence.en
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface TempReservationJpaRepository extends JpaRepository<TempReservationEntity, Long> {
     Optional<TempReservationEntity> findByUserIdAndRoundId(Long userId, Long roundId);
+
+    List<TempReservationEntity> findAllByCreatedAtBefore(LocalDateTime createdAtBefore);
 }
