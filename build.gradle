@@ -66,6 +66,10 @@ subprojects {
         dependencies {
             testImplementation 'org.springframework.boot:spring-boot-starter-test'
             testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+            // Testcontainers (버전은 Spring Boot BOM에서 관리)
+            testImplementation 'org.testcontainers:testcontainers'
+            testImplementation 'org.testcontainers:junit-jupiter'
         }
 
         dependencyManagement {
