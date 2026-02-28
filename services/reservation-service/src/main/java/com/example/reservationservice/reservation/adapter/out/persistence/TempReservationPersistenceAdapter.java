@@ -1,9 +1,10 @@
 package com.example.reservationservice.reservation.adapter.out.persistence;
 
 import com.example.reservationservice.reservation.adapter.out.persistence.entity.mapper.TempReservationEntityMapper;
-import com.example.reservationservice.reservation.adapter.out.persistence.repository.jpa.TempReservationJpaRepository;
+import com.example.reservationservice.reservation.adapter.out.persistence.repository.jpa.ReservationJpaRepository;
 import com.example.reservationservice.reservation.application.port.out.GetTempReservationPort;
 import com.example.reservationservice.reservation.application.port.out.SaveTempReservationPort;
+import com.example.reservationservice.reservation.domain.ReservationStatus;
 import com.example.reservationservice.reservation.domain.TempReservation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,17 +16,17 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class TempReservationPersistenceAdapter implements GetTempReservationPort, SaveTempReservationPort {
-    private final TempReservationJpaRepository tempReservationJpaRepository;
+    private final ReservationJpaRepository reservationJpaRepository;
 
     @Override
     public Optional<TempReservation> find(TempReservation tempReservation) {
-        return tempReservationJpaRepository
-            .findByUserIdAndRoundId(tempReservation.userId(), tempReservation.roundId())
+        return reservationJpaRepository
+            .findByUserIdAndRoundIdAndStatusIs(tempReservation.userId(), tempReservation.roundId(), ReservationStatus.TEMP)
             .map(TempReservationEntityMapper::mapToModel);
     }
 
     @Override
     public void save(TempReservation tempReservation) {
-        tempReservationJpaRepository.save(TempReservationEntityMapper.mapToEntity(tempReservation));
+        reservationJpaRepository.save(TempReservationEntityMapper.mapToEntity(tempReservation));
     }
 }

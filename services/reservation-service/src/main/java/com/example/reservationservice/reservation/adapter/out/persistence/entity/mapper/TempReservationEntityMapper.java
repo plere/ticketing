@@ -1,6 +1,7 @@
 package com.example.reservationservice.reservation.adapter.out.persistence.entity.mapper;
 
-import com.example.reservationservice.reservation.adapter.out.persistence.entity.TempReservationEntity;
+import com.example.reservationservice.reservation.adapter.out.persistence.entity.ReservationEntity;
+import com.example.reservationservice.reservation.domain.ReservationStatus;
 import com.example.reservationservice.reservation.domain.TempReservation;
 import lombok.experimental.UtilityClass;
 
@@ -9,7 +10,7 @@ import java.util.Set;
 @UtilityClass
 public class TempReservationEntityMapper {
 
-    public TempReservation mapToModel(TempReservationEntity entity) {
+    public TempReservation mapToModel(ReservationEntity entity) {
         return TempReservation.builder()
             .id(entity.getId())
             .userId(entity.getUserId())
@@ -19,13 +20,14 @@ public class TempReservationEntityMapper {
             .build();
     }
 
-    public TempReservationEntity mapToEntity(TempReservation model) {
-        return TempReservationEntity.builder()
+    public ReservationEntity mapToEntity(TempReservation model) {
+        return ReservationEntity.builder()
             .id(model.id())
             .userId(model.userId())
             .concertId(model.concertId())
             .roundId(model.roundId())
             .seatIds(Set.copyOf(model.seatIds()))
+            .status(ReservationStatus.TEMP)
             .build();
     }
 }
