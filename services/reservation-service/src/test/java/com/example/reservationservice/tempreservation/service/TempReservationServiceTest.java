@@ -1,12 +1,12 @@
 package com.example.reservationservice.tempreservation.service;
 
-import com.example.reservationservice.tempreservation.application.service.TempReservationService;
-import com.example.reservationservice.tempreservation.domain.TempReservation;
-import com.example.reservationservice.tempreservation.application.port.out.HoldConcertSeatsPort;
-import com.example.reservationservice.tempreservation.application.port.out.SaveTempReservationPort;
-import com.example.reservationservice.tempreservation.application.service.exception.HoldSeatException;
-import com.example.reservationservice.tempreservation.application.service.exception.TempReservationValidException;
-import com.example.reservationservice.tempreservation.application.service.validation.TempReservationValidation;
+import com.example.reservationservice.reservation.application.service.TempReservationService;
+import com.example.reservationservice.reservation.domain.TempReservation;
+import com.example.reservationservice.reservation.application.port.out.HoldConcertSeatsPort;
+import com.example.reservationservice.reservation.application.port.out.SaveTempReservationPort;
+import com.example.reservationservice.reservation.application.service.exception.HoldSeatException;
+import com.example.reservationservice.reservation.application.service.exception.TempReservationValidException;
+import com.example.reservationservice.reservation.application.service.validation.TempReservationValidation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -2,16 +2,16 @@ package com.example.reservationservice.common.exception;
 
 import com.example.httpresponse.response.ErrorResponseDto;
 import com.example.httpresponse.response.ResponseDto;
-import com.example.reservationservice.tempreservation.adapter.out.exception.LockHoldSeatException;
-import com.example.reservationservice.tempreservation.application.service.exception.HoldSeatException;
-import com.example.reservationservice.tempreservation.application.service.exception.TempReservationValidException;
+import com.example.reservationservice.reservation.adapter.out.exception.LockHoldSeatException;
+import com.example.reservationservice.reservation.application.service.exception.HoldSeatException;
+import com.example.reservationservice.reservation.application.service.exception.TempReservationValidException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static com.example.reservationservice.tempreservation.adapter.in.TempReservationErrorCode.RESERVATION_BAD_REQUEST_ERROR;
-import static com.example.reservationservice.tempreservation.adapter.in.TempReservationErrorCode.SEATS_IS_ALREADY_RESERVED;
+import static com.example.reservationservice.reservation.adapter.in.web.response.TempReservationErrorCode.RESERVATION_BAD_REQUEST_ERROR;
+import static com.example.reservationservice.reservation.adapter.in.web.response.TempReservationErrorCode.SEATS_IS_ALREADY_RESERVED;
 
 @RestControllerAdvice
 public class TempReservationExceptionAdvice {

@@ -2,11 +2,11 @@ package com.example.reservationservice.tempreservation.service;
 
 import com.example.reservationservice.config.TestConfig;
 import com.example.reservationservice.helper.HoldConcertCacheSeatHelper;
-import com.example.reservationservice.tempreservation.adapter.out.persistence.TempReservationPersistenceAdapter;
-import com.example.reservationservice.tempreservation.adapter.out.web.ConcertSeatWebAdapter;
-import com.example.reservationservice.tempreservation.application.service.TempReservationService;
-import com.example.reservationservice.tempreservation.domain.*;
-import com.example.reservationservice.tempreservation.application.port.out.GetConcertPort;
+import com.example.reservationservice.reservation.adapter.out.persistence.TempReservationPersistenceAdapter;
+import com.example.reservationservice.reservation.adapter.out.web.ConcertSeatWebAdapter;
+import com.example.reservationservice.reservation.application.service.TempReservationService;
+import com.example.reservationservice.reservation.domain.*;
+import com.example.reservationservice.reservation.application.port.out.GetConcertPort;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
