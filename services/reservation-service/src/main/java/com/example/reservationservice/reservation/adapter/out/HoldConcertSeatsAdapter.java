@@ -2,7 +2,7 @@ package com.example.reservationservice.reservation.adapter.out;
 
 import com.example.reservationservice.reservation.adapter.out.exception.LockHoldSeatException;
 import com.example.reservationservice.reservation.adapter.out.persistence.HoldConcertCacheSeat;
-import com.example.reservationservice.reservation.adapter.out.web.ConcertSeatWebAdapter;
+import com.example.reservationservice.reservation.adapter.out.web.concert.ConcertSeatWebAdapter;
 import com.example.reservationservice.reservation.application.port.out.HoldConcertSeatsPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

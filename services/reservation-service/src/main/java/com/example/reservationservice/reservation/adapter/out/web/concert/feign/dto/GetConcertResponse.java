@@ -1,4 +1,4 @@
-package com.example.reservationservice.reservation.adapter.out.web.feign.dto;
+package com.example.reservationservice.reservation.adapter.out.web.concert.feign.dto;
 
 import com.example.reservationservice.reservation.domain.Concert;
 import com.example.reservationservice.reservation.domain.ConcertRound;

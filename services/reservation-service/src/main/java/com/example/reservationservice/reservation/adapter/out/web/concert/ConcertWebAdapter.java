@@ -1,8 +1,8 @@
-package com.example.reservationservice.reservation.adapter.out.web;
+package com.example.reservationservice.reservation.adapter.out.web.concert;
 
-import com.example.reservationservice.reservation.adapter.out.web.feign.ConcertFeignClient;
-import com.example.reservationservice.reservation.domain.Concert;
+import com.example.reservationservice.reservation.adapter.out.web.concert.feign.ConcertFeignClient;
 import com.example.reservationservice.reservation.application.port.out.GetConcertPort;
+import com.example.reservationservice.reservation.domain.Concert;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

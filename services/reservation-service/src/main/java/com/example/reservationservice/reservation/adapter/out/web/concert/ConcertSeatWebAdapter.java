@@ -1,4 +1,4 @@
-package com.example.reservationservice.reservation.adapter.out.web;
+package com.example.reservationservice.reservation.adapter.out.web.concert;
 
 import java.util.Set;
 

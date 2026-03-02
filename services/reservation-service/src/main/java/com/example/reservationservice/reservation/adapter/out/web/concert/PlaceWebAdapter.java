@@ -1,7 +1,7 @@
-package com.example.reservationservice.reservation.adapter.out.web;
+package com.example.reservationservice.reservation.adapter.out.web.concert;
 
-import com.example.reservationservice.reservation.domain.Place;
 import com.example.reservationservice.reservation.application.port.out.GetPlacePort;
+import com.example.reservationservice.reservation.domain.Place;
 import org.springframework.stereotype.Component;
 
 @Component

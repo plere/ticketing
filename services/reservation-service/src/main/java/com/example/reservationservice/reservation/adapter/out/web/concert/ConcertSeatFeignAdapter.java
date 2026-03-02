@@ -1,8 +1,8 @@
-package com.example.reservationservice.reservation.adapter.out.web;
+package com.example.reservationservice.reservation.adapter.out.web.concert;
 
-import com.example.reservationservice.reservation.adapter.out.web.feign.ConcertSeatFeignClient;
-import com.example.reservationservice.reservation.adapter.out.web.feign.HoldSeatRequest;
-import com.example.reservationservice.reservation.adapter.out.web.feign.ReleaseSeatRequest;
+import com.example.reservationservice.reservation.adapter.out.web.concert.feign.ConcertSeatFeignClient;
+import com.example.reservationservice.reservation.adapter.out.web.concert.feign.dto.HoldSeatRequest;
+import com.example.reservationservice.reservation.adapter.out.web.concert.feign.dto.ReleaseSeatRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
