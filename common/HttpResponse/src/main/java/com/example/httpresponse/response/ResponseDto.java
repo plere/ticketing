@@ -1,11 +1,15 @@
 package com.example.httpresponse.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
 
 @Builder
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ResponseDto<T> {
     private String code;
     private T body;
