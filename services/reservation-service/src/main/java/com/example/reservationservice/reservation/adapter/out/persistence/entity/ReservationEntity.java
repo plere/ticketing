@@ -1,5 +1,6 @@
 package com.example.reservationservice.reservation.adapter.out.persistence.entity;
 
+import com.example.reservationservice.reservation.domain.Reservation;
 import com.example.reservationservice.reservation.domain.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -40,13 +41,14 @@ public class ReservationEntity {
     @Column(nullable = false)
     private Long userId;
 
-    private Long paymentId;
+    private String paymentKey;
 
-    @Column(nullable = false)
-    private Long orderId;
+    private String orderId;
 
     @Column(nullable = false)
     private Long concertId;
+
+    private String concertName;
 
     @Column(nullable = false)
     @Comment("해당 콘서트 회차 정보")
@@ -60,4 +62,18 @@ public class ReservationEntity {
 
     @Column(nullable = false)
     private Set<Long> seatIds;
+    
+    public void update(Reservation reservation) {
+        this.orderId = reservation.orderId();
+        this.amount = reservation.amount();
+        this.status = ReservationStatus.PAY_REQUESTING;
+    }
+
+    public void failReadyPayment() {
+        this.status = ReservationStatus.PAY_REQUESTING_FAIL;
+    }
+
+    public void successReadyPayment() {
+        this.status = ReservationStatus.PAY_REQUESTED;
+    }
 }

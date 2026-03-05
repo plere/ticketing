@@ -9,7 +9,9 @@ public enum ReservationStatus {
     PAY_REQUESTING("결제 요청 중"),
     PAY_EXECUTING("결제 승인 중"),
     RESERVED("예매 완료"),
-    PAY_FAIL("결제 승인 실패");
+    PAY_REQUESTING_FAIL("결제 요청 실패"),
+    PAY_REQUESTED("결제 요청 완료"),
+    PAY_EXECUTING_FAIL("결제 승인 실패");
 
     private final String message;
 
