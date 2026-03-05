@@ -36,3 +36,5 @@ external:
       url: http://localhost:8080
     concert-seat:
       url: http://localhost:8080
+    payment:
+      url: http://localhost:8085

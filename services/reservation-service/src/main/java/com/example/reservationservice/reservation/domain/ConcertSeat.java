@@ -10,4 +10,7 @@ public record ConcertSeat(
     int columnNum,
     ConcertSeatGrade grade
 ) {
+    public Integer getPrice() {
+        return grade.price();
+    }
 }

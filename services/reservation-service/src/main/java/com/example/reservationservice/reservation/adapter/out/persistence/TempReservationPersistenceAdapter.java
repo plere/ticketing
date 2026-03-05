@@ -26,6 +26,14 @@ public class TempReservationPersistenceAdapter implements GetTempReservationPort
     }
 
     @Override
+    public TempReservation get(long id, long userId) {
+        return reservationJpaRepository
+            .findByIdAndUserIdAndStatusIs(id, userId, ReservationStatus.TEMP)
+            .map(TempReservationEntityMapper::mapToModel)
+            .orElseThrow();
+    }
+    
+    @Override
     public void save(TempReservation tempReservation) {
         reservationJpaRepository.save(TempReservationEntityMapper.mapToEntity(tempReservation));
     }

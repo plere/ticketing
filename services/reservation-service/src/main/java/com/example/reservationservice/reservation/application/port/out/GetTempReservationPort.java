@@ -6,4 +6,6 @@ import java.util.Optional;
 
 public interface GetTempReservationPort {
     Optional<TempReservation> find(TempReservation tempReservation);
+
+    TempReservation get(long id, long userId);
 }

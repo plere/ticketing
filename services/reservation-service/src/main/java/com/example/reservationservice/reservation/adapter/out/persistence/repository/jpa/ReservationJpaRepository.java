@@ -11,6 +11,12 @@ import java.util.Optional;
 
 @Repository
 public interface ReservationJpaRepository extends JpaRepository<ReservationEntity, Long> {
+    Optional<ReservationEntity> findByIdAndStatusIs(Long id, ReservationStatus status);
+
+    Optional<ReservationEntity> findByOrderIdAndStatusIs(String orderId, ReservationStatus status);
+    
+    Optional<ReservationEntity> findByIdAndUserIdAndStatusIs(Long id, Long userId, ReservationStatus status);
+
     Optional<ReservationEntity> findByUserIdAndRoundIdAndStatusIs(Long userId, Long roundId, ReservationStatus status);
 
     List<ReservationEntity> findAllByCreatedAtBeforeAndStatusIs(LocalDateTime createdAtBefore, ReservationStatus status);
