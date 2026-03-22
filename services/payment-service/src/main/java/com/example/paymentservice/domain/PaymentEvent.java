@@ -11,8 +11,10 @@ public record PaymentEvent(
     String orderId,
     String orderName,
     String paymentKey,
+    String amount,
     LocalDateTime approvedAt,
     PaymentStatus status,
-    Boolean isPaymentDone
+    Boolean isPaymentDone,
+    String rawData
 ) {
 }

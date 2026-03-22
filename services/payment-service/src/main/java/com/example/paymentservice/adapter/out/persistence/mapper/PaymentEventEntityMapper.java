@@ -12,9 +12,12 @@ public class PaymentEventEntityMapper {
             .userId(paymentEvent.userId())
             .orderId(paymentEvent.orderId())
             .orderName(paymentEvent.orderName())
+            .amount(paymentEvent.amount())
             .paymentKey(paymentEvent.paymentKey())
             .approvedAt(paymentEvent.approvedAt())
+            .status(paymentEvent.status())
             .isPaymentDone(paymentEvent.isPaymentDone())
+            .rawData(paymentEvent.rawData())
             .build();
     }
 
@@ -24,9 +27,12 @@ public class PaymentEventEntityMapper {
             .userId(entity.getUserId())
             .orderId(entity.getOrderId())
             .orderName(entity.getOrderName())
+            .amount(entity.getAmount())
             .paymentKey(entity.getPaymentKey())
             .approvedAt(entity.getApprovedAt())
+            .status(entity.getStatus())
             .isPaymentDone(entity.getIsPaymentDone())
+            .rawData(entity.getRawData())
             .build();
     }
 }

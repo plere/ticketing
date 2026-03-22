@@ -46,6 +46,9 @@ public class PaymentEventEntity {
 
     String paymentKey;
 
+    @Column(nullable = false)
+    String amount;
+
     LocalDateTime approvedAt;
 
     @Column(nullable = false)
@@ -55,4 +58,7 @@ public class PaymentEventEntity {
 
     @ColumnDefault("false")
     Boolean isPaymentDone;
+
+    @Column(columnDefinition = "TEXT")
+    String rawData;
 }

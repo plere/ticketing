@@ -8,13 +8,15 @@ import static com.example.paymentservice.domain.PaymentStatus.NOT_STARTED;
 public record ReadyPaymentEventCommand(
     Long userId,
     String orderId,
-    String orderName
+    String orderName,
+    String amount
 ) {
     public PaymentEvent toPaymentEvent() {
         return PaymentEvent.builder()
             .userId(userId)
             .orderId(orderId)
             .orderName(orderName)
+            .amount(amount)
             .status(NOT_STARTED)
             .isPaymentDone(false)
             .build();
