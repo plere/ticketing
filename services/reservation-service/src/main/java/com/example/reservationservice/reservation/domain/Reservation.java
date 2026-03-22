@@ -8,12 +8,12 @@ import java.util.Set;
 public record Reservation(
     Long id,
     Long userId,
-    Long paymentKey,
+    String paymentKey,
     String orderId,
     Long concertId,
     String concertName,
     Long roundId,
-    Long amount,
+    String amount,
     Set<Long> seatIds,
     ReservationStatus status
 ) {

@@ -7,7 +7,7 @@ import lombok.Builder;
 public record CheckoutPaymentResponse(
     String orderId,
     String orderName,
-    Long amount
+    String amount
 ) {
     public static CheckoutPaymentResponse from(Reservation reservation) {
         return CheckoutPaymentResponse.builder()

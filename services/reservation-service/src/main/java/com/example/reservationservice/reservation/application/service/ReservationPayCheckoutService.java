@@ -28,11 +28,11 @@ public class ReservationPayCheckoutService implements ReservationPayCheckoutUseC
         ReadyPaymentResult paymentResult = reservationPayCheckoutPort.pay(reservation);
 
         switch (paymentResult.status()) {
-            case SUCCESS:
-                reservationPayCheckoutPort.readySuccess(reservation);
-            case FAIL:
+            case SUCCESS -> reservationPayCheckoutPort.readySuccess(reservation);
+            case FAIL -> {
                 reservationPayCheckoutPort.readyFail(reservation);
                 throw new PayCheckoutCallException();
+            }
         }
 
         return reservation;
@@ -41,6 +41,7 @@ public class ReservationPayCheckoutService implements ReservationPayCheckoutUseC
     private Reservation createReservation(long tempReservationId, long userId) {
         TempReservation tempReservation = getTempReservationPort.get(tempReservationId, userId);
         Concert concert = getConcertPort.getOrElseThrow(tempReservation.concertId());
+
         return Reservation.builder()
             .id(tempReservation.id())
             .userId(tempReservation.userId())
@@ -48,7 +49,12 @@ public class ReservationPayCheckoutService implements ReservationPayCheckoutUseC
             .concertId(tempReservation.concertId())
             .concertName(concert.name())
             .roundId(tempReservation.roundId())
-            .amount(concert.seats().stream().mapToLong(ConcertSeat::getPrice).sum())
+            .amount(String.valueOf(
+                    concert.seats()
+                        .stream().filter(seat -> tempReservation.seatIds().contains(seat.id()))
+                        .mapToLong(ConcertSeat::getPrice).sum()
+                )
+            )
             .seatIds(Set.copyOf(tempReservation.seatIds()))
             .build();
     }

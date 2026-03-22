@@ -21,7 +21,7 @@ public class ReservationPayCheckoutAdapter implements ReservationPayCheckoutPort
     public void ready(Reservation reservation) {
         reservationJpaRepository.findByIdAndStatusIs(reservation.id(), ReservationStatus.TEMP)
             .orElseThrow()
-            .update(reservation);
+            .updatePayRequesting(reservation);
     }
 
     @Override

@@ -4,17 +4,15 @@ import com.example.reservationservice.reservation.domain.Reservation;
 import lombok.Builder;
 
 @Builder
-public record ReadyPaymentRequest(
-    Long userId,
-    String orderName,
+public record ExecutePaymentFeignRequest(
     String orderId,
+    String paymentKey,
     String amount
 ) {
-    public static ReadyPaymentRequest of(Reservation reservation) {
-        return ReadyPaymentRequest.builder()
-            .userId(reservation.userId())
+    public static ExecutePaymentFeignRequest of(Reservation reservation) {
+        return ExecutePaymentFeignRequest.builder()
             .orderId(reservation.orderId())
-            .orderName(reservation.concertName())
+            .paymentKey(reservation.paymentKey())
             .amount(reservation.amount())
             .build();
     }

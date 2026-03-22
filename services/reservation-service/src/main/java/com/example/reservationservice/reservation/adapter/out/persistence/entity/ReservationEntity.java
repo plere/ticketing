@@ -54,7 +54,7 @@ public class ReservationEntity {
     @Comment("해당 콘서트 회차 정보")
     private Long roundId;
 
-    private Long amount;
+    private String amount;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -62,11 +62,16 @@ public class ReservationEntity {
 
     @Column(nullable = false)
     private Set<Long> seatIds;
-    
-    public void update(Reservation reservation) {
+
+    public void updatePayRequesting(Reservation reservation) {
         this.orderId = reservation.orderId();
         this.amount = reservation.amount();
         this.status = ReservationStatus.PAY_REQUESTING;
+    }
+
+    public void updatePayExecuting(Reservation reservation) {
+        this.paymentKey = reservation.paymentKey();
+        this.status = ReservationStatus.PAY_EXECUTING;
     }
 
     public void failReadyPayment() {
@@ -75,5 +80,13 @@ public class ReservationEntity {
 
     public void successReadyPayment() {
         this.status = ReservationStatus.PAY_REQUESTED;
+    }
+
+    public void failExecutePayment() {
+        this.status = ReservationStatus.PAY_EXECUTING_FAIL;
+    }
+
+    public void successExecutePayment() {
+        this.status = ReservationStatus.RESERVED;
     }
 }
