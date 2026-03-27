@@ -21,8 +21,10 @@ dependencies {
 
     // http request
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
 
     //test
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
     testImplementation 'org.testcontainers:mysql'
+    testImplementation 'org.springframework.cloud:spring-cloud-contract-wiremock'
 }

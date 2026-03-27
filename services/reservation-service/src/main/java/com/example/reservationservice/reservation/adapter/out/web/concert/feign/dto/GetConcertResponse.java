@@ -5,12 +5,18 @@ import com.example.reservationservice.reservation.domain.ConcertRound;
 import com.example.reservationservice.reservation.domain.ConcertSeat;
 import com.example.reservationservice.reservation.domain.ConcertSeatGrade;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Builder
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GetConcertResponse {
     private Long id;
@@ -29,6 +35,9 @@ public class GetConcertResponse {
     private List<ConcertSeatGradeResponse> seatGrades;
 
     @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ConcertSeatResponse {
         private Long id;
@@ -52,6 +61,9 @@ public class GetConcertResponse {
     }
 
     @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ConcertSeatGradeResponse {
         private Long id;
@@ -69,6 +81,9 @@ public class GetConcertResponse {
     }
 
     @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ConcertRoundResponse {
         private Long id;

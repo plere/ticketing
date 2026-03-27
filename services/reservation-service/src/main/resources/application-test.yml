@@ -1,0 +1,14 @@
+external:
+  client:
+    concert:
+      url: http://localhost:${wiremock.server.port}
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 5
+        waitDurationInOpenState: 2s
+        slowCallRateThreshold: 50
+        slowCallDurationThreshold: 1s
