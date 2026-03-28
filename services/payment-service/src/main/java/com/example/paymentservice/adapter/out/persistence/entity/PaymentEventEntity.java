@@ -38,7 +38,7 @@ public class PaymentEventEntity {
     @Column(nullable = false)
     Long userId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     String orderId;
 
     @Column(nullable = false)

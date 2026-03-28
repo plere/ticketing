@@ -3,6 +3,7 @@ package com.example.paymentservice.adapter.out.persistence.repository;
 import com.example.paymentservice.adapter.out.persistence.mapper.PaymentEventEntityMapper;
 import com.example.paymentservice.adapter.out.persistence.repository.jpa.PaymentEventJpaRepository;
 import com.example.paymentservice.domain.PaymentEvent;
+import com.example.paymentservice.domain.PaymentStatus;
 import com.example.paymentservice.port.out.GetPaymentEventPort;
 import com.example.paymentservice.port.out.SavePaymentEventPort;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,8 @@ public class PaymentEventRepository implements SavePaymentEventPort, GetPaymentE
     }
 
     @Override
-    public Optional<PaymentEvent> findByOrderId(String orderId) {
-        return paymentEventJpaRepository.findByOrderId(orderId)
+    public Optional<PaymentEvent> findByOrderIdAndStatus(String orderId, PaymentStatus status) {
+        return paymentEventJpaRepository.findByOrderIdAndStatusIs(orderId, status)
             .map(PaymentEventEntityMapper::mapToDomain);
     }
 

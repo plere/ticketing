@@ -5,6 +5,7 @@ import com.example.paymentservice.domain.PaymentEvent;
 import com.example.paymentservice.domain.PaymentExecutionResult;
 import com.example.paymentservice.port.in.ExecutePaymentUseCase;
 import com.example.paymentservice.port.out.GetPaymentEventPort;
+import com.example.paymentservice.port.out.PaymentEventStatusToExecutingPort;
 import com.example.paymentservice.port.out.PaymentExecutorPort;
 import com.example.paymentservice.port.out.SavePaymentEventPort;
 import com.example.paymentservice.service.validation.ExecutePaymentValidation;
@@ -18,10 +19,12 @@ public class ExecutePaymentService implements ExecutePaymentUseCase {
     private final PaymentExecutorPort paymentExecutorPort;
     private final GetPaymentEventPort getPaymentEventPort;
     private final SavePaymentEventPort savePaymentEventPort;
+    private final PaymentEventStatusToExecutingPort paymentEventStatusToExecutingPort;
 
     @Override
     public PaymentEvent execute(ExecutePaymentCommand command) {
         executePaymentValidation.isValid(command);
+        paymentEventStatusToExecutingPort.toExecutingStatus(command.orderId());
         PaymentExecutionResult result = paymentExecutorPort.execute(command);
         return savePaymentEventPort.save(convertToPaymentEvent(result));
     }
