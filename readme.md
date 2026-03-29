@@ -1,37 +1,26 @@
-장소
-- 수정불가능
-- 총 좌석수
-- 좌석 정보
-    - 층
-    - 행
-    - 열
-- 이름
-- 주소
+서비스
+- auth-service
+- user-service
+- concert-service
+- waiting-service
+- reservation-service
+- payment-service
 
-콘서트
-- DB에 등록한 것과 사용자화면 노출 데이터 분리
-- 공연회차
-- 오픈시간
-- 상세정보
-- 공연러닝타임
-- 좌석가격
 
-콘서트 좌석 정보
-- 콘서트 id
-- 회차 id
-- 층, 행, 열 정보
-- 등급
+auth-service
+: 권한 서버(Authorization)
 
-좌석 등급 정보
-- 콘서트 id
-- 회차 id
-- 등급
-- 가격
-- 총 좌석 수
+user-service
+: 사용자 서버
 
-중점
-1. 트래픽
-2. 안정성
-    - spring youtube kakaobank 편 참고해서 해보기
-3. 정합성
-    - 테스트코드
+concert-service
+: 콘서트 및 좌석 서버
+
+waiting-service
+: 트래픽이 몰려 처리가능한 범위를 넘어섰을 경우 토큰을 통한 순차적으로 처리하도록 하는 대기열 서버
+
+reservation-service
+: 실제적으로 좌석을 선점하고 예매하는 서버
+
+payment-service
+: 결제 서버
