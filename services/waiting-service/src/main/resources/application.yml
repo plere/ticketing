@@ -2,6 +2,8 @@ server:
   port: 8082
 
 spring:
+  application:
+    name: waiting-service
   profiles:
     include:
       - resource
@@ -9,3 +11,12 @@ spring:
     redis:
       host: 127.0.0.1
       port: 6379
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}

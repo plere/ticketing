@@ -49,6 +49,7 @@ subprojects {
 ext {
     springBootVersion = '3.3.10'
     springCloudVersion = '2023.0.3'
+    otelVersion = "1.33.3"
 }
 
 subprojects {
@@ -64,6 +65,10 @@ subprojects {
 subprojects {
     plugins.withId('org.springframework.boot') {
         dependencies {
+            implementation 'org.springframework.boot:spring-boot-starter-actuator'
+            runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+            runtimeOnly "io.opentelemetry.javaagent:opentelemetry-javaagent:${otelVersion}"
+
             testImplementation 'org.springframework.boot:spring-boot-starter-test'
             testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 

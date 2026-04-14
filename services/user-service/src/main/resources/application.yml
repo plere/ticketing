@@ -8,6 +8,8 @@ server:
     key-alias: springboot
 
 spring:
+  application:
+    name: user-service
   datasource:
     url: jdbc:mysql://localhost:3306/ticketing_user
     username: root
@@ -35,3 +37,14 @@ logging:
   level:
     com.example.userservice.external.auth.AuthClient: DEBUG
     feign: DEBUG
+    org.springframework.security.web.FilterChainProxy: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
+

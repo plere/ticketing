@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: concert-service
   datasource:
     url: jdbc:mysql://localhost:3306/ticketing_concert
     username: root
@@ -11,4 +13,13 @@ spring:
 
   sql:
     init:
-      mode: always
+      mode: alwaysmanagement:
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}

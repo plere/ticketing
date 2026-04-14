@@ -2,6 +2,8 @@ server:
   port: 8085
 
 spring:
+  application:
+    name: payment-service
   datasource:
     url: jdbc:mysql://localhost:3306/ticketing_payment
     username: root
@@ -20,3 +22,12 @@ PSP:
   toss:
     secretKey: test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6
     url: https://api.tosspayments.com
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
