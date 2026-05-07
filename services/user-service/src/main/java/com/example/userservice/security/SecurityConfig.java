@@ -36,6 +36,7 @@ public class SecurityConfig {
             .httpBasic(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(
                 authorizeRequests -> authorizeRequests
+                    .requestMatchers("/actuator/health").permitAll()
                     .requestMatchers("/users/oauth2/login", "/users/login", "/users").permitAll()
                     .anyRequest().authenticated()
             )
