@@ -64,10 +64,16 @@ subprojects {
 
 subprojects {
     plugins.withId('org.springframework.boot') {
+        configurations {
+            otelAgent
+        }
+
         dependencies {
             implementation 'org.springframework.boot:spring-boot-starter-actuator'
             runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
             runtimeOnly "io.opentelemetry.javaagent:opentelemetry-javaagent:${otelVersion}"
+
+            otelAgent "io.opentelemetry.javaagent:opentelemetry-javaagent:${otelVersion}"
 
             testImplementation 'org.springframework.boot:spring-boot-starter-test'
             testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -81,6 +87,15 @@ subprojects {
             imports {
                 mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
             }
+        }
+
+        tasks.register("copyOtelAgent", Copy) {
+            from(configurations.otelAgent)
+            into(layout.buildDirectory.dir("otel"))
+        }
+
+        jar {
+            enabled = false
         }
     }
 }
