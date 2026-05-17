@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: concert-flyway-migration
+  labels:
+    app: concert
+    tier: db-migration
+spec:
+  backoffLimit: 1
+
+  template:
+    spec:
+      restartPolicy: Never
+
+      containers:
+        - name: flyway
+          image: concert-service-flyway:latest
+          imagePullPolicy: Never
+
+          args:
+            - migrate
+
+          env:
+            - name: FLYWAY_URL
+              value: jdbc:mysql://mysql:3306/ticketing_concert
+
+            - name: FLYWAY_USER
+              valueFrom:
+                secretKeyRef:
+                  name: concert-db-secret
+                  key: username
+
+            - name: FLYWAY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: concert-db-secret
+                  key: password
+
+            - name: FLYWAY_CONNECT_RETRIES
+              value: "10"
