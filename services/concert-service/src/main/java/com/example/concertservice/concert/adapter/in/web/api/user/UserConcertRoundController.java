@@ -4,6 +4,8 @@ import com.example.concertservice.concert.adapter.in.web.response.user.UserGetAl
 import com.example.concertservice.concert.adapter.in.web.response.user.UserGetAllEmptyConcertSeatCountResponse;
 import com.example.concertservice.concert.application.port.in.usecase.round.ConcertRoundGetUseCase;
 import com.example.httpresponse.response.ResponseDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.example.concertservice.concert.adapter.in.web.response.user.UserConcertRoundResponseCode.GET_EMPTY_SEAT_BY_ROUND_ID;
 import static com.example.concertservice.concert.adapter.in.web.response.user.UserConcertRoundResponseCode.GET_SEATS_BY_ROUND_ID;
 
+@Tag(name = "Concert/User")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/concerts/rounds")
@@ -22,12 +25,14 @@ public class UserConcertRoundController {
     private final ConcertRoundGetUseCase concertRoundGetUseCase;
 
     @GetMapping("/{id}/seats")
+    @Operation(summary = "특정 콘서트의 모든 좌석 정보 조회")
     public ResponseEntity<ResponseDto<UserGetAllConcertSeatCountResponse>> getAllSeats(@PathVariable @Positive Long id) {
         return ResponseDto.from(GET_SEATS_BY_ROUND_ID,
             UserGetAllConcertSeatCountResponse.from(concertRoundGetUseCase.getAllConcertSeatByRoundId(id)));
     }
 
     @GetMapping("/{id}/seats/empty")
+    @Operation(summary = "특정 콘서트의 empty 상태인 좌석만 조회")
     public ResponseEntity<ResponseDto<UserGetAllEmptyConcertSeatCountResponse>> getEmptySeat(@PathVariable @Positive Long id) {
         return ResponseDto.from(GET_EMPTY_SEAT_BY_ROUND_ID,
             UserGetAllEmptyConcertSeatCountResponse.from(concertRoundGetUseCase.getAllEmptyConcertSeatByRoundId(id)));
