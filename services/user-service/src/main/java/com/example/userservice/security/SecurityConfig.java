@@ -36,7 +36,8 @@ public class SecurityConfig {
             .httpBasic(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(
                 authorizeRequests -> authorizeRequests
-                    .requestMatchers("/actuator/health").permitAll()
+                    .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                    .requestMatchers("/actuator/health", "/actuator/prometheus").permitAll()
                     .requestMatchers("/users/oauth2/login", "/users/login", "/users").permitAll()
                     .anyRequest().authenticated()
             )
