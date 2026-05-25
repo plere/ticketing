@@ -5,6 +5,7 @@ import com.example.httpresponse.response.CreatedResponseDto;
 import com.example.httpresponse.response.ResponseDto;
 import com.example.userservice.controller.dto.SignUpRequest;
 import com.example.userservice.controller.dto.UserMeResponseDto;
+import com.example.userservice.external.auth.config.AuthProperty;
 import com.example.userservice.external.auth.dto.LoginResponseDto;
 import com.example.userservice.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,6 +27,7 @@ import static com.example.userservice.controller.dto.UserResponseCode.SIGNUP_SUC
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
+    private final AuthProperty authProperty;
 
     @GetMapping(value = "/oauth2/login")
     @Operation(summary = "oauth2를 통한 로그인 API")
@@ -46,17 +48,17 @@ public class UserController {
             .header(HttpHeaders.LOCATION, state)
             .header(HttpHeaders.SET_COOKIE, ResponseCookie.from("accessToken", loginInfo.access_token())
                 .httpOnly(true)
-                .secure(true)
+                .sameSite("Lax")
                 .path("/")
                 .maxAge(60)
-                .domain("mock-ticketing.com")
+                .domain(authProperty.domain())
                 .build().toString())
             .header(HttpHeaders.SET_COOKIE, ResponseCookie.from("refreshToken", loginInfo.refresh_token())
                 .httpOnly(true)
-                .secure(true)
+                .sameSite("Lax")
                 .path("/")
                 .maxAge(1800)
-                .domain("mock-ticketing.com")
+                .domain(authProperty.domain())
                 .build().toString())
             .build();
     }

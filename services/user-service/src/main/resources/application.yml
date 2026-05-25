@@ -21,11 +21,15 @@ spring:
 external:
   client:
     auth:
-      uri: https://mock-ticketing.com:8084
+      domain: localhost
+      uri: http://localhost:8084
+      authorize_path: /oauth2/authorize
+      response_type: code
       client_id: user-service
       client_secret: secret
       grant_type: authorization_code
-      redirect_uri: https://mock-ticketing.com:8081/users/login
+      redirect_uri: http://localhost:8081/users/login
+      scope: profile,openid
 
 logging:
   level:
