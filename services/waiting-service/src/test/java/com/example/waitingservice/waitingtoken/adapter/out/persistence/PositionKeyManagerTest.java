@@ -1,5 +1,6 @@
 package com.example.waitingservice.waitingtoken.adapter.out.persistence;
 
+import com.example.waitingservice.waitingtoken.application.service.WaitingTokenGenerator;
 import com.example.waitingservice.waitingtoken.model.WaitingToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,6 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,6 +26,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PositionKeyManagerTest {
     @Autowired
     private PositionKeyManager positionKeyManager;
+    @Autowired
+    private WaitingTokenGenerator waitingTokenGenerator;
     @Autowired
     private StringRedisTemplate redisTemplate;
 
@@ -42,10 +44,7 @@ class PositionKeyManagerTest {
 
     @Test
     public void position_key_저장_성공() {
-        WaitingToken waitingToken = WaitingToken.builder()
-            .id(1L)
-            .token(UUID.randomUUID().toString())
-            .build();
+        WaitingToken waitingToken = waitingTokenGenerator.generate(1L, 1L);
 
         positionKeyManager.savePositionKey(waitingToken, Duration.ofSeconds(30));
 
@@ -61,15 +60,9 @@ class PositionKeyManagerTest {
 
     @Test
     public void position_key에_score_순으로_정렬() {
-        WaitingToken firstToken = WaitingToken.builder()
-            .id(1L)
-            .token(UUID.randomUUID().toString())
-            .build();
+        WaitingToken firstToken = waitingTokenGenerator.generate(1L, 1L);
+        WaitingToken secondToken = waitingTokenGenerator.generate(1L, 1L);
 
-        WaitingToken secondToken = WaitingToken.builder()
-            .id(1L)
-            .token(UUID.randomUUID().toString())
-            .build();
 
         positionKeyManager.savePositionKey(firstToken, Duration.ofSeconds(30));
         positionKeyManager.savePositionKey(secondToken, Duration.ofSeconds(30));
@@ -88,10 +81,7 @@ class PositionKeyManagerTest {
 
     @Test
     public void timeout시_키_제거() {
-        WaitingToken token = WaitingToken.builder()
-            .id(1L)
-            .token(UUID.randomUUID().toString())
-            .build();
+        WaitingToken token = waitingTokenGenerator.generate(1L, 1L);
 
         positionKeyManager.savePositionKey(token, Duration.ofMillis(1));
 
@@ -112,10 +102,7 @@ class PositionKeyManagerTest {
 
     @Test
     public void timeout_아니면_키_유지() {
-        WaitingToken token = WaitingToken.builder()
-            .id(1L)
-            .token(UUID.randomUUID().toString())
-            .build();
+        WaitingToken token = waitingTokenGenerator.generate(1L, 1L);
 
         positionKeyManager.savePositionKey(token, Duration.ofSeconds(30));
 
@@ -136,19 +123,9 @@ class PositionKeyManagerTest {
 
     @Test
     public void 존재하지않는_토큰_순서는_음수_리턴() {
-        WaitingToken token_1 = WaitingToken.builder()
-            .id(1L)
-            .token(UUID.randomUUID().toString())
-            .build();
-
-        WaitingToken token_2 = WaitingToken.builder()
-            .id(1L)
-            .token(UUID.randomUUID().toString())
-            .build();
-        WaitingToken token_3 = WaitingToken.builder()
-            .id(1L)
-            .token(UUID.randomUUID().toString())
-            .build();
+        WaitingToken token_1 = waitingTokenGenerator.generate(1L, 1L);
+        WaitingToken token_2 = waitingTokenGenerator.generate(1L, 1L);
+        WaitingToken token_3 = waitingTokenGenerator.generate(1L, 1L);
 
         positionKeyManager.savePositionKey(token_1, Duration.ofSeconds(30));
         positionKeyManager.savePositionKey(token_2, Duration.ofSeconds(30));
@@ -160,20 +137,9 @@ class PositionKeyManagerTest {
 
     @Test
     public void 순서_반환() {
-        WaitingToken token_1 = WaitingToken.builder()
-            .id(1L)
-            .token(UUID.randomUUID().toString())
-            .build();
-
-        WaitingToken token_2 = WaitingToken.builder()
-            .id(1L)
-            .token(UUID.randomUUID().toString())
-            .build();
-
-        WaitingToken token_3 = WaitingToken.builder()
-            .id(1L)
-            .token(UUID.randomUUID().toString())
-            .build();
+        WaitingToken token_1 = waitingTokenGenerator.generate(1L, 1L);
+        WaitingToken token_2 = waitingTokenGenerator.generate(1L, 1L);
+        WaitingToken token_3 = waitingTokenGenerator.generate(1L, 1L);
 
         positionKeyManager.savePositionKey(token_1, Duration.ofSeconds(30));
         positionKeyManager.savePositionKey(token_2, Duration.ofSeconds(30));
