@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record ReservationToken(
-    long id,
+    String id,
     String token
 ) {
 }

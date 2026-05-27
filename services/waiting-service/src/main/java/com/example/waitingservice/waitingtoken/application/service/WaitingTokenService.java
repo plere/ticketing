@@ -2,6 +2,7 @@ package com.example.waitingservice.waitingtoken.application.service;
 
 import com.example.waitingservice.waitingtoken.application.port.out.GetReservationPort;
 import com.example.waitingservice.waitingtoken.application.port.out.WaitingTokenRepository;
+import com.example.waitingservice.waitingtoken.application.validation.ConcertValidation;
 import com.example.waitingservice.waitingtoken.model.WaitingToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,14 @@ public class WaitingTokenService {
     private final WaitingTokenRepository waitingTokenRepository;
     private final WaitingTokenGenerator waitingTokenGenerator;
     private final GetReservationPort getReservationPort;
+    private final ConcertValidation concertValidation;
 
 
     @Transactional
-    public WaitingToken create(long id) {
-        return waitingTokenRepository.save(waitingTokenGenerator.generate(id));
+    public WaitingToken create(long concertId, long roundId) {
+        concertValidation.checkReservationStateConcert(concertId, roundId);
+
+        return waitingTokenRepository.save(waitingTokenGenerator.generate(concertId, roundId));
     }
 
     public int getWaitingPosition(WaitingToken waitingToken) {

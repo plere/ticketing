@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record WaitingToken(
-    long id,
+    String id,
     String token
 ) {
 }

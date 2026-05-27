@@ -13,8 +13,8 @@ import java.time.Duration;
 public class ReservationTokenPersistenceAdapter implements CreateReservationTokenPort {
     private final StringRedisTemplate redisTemplate;
 
-    // reservationtoken::concert::{concert_id}::{token}
-    private static final String KEY_FORMAT = "reservationtoken::concert::%s::%s";
+    // reservationtoken::{waitingtoken_id}::{token}
+    private static final String KEY_FORMAT = "reservationtoken::%s::%s";
     private static final Duration DEFAULT_DURATION = Duration.ofMinutes(10);
 
     @Override

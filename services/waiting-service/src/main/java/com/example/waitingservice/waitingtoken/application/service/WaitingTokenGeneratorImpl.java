@@ -8,9 +8,14 @@ import java.util.UUID;
 @Component
 public class WaitingTokenGeneratorImpl implements WaitingTokenGenerator {
     @Override
-    public WaitingToken generate(long id) {
+    public String getId(long concertId, long roundId) {
+        return String.format("%s-%s", concertId, roundId);
+    }
+
+    @Override
+    public WaitingToken generate(long concertId, long roundId) {
         return WaitingToken.builder()
-            .id(id)
+            .id(getId(concertId, roundId))
             .token(UUID.randomUUID().toString())
             .build();
     }

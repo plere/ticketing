@@ -6,8 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReservationWebAdapter implements GetReservationPort {
     @Override
-    public int availableProcessingCount(long concertId) {
-        //Todo
-        return 1;
+    public int availableProcessingCount(String id) {
+        return 1
     }
 }
