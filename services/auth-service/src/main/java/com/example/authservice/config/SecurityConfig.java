@@ -99,7 +99,8 @@ public class SecurityConfig {
             .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-            .redirectUri("https://mock-ticketing.com:8081/users/login")
+            .redirectUri("http://localhost:8081/users/login")
+            .scope(OidcScopes.OPENID)
             .scope(OidcScopes.PROFILE)
             .build();
 

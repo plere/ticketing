@@ -1,11 +1,5 @@
 server:
   port: 8083
-  ssl:
-    enabled: true
-    key-store: classpath:backend.p12
-    key-store-type: PKCS12
-    key-store-password: changeit
-    key-alias: springboot
 
 spring:
   application:
@@ -20,6 +14,7 @@ spring:
 
   datasource:
     url: jdbc:mysql://localhost:3306/ticketing_reservation
+
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -50,7 +45,6 @@ resilience4j:
         slowCallRateThreshold: 80 # slowCall 발생 시 서버 스레드 점유로 인해 장애가 생길 수 있으므로 기본값(100)보다 조금 작게 설정
         slowCallDurationThreshold: 5s # 위와 같은 이유로 5초를 slowCall로 판단함. 해당 값은 TimeLimiter의 timeoutDuration보다 작아야 함
         registerHealthIndicator: true
-
 
 management:
   endpoints:
