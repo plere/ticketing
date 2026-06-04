@@ -9,4 +9,6 @@ public interface ConcertRoundGetUseCase {
     List<ConcertSeat> getAllConcertSeatByRoundId(long roundId);
 
     List<ConcertSeat> getAllEmptyConcertSeatByRoundId(long roundId);
+
+    boolean isIncluded(long concertId, long roundId);
 }

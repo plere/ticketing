@@ -11,6 +11,7 @@ import com.example.concertservice.concert.application.service.validation.Concert
 import com.example.concertservice.concert.application.service.validation.ConcertModifyBasicValidation;
 import com.example.concertservice.concert.application.service.validation.ConcertModifyPlaceValidation;
 import com.example.concertservice.concert.domain.Concert;
+import com.example.concertservice.concert.domain.ConcertState;
 import com.example.httpresponse.pageable.PageableRequest;
 import com.example.httpresponse.pageable.PageableResponse;
 import lombok.RequiredArgsConstructor;
@@ -70,5 +71,10 @@ public class ConcertService implements ConcertCreateUseCase, ConcertStateToClose
     @Override
     public Concert getById(long id) {
         return getConcertPort.getConcertOrElseThrow(id);
+    }
+
+    @Override
+    public ConcertState getState(long id) {
+        return getConcertPort.getConcertOrElseThrow(id).state();
     }
 }
