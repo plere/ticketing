@@ -1,5 +1,6 @@
 package com.example.concertservice.concert.adapter.in.web.api.user;
 
+import com.example.chekcreservationtoken.aop.RequiredReservationToken;
 import com.example.chekcreservationtoken.external.reservationtoken.ReservationToken;
 import com.example.concertservice.concert.adapter.in.web.response.user.UserGetAllConcertSeatCountResponse;
 import com.example.concertservice.concert.adapter.in.web.response.user.UserGetAllEmptyConcertSeatCountResponse;
@@ -24,6 +25,7 @@ public class UserConcertRoundController {
     private final ConcertRoundGetUseCase concertRoundGetUseCase;
 
     @GetMapping("/{roundId}/seats")
+    @RequiredReservationToken
     @Operation(summary = "특정 콘서트의 모든 좌석 정보 조회")
     public ResponseEntity<ResponseDto<UserGetAllConcertSeatCountResponse>> getAllSeats(@PathVariable @Positive Long roundId, @ModelAttribute @Valid ReservationToken reservationToken) {
         return ResponseDto.from(GET_SEATS_BY_ROUND_ID,

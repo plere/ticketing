@@ -1,4 +1,8 @@
 spring:
+  profiles:
+    include:
+      - checkReservationToken
+
   application:
     name: concert-service
   datasource:
