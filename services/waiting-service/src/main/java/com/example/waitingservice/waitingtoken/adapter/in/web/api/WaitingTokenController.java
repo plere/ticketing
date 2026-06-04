@@ -6,13 +6,11 @@ import com.example.waitingservice.waitingtoken.application.service.WaitingTokenS
 import com.example.waitingservice.waitingtoken.model.WaitingToken;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "waiting-token")
 @RestController
@@ -27,17 +25,12 @@ public class WaitingTokenController {
         return ResponseDto.from(HttpStatus.CREATED.value(), WaitingTokenResponseCode.CREATED_WAITING_TOKEN, waitingTokenService.create(concertId, roundId));
     }
 
-    @GetMapping("/position/concerts/{id}/{token}")
+    @GetMapping("/position/concerts")
     @Operation(summary = "웨이팅 토큰의 현재 대기열 위치 조회 API")
-    public ResponseEntity<ResponseDto<Integer>> get(@PathVariable String id, @PathVariable String token) {
+    public ResponseEntity<ResponseDto<Integer>> get(@ModelAttribute @Valid WaitingToken waitingToken) {
         return ResponseDto.from(
             WaitingTokenResponseCode.GET_MY_WAITING_POSITION,
-            waitingTokenService.getWaitingPosition(
-                WaitingToken.builder()
-                    .id(id)
-                    .token(token)
-                    .build()
-            )
+            waitingTokenService.getWaitingPosition(waitingToken)
         );
     }
 }

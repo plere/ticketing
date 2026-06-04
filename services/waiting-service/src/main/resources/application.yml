@@ -20,3 +20,9 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+
+
+external:
+  client:
+    concert:
+      url: http://localhost:8080
