@@ -1,18 +1,17 @@
 package com.example.concertservice.concert.adapter.in.web.api.user;
 
+import com.example.chekcreservationtoken.external.reservationtoken.ReservationToken;
 import com.example.concertservice.concert.adapter.in.web.response.user.UserGetAllConcertSeatCountResponse;
 import com.example.concertservice.concert.adapter.in.web.response.user.UserGetAllEmptyConcertSeatCountResponse;
 import com.example.concertservice.concert.application.port.in.usecase.round.ConcertRoundGetUseCase;
 import com.example.httpresponse.response.ResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.example.concertservice.concert.adapter.in.web.response.user.UserConcertRoundResponseCode.GET_EMPTY_SEAT_BY_ROUND_ID;
 import static com.example.concertservice.concert.adapter.in.web.response.user.UserConcertRoundResponseCode.GET_SEATS_BY_ROUND_ID;
@@ -24,17 +23,17 @@ import static com.example.concertservice.concert.adapter.in.web.response.user.Us
 public class UserConcertRoundController {
     private final ConcertRoundGetUseCase concertRoundGetUseCase;
 
-    @GetMapping("/{id}/seats")
+    @GetMapping("/{roundId}/seats")
     @Operation(summary = "특정 콘서트의 모든 좌석 정보 조회")
-    public ResponseEntity<ResponseDto<UserGetAllConcertSeatCountResponse>> getAllSeats(@PathVariable @Positive Long id) {
+    public ResponseEntity<ResponseDto<UserGetAllConcertSeatCountResponse>> getAllSeats(@PathVariable @Positive Long roundId, @ModelAttribute @Valid ReservationToken reservationToken) {
         return ResponseDto.from(GET_SEATS_BY_ROUND_ID,
-            UserGetAllConcertSeatCountResponse.from(concertRoundGetUseCase.getAllConcertSeatByRoundId(id)));
+            UserGetAllConcertSeatCountResponse.from(concertRoundGetUseCase.getAllConcertSeatByRoundId(roundId)));
     }
 
-    @GetMapping("/{id}/seats/empty")
+    @GetMapping("/{roundId}/seats/empty")
     @Operation(summary = "특정 콘서트의 empty 상태인 좌석만 조회")
-    public ResponseEntity<ResponseDto<UserGetAllEmptyConcertSeatCountResponse>> getEmptySeat(@PathVariable @Positive Long id) {
+    public ResponseEntity<ResponseDto<UserGetAllEmptyConcertSeatCountResponse>> getEmptySeat(@PathVariable @Positive Long roundId) {
         return ResponseDto.from(GET_EMPTY_SEAT_BY_ROUND_ID,
-            UserGetAllEmptyConcertSeatCountResponse.from(concertRoundGetUseCase.getAllEmptyConcertSeatByRoundId(id)));
+            UserGetAllEmptyConcertSeatCountResponse.from(concertRoundGetUseCase.getAllEmptyConcertSeatByRoundId(roundId)));
     }
 }
