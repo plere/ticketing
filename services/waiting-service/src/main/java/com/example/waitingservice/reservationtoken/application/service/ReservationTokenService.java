@@ -1,6 +1,7 @@
 package com.example.waitingservice.reservationtoken.application.service;
 
 import com.example.httpresponse.exception.BadRequestException;
+import com.example.waitingservice.reservationtoken.application.port.out.CheckReservationTokenPort;
 import com.example.waitingservice.reservationtoken.application.port.out.CreateReservationTokenPort;
 import com.example.waitingservice.reservationtoken.application.port.out.GetWaitingTokenPort;
 import com.example.waitingservice.reservationtoken.model.ReservationToken;
@@ -18,6 +19,7 @@ public class ReservationTokenService {
     private final CreateReservationTokenPort createReservationTokenPort;
     private final ReservationTokenGenerator reservationTokenGenerator;
     private final GetWaitingTokenPort getWaitingTokenPort;
+    private final CheckReservationTokenPort checkReservationTokenPort;
 
     public ReservationToken create(WaitingToken waitingToken) {
         if (!getWaitingTokenPort.isTokenTurn(waitingToken)) {
@@ -28,8 +30,6 @@ public class ReservationTokenService {
     }
 
     public boolean isValid(ReservationToken reservationToken) {
-        //Todo
-        //check reservation-token validation
-        return true;
+        return checkReservationTokenPort.isValid(reservationToken);
     }
 }

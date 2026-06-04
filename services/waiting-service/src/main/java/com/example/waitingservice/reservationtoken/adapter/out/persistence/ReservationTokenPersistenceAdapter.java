@@ -1,5 +1,6 @@
 package com.example.waitingservice.reservationtoken.adapter.out.persistence;
 
+import com.example.waitingservice.reservationtoken.application.port.out.CheckReservationTokenPort;
 import com.example.waitingservice.reservationtoken.application.port.out.CreateReservationTokenPort;
 import com.example.waitingservice.reservationtoken.model.ReservationToken;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,7 @@ import java.time.Duration;
 
 @Component
 @RequiredArgsConstructor
-public class ReservationTokenPersistenceAdapter implements CreateReservationTokenPort {
+public class ReservationTokenPersistenceAdapter implements CreateReservationTokenPort, CheckReservationTokenPort {
     private final StringRedisTemplate redisTemplate;
 
     // reservationtoken::{waitingtoken_id}::{token}
@@ -28,5 +29,10 @@ public class ReservationTokenPersistenceAdapter implements CreateReservationToke
 
     private String generateKey(ReservationToken reservationToken) {
         return KEY_FORMAT.formatted(reservationToken.id(), reservationToken.token());
+    }
+
+    @Override
+    public boolean isValid(ReservationToken token) {
+        return redisTemplate.opsForValue().get(generateKey(token)) != null;
     }
 }
