@@ -30,6 +30,7 @@ public class SecurityConfig {
             .httpBasic(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(
                 authorizeRequests -> authorizeRequests
+                    .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                     .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2 ->

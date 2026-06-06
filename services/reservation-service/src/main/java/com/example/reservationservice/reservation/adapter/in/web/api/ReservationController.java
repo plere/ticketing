@@ -7,6 +7,7 @@ import com.example.reservationservice.reservation.adapter.in.web.request.Execute
 import com.example.reservationservice.reservation.adapter.in.web.response.CheckoutPaymentResponse;
 import com.example.reservationservice.reservation.application.port.in.ReservationExecutePaymentUseCase;
 import com.example.reservationservice.reservation.application.port.in.ReservationPayCheckoutUseCase;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.example.reservationservice.reservation.adapter.in.web.response.ReservationResponseCode.CHECKOUT_PAYMENT_SUCCESS;
 import static com.example.reservationservice.reservation.adapter.in.web.response.ReservationResponseCode.PAY_AND_RESERVATION_SUCCESS;
 
+@Tag(name = "Reservation")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/reservation")
