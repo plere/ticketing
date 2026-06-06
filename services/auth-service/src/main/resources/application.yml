@@ -15,3 +15,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+auth:
+  private_key: sidep.jks
+  password: sidep1234
+  alias: sidep
