@@ -57,6 +57,7 @@ public record UserGetAllConcertSeatCountResponse(
         ) {
             @Builder
             public record UserConcertColumnSeatResponse(
+                long id,
                 int column,
                 SEAT_STATE state
             ) {
@@ -76,6 +77,7 @@ public record UserGetAllConcertSeatCountResponse(
                             rowSeat -> UserConcertRowSeatResponse.builder()
                                 .row(rowSeat.getKey())
                                 .columns(rowSeat.getValue().stream().map(columnSeat -> UserConcertRowSeatResponse.UserConcertColumnSeatResponse.builder()
+                                    .id(columnSeat.id())
                                     .column(columnSeat.columnNum())
                                     .state(columnSeat.state() == ConcertSeatState.EMPTY ? UserConcertRowSeatResponse.UserConcertColumnSeatResponse.SEAT_STATE.EMPTY : UserConcertRowSeatResponse.UserConcertColumnSeatResponse.SEAT_STATE.RESERVED)
                                     .build()).toList())
