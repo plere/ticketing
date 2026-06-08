@@ -24,7 +24,6 @@ public class TempReservationController {
     private final TempReservationService tempReservationService;
 
     @GetMapping("/concerts/{id}/rounds/{round_id}")
-    @RequiredReservationToken
     @Operation(summary = "저장된 임시 예매정보 조회")
     public ResponseEntity<ResponseDto<TempReservation>> get(@PathVariable Long id, @PathVariable Long round_id, UserToken userToken) {
         return ResponseDto.from(GET_TEMP_RESERVATION,
@@ -37,6 +36,7 @@ public class TempReservationController {
     }
 
     @PostMapping("/concerts")
+    @RequiredReservationToken
     @Operation(summary = "임시 예매 정보 생성")
     public ResponseEntity<ResponseDto<Void>> create(@RequestBody @Valid CreateTempReservationRequest request, UserToken userToken) {
         tempReservationService.createAndHoldSeats(request.toModel(userToken));
