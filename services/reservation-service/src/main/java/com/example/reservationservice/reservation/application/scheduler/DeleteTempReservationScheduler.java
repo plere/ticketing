@@ -24,10 +24,12 @@ public class DeleteTempReservationScheduler {
     @Transactional
     public void deleteOldTempReservations() {
         List<TempReservation> oldTempReservations = deleteTempReservationPort.getOldTempReservationsBefore(60 * 5);
-        Set<Long> seatIds = oldTempReservations.stream().map(TempReservation::seatIds).flatMap(Set::stream).collect(Collectors.toSet());
-        holdConcertSeatsPort.releaseSeats(seatIds);
-        deleteTempReservationPort.deleteOldTempReservations(
-            oldTempReservations.stream().map(TempReservation::id).toList()
-        );
+        if (!oldTempReservations.isEmpty()) {
+            Set<Long> seatIds = oldTempReservations.stream().map(TempReservation::seatIds).flatMap(Set::stream).collect(Collectors.toSet());
+            holdConcertSeatsPort.releaseSeats(seatIds);
+            deleteTempReservationPort.deleteOldTempReservations(
+                oldTempReservations.stream().map(TempReservation::id).toList()
+            );
+        }
     }
 }
