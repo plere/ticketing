@@ -6,14 +6,24 @@
 for i = 1, #KEYS do
   if redis.call("EXISTS", KEYS[i]) == 1 then
       if redis.call("GET", KEYS[i]) == ARGV[1] then
-        return false
+          redis.log(redis.LOG_WARNING, "1")
+          return false
        end
   end
 end
 
--- 3. 전부 선점
+-- 2. 전부 NX로 세팅
 for i = 1, #KEYS do
-  redis.call("SET", KEYS[i], ARGV[1], "PX", ARGV[2])
+  local result = redis.call("SET", KEYS[i], ARGV[1], "PX", ARGV[2], "NX")
+  if not result then
+    -- 롤백
+    for j = 1, i-1 do
+      redis.call("DEL", KEYS[j])
+    end
+    redis.log(redis.LOG_WARNING, "3")
+    return false
+  end
 end
 
+redis.log(redis.LOG_WARNING, "4")
 return true
