@@ -1,11 +1,11 @@
 package com.example.reservationservice.reservation.application.service;
 
-import com.example.reservationservice.reservation.domain.TempReservation;
 import com.example.reservationservice.reservation.application.port.out.GetTempReservationPort;
 import com.example.reservationservice.reservation.application.port.out.HoldConcertSeatsPort;
 import com.example.reservationservice.reservation.application.port.out.SaveTempReservationPort;
 import com.example.reservationservice.reservation.application.service.exception.HoldSeatException;
 import com.example.reservationservice.reservation.application.service.validation.TempReservationValidation;
+import com.example.reservationservice.reservation.domain.TempReservation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,13 +24,14 @@ public class TempReservationService {
     }
 
     @Transactional
-    public void createAndHoldSeats(TempReservation tempReservation) {
+    public TempReservation createAndHoldSeats(TempReservation tempReservation) {
         tempReservationValidation.validateTempReservation(tempReservation);
 
         holdConcertSeatsPort.holdSeats(tempReservation.seatIds());
 
         try {
             saveTempReservationPort.save(tempReservation);
+            return getTempReservationPort.find(tempReservation).orElseThrow();
         } catch (Exception e) {
             holdConcertSeatsPort.releaseSeats(tempReservation.seatIds());
             throw new HoldSeatException();

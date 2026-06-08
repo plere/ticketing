@@ -38,9 +38,7 @@ public class TempReservationController {
     @PostMapping("/concerts")
     @RequiredReservationToken
     @Operation(summary = "임시 예매 정보 생성")
-    public ResponseEntity<ResponseDto<Void>> create(@RequestBody @Valid CreateTempReservationRequest request, UserToken userToken) {
-        tempReservationService.createAndHoldSeats(request.toModel(userToken));
-
-        return ResponseDto.from(CREATED_TEMP_RESERVATION, null);
+    public ResponseEntity<ResponseDto<TempReservation>> create(@RequestBody @Valid CreateTempReservationRequest request, UserToken userToken) {
+        return ResponseDto.from(CREATED_TEMP_RESERVATION, tempReservationService.createAndHoldSeats(request.toModel(userToken)));
     }
 }
