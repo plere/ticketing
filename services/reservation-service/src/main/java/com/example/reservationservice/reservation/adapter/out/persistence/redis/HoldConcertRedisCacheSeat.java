@@ -17,7 +17,7 @@ import static com.example.reservationservice.reservation.domain.ConcertSeatState
 @RequiredArgsConstructor
 public class HoldConcertRedisCacheSeat implements HoldConcertCacheSeat {
     private static final String CONCERT_CACHE_SEAT_FORMATTED = "reservation::temp::seat::id::%d";
-    private static final String CONCERT_CACHE_SEAT_TTL = String.valueOf(1000 * 30);
+    private static final String CONCERT_CACHE_SEAT_TTL = String.valueOf(1000 * 60 * 5);
     private final StringRedisTemplate stringRedisTemplate;
     private final RedisScript<Boolean> seatLockScript;
 
