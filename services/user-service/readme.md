@@ -8,6 +8,8 @@
     Front->>Auth: oauth2/authorize
     Auth->>Front: 302 User-service.com/user-service-redirect-url
     Front->>User: /login(user-service-redirect-url)
+    User->>Auth: /oauth2/token
+    Auth->>User: access/refresh token
     User->>Front: 302 front-redirect-url
 ```
 - 회원가입을 user에서 하는 이유
