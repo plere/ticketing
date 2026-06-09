@@ -7,6 +7,7 @@ import com.example.reservationservice.reservation.adapter.in.web.request.Execute
 import com.example.reservationservice.reservation.adapter.in.web.response.CheckoutPaymentResponse;
 import com.example.reservationservice.reservation.application.port.in.ReservationExecutePaymentUseCase;
 import com.example.reservationservice.reservation.application.port.in.ReservationPayCheckoutUseCase;
+import com.example.reservationservice.reservation.domain.Reservation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,10 +35,12 @@ public class ReservationController {
     }
 
     @PostMapping("/payment")
-    public ResponseEntity<ResponseDto<CreatedResponseDto>> executePayment(@RequestBody ExecutePaymentRequest request, UserToken userToken) {
+    public ResponseEntity<ResponseDto<CreatedResponseDto<Reservation>>> executePayment(@RequestBody ExecutePaymentRequest request, UserToken userToken) {
+        Reservation reservation = reservationExecutePaymentUseCase.execute(request.toCommand(userToken));
         return CreatedResponseDto.from(
-            reservationExecutePaymentUseCase.execute(request.toCommand(userToken)).id(),
-            PAY_AND_RESERVATION_SUCCESS
+            reservation.id(),
+            PAY_AND_RESERVATION_SUCCESS,
+            reservation
         );
     }
 }

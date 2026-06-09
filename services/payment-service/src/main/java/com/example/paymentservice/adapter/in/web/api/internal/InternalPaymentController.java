@@ -24,11 +24,13 @@ public class InternalPaymentController {
 
     @PostMapping
     public ResponseEntity<ResponseDto<CreatedResponseDto>> execute(@RequestBody ExecutePaymentRequest request) {
+    public ResponseEntity<ResponseDto<CreatedResponseDto<Void>>> execute(@RequestBody ExecutePaymentRequest request) {
         return CreatedResponseDto.from(executePaymentUseCase.execute(request.toCommand()).id(), READY_PAYMENT_SUCCESS);
     }
 
     @PostMapping("/ready")
     public ResponseEntity<ResponseDto<CreatedResponseDto>> ready(@RequestBody ReadyPaymentRequest request) {
+    public ResponseEntity<ResponseDto<CreatedResponseDto<Void>>> ready(@RequestBody ReadyPaymentRequest request) {
         return CreatedResponseDto.from(readyPaymentUseCase.ready(request.toCommand()).id(), READY_PAYMENT_SUCCESS);
     }
 }

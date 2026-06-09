@@ -31,7 +31,7 @@ public class AdminConcertController {
 
     @PostMapping
     @Operation(summary = "콘서트 생성")
-    public ResponseEntity<ResponseDto<CreatedResponseDto>> create(@RequestBody @Valid CreateRequest request) {
+    public ResponseEntity<ResponseDto<CreatedResponseDto<Void>>> create(@RequestBody @Valid CreateRequest request) {
         return CreatedResponseDto.from(concertCreateUseCase.create(request.toModel()), AdminConcertResponseCode.CREATE_CONCERT);
     }
 

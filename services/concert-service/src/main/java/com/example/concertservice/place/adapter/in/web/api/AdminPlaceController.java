@@ -53,7 +53,7 @@ public class AdminPlaceController {
 
     @PostMapping
     @Operation(summary = "장소 생성")
-    public ResponseEntity<ResponseDto<CreatedResponseDto>> createPlace(@RequestBody CreatePlaceRequest request) {
+    public ResponseEntity<ResponseDto<CreatedResponseDto<Void>>> createPlace(@RequestBody CreatePlaceRequest request) {
         return CreatedResponseDto.from(placeCreateUseCase.create(request.toModel()), AdminPlaceResponseCode.CREATE_PLACE);
     }
 }

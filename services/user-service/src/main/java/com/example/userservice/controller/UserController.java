@@ -71,7 +71,7 @@ public class UserController {
 
     @PostMapping
     @Operation(summary = "회원가입 API")
-    public ResponseEntity<ResponseDto<CreatedResponseDto>> signUp(@RequestBody @Valid SignUpRequest request) {
+    public ResponseEntity<ResponseDto<CreatedResponseDto<Void>>> signUp(@RequestBody @Valid SignUpRequest request) {
         return CreatedResponseDto.from(userService.create(request), SIGNUP_SUCCESS);
     }
 }
