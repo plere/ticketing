@@ -24,6 +24,8 @@ public class HoldConcertSeatsAdapter implements HoldConcertSeatsPort {
                 holdConcertCacheSeat.releaseCacheSeats(seatIds);
                 throw new LockHoldSeatException();
             }
+        } else {
+            throw new LockHoldSeatException();
         }
     }
 
