@@ -1,6 +1,4 @@
-spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://localhost:8084/oauth2/jwks
+oauth2:
+  resourceserver:
+    jwt:
+      jwk-set-uri: http://localhost:8084/oauth2/jwks
