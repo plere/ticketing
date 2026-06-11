@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: waiting-service
+  labels:
+    app: waiting-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: waiting-service
+  template:
+    metadata:
+      labels:
+        app: waiting-service
+    spec:
+      containers:
+        - name: waiting-service
+          image: waiting:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8082
+          envFrom:
+            - configMapRef:
+                name: waiting-service-config
+            - configMapRef:
+                name: check-auth-config
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8082
+            initialDelaySeconds: 120
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8082
+            initialDelaySeconds: 120
+            periodSeconds: 15

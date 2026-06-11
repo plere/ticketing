@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: waiting-service
+  labels:
+    app: waiting-service
+    monitoring: enabled
+spec:
+  type: ClusterIP
+  selector:
+    app: waiting-service
+  ports:
+    - name: http
+      port: 8082
+      targetPort: 8082
