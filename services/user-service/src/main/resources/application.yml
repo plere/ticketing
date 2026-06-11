@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: user-service
+  profiles:
+    include:
+      - resource
   datasource:
     url: jdbc:mysql://localhost:3306/ticketing_user
     username: root
@@ -22,7 +25,8 @@ external:
   client:
     auth:
       domain: localhost
-      uri: http://localhost:8084
+      user_uri: http://localhost:8084
+      server_uri: http://localhost:8084
       authorize_path: /oauth2/authorize
       response_type: code
       client_id: user-service

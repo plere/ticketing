@@ -10,19 +10,19 @@ import java.util.List;
 @ConfigurationProperties("external.client.auth")
 public record AuthProperty(
     String domain,
-    String uri,
+    String user_uri,
+    String server_uri,
     String authorize_path,
     String response_type,
     String client_id,
     String client_secret,
     String grant_type,
     String redirect_uri,
-    List<String> scope
     List<String> scope,
     String refresh_grant_type
 ) {
     public String getOAuthLoginUri(String state) {
-        return uri + authorize_path
+        return user_uri + authorize_path
             + "?response_type=" + response_type
             + "&client_id=" + client_id
             + "&redirect_uri=" + redirect_uri
