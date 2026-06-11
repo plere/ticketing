@@ -38,3 +38,6 @@ auth:
   private_key: sidep.jks
   password: sidep1234
   alias: sidep
+  client:
+    user:
+      redirect_uri: http://localhost:8081/users/login

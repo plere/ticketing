@@ -57,6 +57,9 @@ public class SecurityConfig {
     @Value("${auth.alias}")
     private String alias;
 
+    @Value("${auth.client.user.redirect_uri}")
+    private String redirectUri;
+
     @Bean
     @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
@@ -100,7 +103,7 @@ public class SecurityConfig {
             .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-            .redirectUri("http://localhost:8081/users/login")
+            .redirectUri(redirectUri)
             .scope(OidcScopes.OPENID)
             .scope(OidcScopes.PROFILE)
             .build();
