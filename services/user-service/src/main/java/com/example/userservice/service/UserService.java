@@ -41,6 +41,14 @@ public class UserService {
             ));
     }
 
+    public LoginResponseDto getTokenByRefresh(String refreshToken) {
+        return authClient.getToken(
+            getBasicAuth(),
+            Map.of("grant_type", authProperty.refresh_grant_type(),
+                "refresh_token", refreshToken
+            ));
+    }
+
     public UserMeResponseDto getMe(long id) {
         return UserMeResponseDto.from(userRepository.findById(id)
             .orElseThrow());

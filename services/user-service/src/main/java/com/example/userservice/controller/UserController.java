@@ -63,6 +63,31 @@ public class UserController {
             .build();
     }
 
+
+    @PostMapping(value = "/token")
+    @Operation(summary = "토큰 재발급 API")
+    public ResponseEntity<Void> getToken(@CookieValue("refreshToken") String refreshToken) {
+        var loginInfo = userService.getTokenByRefresh(refreshToken);
+
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .header(HttpHeaders.SET_COOKIE, ResponseCookie.from("accessToken", loginInfo.access_token())
+                .httpOnly(true)
+                .sameSite("Lax")
+                .path("/")
+                .maxAge(60)
+                .domain(authProperty.domain())
+                .build().toString())
+            .header(HttpHeaders.SET_COOKIE, ResponseCookie.from("refreshToken", loginInfo.refresh_token())
+                .httpOnly(true)
+                .sameSite("Lax")
+                .path("/")
+                .maxAge(1800)
+                .domain(authProperty.domain())
+                .build().toString())
+            .build();
+    }
+
     @GetMapping("/me")
     @Operation(summary = "내 정보 조회 API")
     public ResponseEntity<ResponseDto<UserMeResponseDto>> me(UserToken userToken) {

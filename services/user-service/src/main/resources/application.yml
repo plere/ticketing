@@ -30,6 +30,7 @@ external:
       grant_type: authorization_code
       redirect_uri: http://localhost:8081/users/login
       scope: profile,openid
+      refresh_grant_type: refresh_token
 
 logging:
   level:

@@ -43,7 +43,7 @@ public class SecurityConfig {
                 authorizeRequests -> authorizeRequests
                     .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                     .requestMatchers("/actuator/health", "/actuator/prometheus").permitAll()
-                    .requestMatchers("/users/oauth2/login", "/users/login", "/users").permitAll()
+                    .requestMatchers("/users/oauth2/login", "/users/login", "/users", "/users/token").permitAll()
                     .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2 ->

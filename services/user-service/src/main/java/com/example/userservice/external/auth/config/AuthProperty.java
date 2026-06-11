@@ -18,6 +18,8 @@ public record AuthProperty(
     String grant_type,
     String redirect_uri,
     List<String> scope
+    List<String> scope,
+    String refresh_grant_type
 ) {
     public String getOAuthLoginUri(String state) {
         return uri + authorize_path

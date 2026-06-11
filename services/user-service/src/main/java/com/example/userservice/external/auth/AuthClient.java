@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import java.util.Map;
 
 @FeignClient(name = "authFeignClient", url = "${external.client.auth.uri}", configuration = FeignLoggingConfig.class)
-
-
 public interface AuthClient {
     @PostMapping(value = "/oauth2/token", consumes = "application/x-www-form-urlencoded")
     LoginResponseDto login(@RequestHeader("Authorization") String authorization,
-                           @RequestBody Map<String, ?> form
-    );
+                           @RequestBody Map<String, ?> form);
+
+    @PostMapping(value = "/oauth2/token", consumes = "application/x-www-form-urlencoded")
+    LoginResponseDto getToken(@RequestHeader("Authorization") String authorization,
+                              @RequestBody Map<String, ?> form);
 }
