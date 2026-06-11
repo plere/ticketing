@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reservation-service-config
+data:
+  SERVER_PORT: "8083"
+  SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/ticketing_reservation"
+  SPRING_DATASOURCE_USERNAME: "root"
+  SPRING_DATASOURCE_PASSWORD: "root"
+  SPRING_DATA_REDIS_HOST: "redis-service"
+  SPRING_DATA_REDIS_PORT: "6379"
+  OTEL_EXPORTER_OTLP_ENDPOINT: "http://tempo.observability.svc.cluster.local:4317"
+  OTEL_METRICS_EXPORTER: "none"
+  OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
+  EXTERNAL_CLIENT_CONCERT_URL: "http://concert-service:8080"
+  EXTERNAL_CLIENT_CONCERT_SEAT_URL: "http://concert-service:8080"
+  EXTERNAL_CLIENT_PAYMENT_URL: "http://payment-service:8085"
