@@ -34,16 +34,4 @@ public class ReservationTokenController {
             )
         );
     }
-
-    @GetMapping("/concerts/{id}/valid/{token}")
-    @Operation(summary = "예매 토큰이 유효성 확인 API")
-    //Todo internal로 이동
-    public ResponseEntity<ResponseDto<Boolean>> isValid(@PathVariable String id, @PathVariable String token) {
-        return ResponseDto.from(ReservationTokenResponseCode.CHECK_RESERVATION_TOKEN_VALIDATION,
-            reservationTokenService.isValid(ReservationToken.builder()
-                .id(id)
-                .token(token)
-                .build())
-        );
-    }
 }
