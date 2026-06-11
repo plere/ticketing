@@ -5,6 +5,8 @@ actor User
 participant View
 participant WaitingServer
 participant DB
+participant ReservationServer
+
 
     User->>View: 예매하기 버튼 클릭
     View->>WaitingServer: get waiting-token
@@ -14,6 +16,7 @@ participant DB
     loop get-position
         View->>WaitingServer: get position(w. waiting-token)
         WaitingServer->>DB: get waiting-token and update ttl
+        WaitingServer->>ReservationServer: get available position
         WaitingServer->>WaitingServer: calc position
         WaitingServer->>View: return position    
     end
