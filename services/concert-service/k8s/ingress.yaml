@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: concert.local
+    - host: concert.ticketing.com
       http:
         paths:
           - path: /

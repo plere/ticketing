@@ -13,4 +13,3 @@ ENV OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 EXPOSE 8080
 
 ENTRYPOINT ["java", "-Dotel.service.name=concert-service", "-javaagent:/app/opentelemetry-javaagent-1.33.3.jar", "-jar", "/app/concert-service.jar"]
-
