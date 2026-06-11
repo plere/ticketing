@@ -34,12 +34,16 @@ spring:
       client:
         config:
           default:
-            connectTimeout: 2000
+            connectTimeout: 5000
             readTimeout: 30000
       circuitbreaker:
         enabled: true
 
 resilience4j:
+  timelimiter:
+    configs:
+      default:
+        timeout-duration: 6s
   circuitbreaker:
     configs:
       default:
