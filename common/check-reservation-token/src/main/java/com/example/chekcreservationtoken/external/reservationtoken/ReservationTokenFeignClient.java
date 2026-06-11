@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @FeignClient(
     name = "reservationTokenFeignClient",
-    url = "${external.client.reservation-token.url}"
+    url = "${external.client.reservation_token.url}"
 )
 public interface ReservationTokenFeignClient {
     @GetMapping("/internal/reservation-token/concerts/validation")
