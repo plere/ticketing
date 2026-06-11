@@ -84,6 +84,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
             .httpBasic(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests((authorize) -> authorize
+                .requestMatchers("/actuator/health", "/actuator/prometheus").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(Customizer.withDefaults());
